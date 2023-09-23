@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/via_cep_dio.dart';
+
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  runApp(const ViaCepDio());
 }

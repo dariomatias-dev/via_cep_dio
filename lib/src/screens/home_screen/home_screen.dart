@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/screens/home_screen/components/cep_add_button_widget.dart';
-import 'package:via_cep_dio/src/screens/home_screen/components/cep_list_widget.dart';
 import 'package:via_cep_dio/src/screens/home_screen/components/header_widget/header_widget.dart';
+import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/home_screen_body_content_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,8 +18,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               HeaderWidget(),
-              CepListWidget(),
-              CepAddButtonWidget(),
+              HomeScreenBodyContentWidget(),
             ],
           ),
         ),

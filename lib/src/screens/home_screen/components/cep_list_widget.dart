@@ -13,6 +13,11 @@ class CepListWidget extends StatefulWidget {
 
 class _CepListWidgetState extends State<CepListWidget> {
   final ViaCepService viaCepService = ViaCepService();
+  VoidCallback? action;
+
+  void updateViaCep() {}
+
+  void deleteViaCep() {}
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,12 @@ class _CepListWidgetState extends State<CepListWidget> {
       future: viaCepService.getViaCeps(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const SizedBox(
+            height: 140.0,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         } else if (snapshot.hasError) {
           return const Text('Ocorreu um problema ao carregar os dados');
         } else if (snapshot.data == null) {
@@ -35,11 +45,22 @@ class _CepListWidgetState extends State<CepListWidget> {
               leading: const Icon(Icons.map),
               title: Text('${viaCep.localidade} - ${viaCep.uf}'),
               subtitle: Text(viaCep.cep),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.more_horiz),
+              trailing: PopupMenuButton(
+                onSelected: (value) {
+                  action = value;
+                  action!();
+                },
+                itemBuilder: (context) => <PopupMenuEntry>[
+                  PopupMenuItem(
+                    value: updateViaCep,
+                    child: const Text('Atualizar'),
+                  ),
+                  PopupMenuItem(
+                    value: deleteViaCep,
+                    child: const Text('Excluir'),
+                  ),
+                ],
               ),
-              onTap: () {},
             );
           }).toList(),
         );

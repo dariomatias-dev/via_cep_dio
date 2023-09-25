@@ -24,7 +24,6 @@ class _HomeScreenBodyContentWidgetState
   Widget? _verifications(
     ConnectionState connectionState,
     bool hasError,
-    bool isDataNull,
   ) {
     if (connectionState == ConnectionState.waiting) {
       return const SizedBox(
@@ -34,9 +33,9 @@ class _HomeScreenBodyContentWidgetState
         ),
       );
     } else if (hasError) {
-      return const Text('Ocorreu um problema ao carregar os dados');
-    } else if (isDataNull) {
-      return const Text('Dados não existem');
+      return const CustomMessageWidget(
+        content: 'Ocorreu um problema ao carregar os dados',
+      );
     }
 
     return null;
@@ -51,23 +50,29 @@ class _HomeScreenBodyContentWidgetState
       return FutureBuilder(
         future: viaCepService.getViaCep(cepToSearch),
         builder: (context, snapshot) {
+          const String nullDataMessage = 'CEP não encontrado';
+
           final Widget? verificationResult = _verifications(
             snapshot.connectionState,
             snapshot.hasError,
-            snapshot.data == null,
           );
 
           if (verificationResult != null) {
             return verificationResult;
           }
 
-          final ViaCepModel viaCep = snapshot.data!;
+          final ViaCepModel? viaCep = snapshot.data;
 
           return Column(
             children: [
-              ViaCepCardWidget(
-                viaCep: viaCep,
-              ),
+              if (snapshot.data != null)
+                ViaCepCardWidget(
+                  viaCep: viaCep!,
+                )
+              else
+                const CustomMessageWidget(
+                  content: nullDataMessage,
+                ),
               const CepAddButtonWidget(),
             ],
           );
@@ -81,7 +86,6 @@ class _HomeScreenBodyContentWidgetState
         final Widget? verificationResult = _verifications(
           snapshot.connectionState,
           snapshot.hasError,
-          snapshot.data == null,
         );
 
         if (verificationResult != null) {
@@ -104,6 +108,31 @@ class _HomeScreenBodyContentWidgetState
           ],
         );
       },
+    );
+  }
+}
+
+class CustomMessageWidget extends StatelessWidget {
+  const CustomMessageWidget({
+    super.key,
+    required this.content,
+  });
+
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100.0,
+      child: Center(
+        child: Text(
+          content,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }

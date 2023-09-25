@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_model.dart';
+import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 
 class ViaCepCardWidget extends StatefulWidget {
   const ViaCepCardWidget({
@@ -8,7 +8,7 @@ class ViaCepCardWidget extends StatefulWidget {
     required this.viaCep,
   });
 
-  final ViaCepModel viaCep;
+  final ViaCepCardModel viaCep;
 
   @override
   State<ViaCepCardWidget> createState() => _ViaCepCardWidgetState();
@@ -23,7 +23,7 @@ class _ViaCepCardWidgetState extends State<ViaCepCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final ViaCepModel viaCep = widget.viaCep;
+    final ViaCepCardModel viaCep = widget.viaCep;
 
     return ListTile(
       leading: const Icon(Icons.map),

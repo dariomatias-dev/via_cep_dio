@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_model.dart';
+import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/cep_add_button_widget.dart';
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_repository.dart';
+import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
   const HomeScreenBodyContentWidget({super.key});
@@ -48,7 +48,7 @@ class _HomeScreenBodyContentWidgetState
 
     if (cepToSearch.isNotEmpty) {
       return FutureBuilder(
-        future: viaCepService.getViaCep(cepToSearch),
+        future: viaCepService.getViaCepCardData(cepToSearch),
         builder: (context, snapshot) {
           const String nullDataMessage = 'CEP não encontrado';
 
@@ -61,7 +61,7 @@ class _HomeScreenBodyContentWidgetState
             return verificationResult;
           }
 
-          final ViaCepModel? viaCep = snapshot.data;
+          final ViaCepCardModel? viaCep = snapshot.data;
 
           return Column(
             children: [
@@ -81,7 +81,7 @@ class _HomeScreenBodyContentWidgetState
     }
 
     return FutureBuilder(
-      future: viaCepService.getViaCeps(),
+      future: viaCepService.getViaCepCardDatas(),
       builder: (context, snapshot) {
         final Widget? verificationResult = _verifications(
           snapshot.connectionState,
@@ -92,7 +92,7 @@ class _HomeScreenBodyContentWidgetState
           return verificationResult;
         }
 
-        final List<ViaCepModel> viaCeps = snapshot.data!;
+        final List<ViaCepCardModel> viaCeps = snapshot.data!;
 
         return Column(
           children: [

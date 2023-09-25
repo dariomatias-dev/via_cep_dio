@@ -16,9 +16,11 @@ class _HomeScreenState extends State<HomeScreen> {
   String cepToSearch = '';
 
   void updateCepToSearch(String cep) {
-    setState(() {
-      cepToSearch = cep;
-    });
+    if (cep != cepToSearch) {
+      setState(() {
+        cepToSearch = cep;
+      });
+    }
   }
 
   @override

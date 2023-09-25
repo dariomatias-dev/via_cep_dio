@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
+
 class CEPSearchWidget extends StatefulWidget {
   const CEPSearchWidget({super.key});
 
@@ -11,7 +13,7 @@ class CEPSearchWidget extends StatefulWidget {
 class _CEPSearchWidgetState extends State<CEPSearchWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _cepFieldController = TextEditingController();
-  String cepValue = '';
+  final FocusNode _cepFieldFocusMode = FocusNode();
 
   OutlineInputBorder borderStyle(Color color) => OutlineInputBorder(
         borderSide: BorderSide(
@@ -30,6 +32,7 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
       key: _formKey,
       child: TextFormField(
         controller: _cepFieldController,
+        focusNode: _cepFieldFocusMode,
         inputFormatters: [maskFormatter],
         maxLength: 9,
         style: const TextStyle(
@@ -47,7 +50,14 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
         ),
         onEditingComplete: () {
           if (_formKey.currentState!.validate()) {
-            cepValue = _cepFieldController.text;
+            _cepFieldFocusMode.unfocus();
+
+            final void Function(String) updateCepToSearch =
+                HomeScreenInheritedWidget.of(context)!.updateCepToSearch;
+
+            final String cep = _cepFieldController.text;
+
+            updateCepToSearch(cep);
           }
         },
         validator: (value) {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/routes/via_cep_route_names.dart';
+import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
-
-import 'package:via_cep_dio/src/screens/via_cep_screen/via_cep_screen.dart';
 
 class ViaCepCardWidget extends StatefulWidget {
   const ViaCepCardWidget({
@@ -49,36 +47,10 @@ class _ViaCepCardWidgetState extends State<ViaCepCardWidget> {
           ),
         ],
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            settings: RouteSettings(
-              name: ViaCepRouteNames.viaCep,
-            ),
-            pageBuilder: (
-              context,
-              animation,
-              secondaryAnimation,
-            ) {
-              return ViaCepScreen(
-                cep: viaCep.cep,
-              );
-            },
-            transitionsBuilder: (
-              context,
-              animation,
-              secondaryAnimation,
-              child,
-            ) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-          ),
-        );
-      },
+      onTap: () => navigationFadeTransition(
+        context,
+        viaCep.cep,
+      ),
     );
   }
 }

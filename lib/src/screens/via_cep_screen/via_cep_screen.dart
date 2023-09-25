@@ -4,6 +4,9 @@ import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
+import 'package:via_cep_dio/src/screens/via_cep_screen/components/via_cep_screen_body_content_widget.dart';
+import 'package:via_cep_dio/src/screens/via_cep_screen/components/via_cep_custom_bottom_navigation_bar_widget.dart';
+
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 class ViaCepScreen extends StatefulWidget {
@@ -59,7 +62,12 @@ class _ViaCepScreenState extends State<ViaCepScreen> {
               ),
             ),
           ),
-          body: Container(),
+          body: SafeArea(
+            child: ViaCepScreenBodyContentWidget(
+              viaCep: viaCep,
+            ),
+          ),
+          bottomNavigationBar: const ViaCepCustomBottomNavigationBarWidget(),
         );
       },
     );

@@ -36,15 +36,11 @@ class ViaCepService {
     return viaCepCardDatas;
   }
 
-  Future<ViaCepModel?> getViaCep(String cep) async {
+  Future<ViaCepModel> getViaCep(String cep) async {
     final String queries = '?where={"cep": "$cep"}';
     final Response response = await dio.get(queries);
     final List<dynamic> results = response.data['results'];
 
-    if (results.isNotEmpty) {
-      return ViaCepModel.fromMap(results[0]);
-    }
-
-    return null;
+    return ViaCepModel.fromMap(results[0]);
   }
 }

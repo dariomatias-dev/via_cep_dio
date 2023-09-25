@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
+
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
@@ -24,15 +26,13 @@ class _ViaCepScreenState extends State<ViaCepScreen> {
     return FutureBuilder(
       future: viaCepService.getViaCep(widget.cep),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox(
-            height: 140.0,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return const Text('');
+        final Widget? verificationResult = verificationsHelper(
+          snapshot.connectionState,
+          snapshot.hasError,
+        );
+
+        if (verificationResult != null) {
+          return verificationResult;
         }
 
         final ViaCepModel viaCep = snapshot.data!;

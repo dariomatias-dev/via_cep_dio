@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
+
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
@@ -8,6 +10,8 @@ import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
+
+import 'package:via_cep_dio/src/widgets/custom_message_widget.dart';
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
   const HomeScreenBodyContentWidget({super.key});
@@ -21,25 +25,7 @@ class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
 
-  Widget? _verifications(
-    ConnectionState connectionState,
-    bool hasError,
-  ) {
-    if (connectionState == ConnectionState.waiting) {
-      return const SizedBox(
-        height: 140.0,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    } else if (hasError) {
-      return const CustomMessageWidget(
-        content: 'Ocorreu um problema ao carregar os dados',
-      );
-    }
 
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +38,7 @@ class _HomeScreenBodyContentWidgetState
         builder: (context, snapshot) {
           const String nullDataMessage = 'CEP não encontrado';
 
-          final Widget? verificationResult = _verifications(
+          final Widget? verificationResult = verificationsHelper(
             snapshot.connectionState,
             snapshot.hasError,
           );
@@ -83,7 +69,7 @@ class _HomeScreenBodyContentWidgetState
     return FutureBuilder(
       future: viaCepService.getViaCepCardDatas(),
       builder: (context, snapshot) {
-        final Widget? verificationResult = _verifications(
+        final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,
           snapshot.hasError,
         );
@@ -108,31 +94,6 @@ class _HomeScreenBodyContentWidgetState
           ],
         );
       },
-    );
-  }
-}
-
-class CustomMessageWidget extends StatelessWidget {
-  const CustomMessageWidget({
-    super.key,
-    required this.content,
-  });
-
-  final String content;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100.0,
-      child: Center(
-        child: Text(
-          content,
-          style: const TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
     );
   }
 }

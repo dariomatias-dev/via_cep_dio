@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
+import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
+
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/cep_add_button_widget.dart';
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
@@ -19,22 +21,71 @@ class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
 
+  Widget? _verifications(
+    ConnectionState connectionState,
+    bool hasError,
+    bool isDataNull,
+  ) {
+    if (connectionState == ConnectionState.waiting) {
+      return const SizedBox(
+        height: 140.0,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else if (hasError) {
+      return const Text('Ocorreu um problema ao carregar os dados');
+    } else if (isDataNull) {
+      return const Text('Dados não existem');
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String cepToSearch =
+        HomeScreenInheritedWidget.of(context)!.cepToSearch;
+
+    if (cepToSearch.isNotEmpty) {
+      return FutureBuilder(
+        future: viaCepService.getViaCep(cepToSearch),
+        builder: (context, snapshot) {
+          final Widget? verificationResult = _verifications(
+            snapshot.connectionState,
+            snapshot.hasError,
+            snapshot.data == null,
+          );
+
+          if (verificationResult != null) {
+            return verificationResult;
+          }
+
+          final ViaCepModel viaCep = snapshot.data!;
+
+          return Column(
+            children: [
+              ViaCepCardWidget(
+                viaCep: viaCep,
+              ),
+              const CepAddButtonWidget(),
+            ],
+          );
+        },
+      );
+    }
+
     return FutureBuilder(
       future: viaCepService.getViaCeps(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox(
-            height: 140.0,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return const Text('Ocorreu um problema ao carregar os dados');
-        } else if (snapshot.data == null) {
-          return const Text('Dados não existem');
+        final Widget? verificationResult = _verifications(
+          snapshot.connectionState,
+          snapshot.hasError,
+          snapshot.data == null,
+        );
+
+        if (verificationResult != null) {
+          return verificationResult;
         }
 
         final List<ViaCepModel> viaCeps = snapshot.data!;
@@ -42,6 +93,7 @@ class _HomeScreenBodyContentWidgetState
         return Column(
           children: [
             ListView(
+              shrinkWrap: true,
               children: viaCeps.map((viaCep) {
                 return ViaCepCardWidget(
                   viaCep: viaCep,

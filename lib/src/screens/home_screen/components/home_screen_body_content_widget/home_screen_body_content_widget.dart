@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/cep_add_button_widget.dart';
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/cep_list_widget.dart';
+import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_repository.dart';
 
@@ -41,8 +41,12 @@ class _HomeScreenBodyContentWidgetState
 
         return Column(
           children: [
-            CepListWidget(
-              viaCeps: viaCeps,
+            ListView(
+              children: viaCeps.map((viaCep) {
+                return ViaCepCardWidget(
+                  viaCep: viaCep,
+                );
+              }).toList(),
             ),
             const CepAddButtonWidget(),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
@@ -16,11 +17,6 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _cepFieldController = TextEditingController();
 
-  final _maskFormatter = MaskTextInputFormatter(
-    mask: '#####-###',
-    filter: {"#": RegExp(r'[0-9]')},
-  );
-
   void _performUpdateCepToSearch(String cep) {
     FocusManager.instance.primaryFocus?.unfocus();
 
@@ -36,7 +32,7 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
       key: _formKey,
       child: TextFormField(
         controller: _cepFieldController,
-        inputFormatters: [_maskFormatter],
+        inputFormatters: [masksHelper.cep],
         maxLength: 9,
         style: const TextStyle(
           color: Colors.white,

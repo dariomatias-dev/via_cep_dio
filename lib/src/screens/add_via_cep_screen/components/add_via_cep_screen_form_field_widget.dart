@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
@@ -10,6 +12,10 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
     required this.fieldController,
     this.isRequired = true,
     this.maxLength,
+    this.mask,
+    this.keyboardType,
+    this.onChanged,
+    this.inputFormatter,
   });
 
   final String fieldTitle;
@@ -17,6 +23,15 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
   final TextEditingController fieldController;
   final bool isRequired;
   final int? maxLength;
+  final MaskTextInputFormatter? mask;
+  final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
+  final TextInputFormatter? inputFormatter;
+
+  List<TextInputFormatter> get _inputFormatters => [
+        if (mask != null) mask!,
+        if (inputFormatter != null) inputFormatter!,
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +60,9 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
         const SizedBox(height: 2.0),
         TextFormField(
           controller: fieldController,
+          inputFormatters:
+              _inputFormatters.isNotEmpty ? _inputFormatters : null,
+          keyboardType: keyboardType,
           validator: (value) {
             if (value == null || (isRequired && value.isEmpty)) {
               return 'Insirá algum valor';
@@ -75,6 +93,7 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
           onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
+          onChanged: onChanged,
         ),
       ],
     );

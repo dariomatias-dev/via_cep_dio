@@ -8,6 +8,9 @@ class CepAddButtonWidget extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: 60.0,
+      margin: const EdgeInsets.symmetric(
+        vertical: 10.0,
+      ),
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
       ),

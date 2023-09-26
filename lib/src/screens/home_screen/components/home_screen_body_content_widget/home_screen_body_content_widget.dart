@@ -25,7 +25,9 @@ class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
 
-
+  void updateScreen() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class _HomeScreenBodyContentWidgetState
               if (snapshot.data != null)
                 ViaCepCardWidget(
                   viaCep: viaCep!,
+                  updateScreen: updateScreen,
                 )
               else
                 const CustomMessageWidget(
@@ -84,9 +87,11 @@ class _HomeScreenBodyContentWidgetState
           children: [
             ListView(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               children: viaCeps.map((viaCep) {
                 return ViaCepCardWidget(
                   viaCep: viaCep,
+                  updateScreen: updateScreen,
                 );
               }).toList(),
             ),

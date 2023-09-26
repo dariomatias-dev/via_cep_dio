@@ -1,6 +1,6 @@
 class ViaCepModel {
   ViaCepModel({
-    required this.objectId,
+    required this.id,
     required this.cep,
     required this.logradouro,
     this.complemento,
@@ -15,7 +15,7 @@ class ViaCepModel {
     required this.updatedAt,
   });
 
-  final String objectId;
+  final String id;
   final String cep;
   final String logradouro;
   final String? complemento;
@@ -31,7 +31,7 @@ class ViaCepModel {
 
   factory ViaCepModel.fromMap(Map<String, dynamic> map) {
     return ViaCepModel(
-      objectId: map['objectId'],
+      id: map['objectId'],
       cep: map['cep'],
       logradouro: map['logradouro'],
       complemento: map['complemento'],

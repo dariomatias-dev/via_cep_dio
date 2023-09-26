@@ -43,4 +43,8 @@ class ViaCepService {
 
     return ViaCepModel.fromMap(results[0]);
   }
+
+  Future<void> deleteViaCep(String viaCepId) async {
+    await dio.delete(viaCepId);
+  }
 }

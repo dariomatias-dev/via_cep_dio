@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+
 import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
 
 import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_field_widget.dart';
@@ -34,6 +36,38 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
       FilteringTextInputFormatter.allow(
         RegExp(r'[a-zA-Z]'),
       );
+
+  void _handleUfFieldChange() {
+    final value = ufFieldController.text;
+    final formattedValue = value.toUpperCase();
+    ufFieldController.value = ufFieldController.value.copyWith(
+      text: formattedValue,
+      selection: TextSelection.collapsed(
+        offset: formattedValue.length,
+      ),
+    );
+  }
+
+  void _handleIbgeFieldChange() {
+    final NumberFormat numberFormat = NumberFormat.currency(
+      locale: 'pt_BR',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    final String ibgeFieldValue = ibgeFieldController.text.replaceAll(
+      RegExp(r'[^0-9]'),
+      '',
+    );
+    final value = ibgeFieldValue.isNotEmpty ? int.parse(ibgeFieldValue) : 0;
+    final formattedValue = value != 0 ? numberFormat.format(value) : '';
+
+    ibgeFieldController.value = ibgeFieldController.value.copyWith(
+      text: formattedValue,
+      selection: TextSelection.collapsed(
+        offset: formattedValue.length,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,23 +116,17 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           hintText: 'SP',
           fieldController: ufFieldController,
           maxLength: 2,
-          onChanged: (_) {
-            final value = ufFieldController.text;
-            final formattedValue = value.toUpperCase();
-            ufFieldController.value = ufFieldController.value.copyWith(
-              text: formattedValue,
-              selection: TextSelection.collapsed(offset: formattedValue.length),
-            );
-          },
+          onChanged: (_) => _handleUfFieldChange(),
           inputFormatter: _lettersOnlyFormatter,
         ),
         AddViaCepScreenFormFieldWidget(
           fieldTitle: 'IBGE',
-          hintText: '3550308',
+          hintText: '3.550.308',
           fieldController: ibgeFieldController,
+          maxLength: 10,
           keyboardType: TextInputType.number,
+          onChanged: (_) => _handleIbgeFieldChange(),
         ),
-        const SizedBox(height: 10.0),
         AddViaCepScreenFormFieldWidget(
           fieldTitle: 'GIA',
           hintText: '1004',

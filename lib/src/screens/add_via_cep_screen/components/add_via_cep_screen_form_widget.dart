@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
@@ -55,60 +56,76 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
               fieldTitle: 'Localidade',
               hintText: 'São Paulo',
               fieldController: _localidadeFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Logradouro',
               hintText: 'Praça da Sé',
               fieldController: _logradouroFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Bairro',
               hintText: 'Sé',
               fieldController: _bairroFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Complemento',
               hintText: 'lado ímpar',
               fieldController: _complementoFieldController,
+              isRequired: false,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'CEP',
               hintText: '01001-000',
               fieldController: _cepFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'UF',
               hintText: 'SP',
               fieldController: _ufFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'IBGE',
               hintText: '3550308',
               fieldController: _ibgeFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'GIA',
               hintText: '1004',
               fieldController: _giaFieldController,
+              isRequired: false,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'DDD',
               hintText: '+11',
               fieldController: _dddFieldController,
+              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Siafi',
               hintText: '7107',
               fieldController: _siafiFieldController,
+              isRequired: true,
+            ),
+            DefaultButtonWidget(
+              text: 'Adicionar',
+              action: () {
+                if (_formKey.currentState!.validate()) {}
+              },
             ),
           ],
         ),
@@ -123,28 +140,48 @@ class FormField extends StatelessWidget {
     required this.fieldTitle,
     required this.hintText,
     required this.fieldController,
+    required this.isRequired,
   });
 
   final String fieldTitle;
   final String hintText;
   final TextEditingController fieldController;
+  final bool isRequired;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$fieldTitle:',
-          style: TextStyle(
-            color: Colors.grey.shade800,
-            fontSize: 16.0,
-            fontWeight: FontWeight.w500,
+        RichText(
+          text: TextSpan(
+            text: '$fieldTitle:',
+            style: TextStyle(
+              color: Colors.grey.shade800,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+            ),
+            children: <TextSpan>[
+              if (isRequired)
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(
+                    color: Colors.red.shade400,
+                  ),
+                ),
+            ],
           ),
         ),
         const SizedBox(height: 2.0),
         TextFormField(
           controller: fieldController,
+          validator: (value) {
+            if (value == null || (isRequired && value.isEmpty)) {
+              return 'Insirá algum valor';
+            }
+
+            return null;
+          },
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
               vertical: 18.0,

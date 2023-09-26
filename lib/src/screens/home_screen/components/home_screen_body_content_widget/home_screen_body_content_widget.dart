@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/cep_add_button_widget.dart';
+import 'package:via_cep_dio/src/screens/add_via_cep_screen/add_via_cep_screen.dart';
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/custom_message_widget.dart';
+import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
   const HomeScreenBodyContentWidget({super.key});
@@ -25,7 +27,17 @@ class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
 
-  void updateScreen() {
+  DefaultButtonWidget get _cepAddButtonWidget => DefaultButtonWidget(
+        text: 'Adicionar novo CEP',
+        action: () {
+          navigationFadeTransition(
+            context,
+            () => const AddViaCepScreen(),
+          );
+        },
+      );
+
+  void _updateScreen() {
     setState(() {});
   }
 
@@ -56,13 +68,13 @@ class _HomeScreenBodyContentWidgetState
               if (snapshot.data != null)
                 ViaCepCardWidget(
                   viaCep: viaCep!,
-                  updateScreen: updateScreen,
+                  updateScreen: _updateScreen,
                 )
               else
                 const CustomMessageWidget(
                   content: nullDataMessage,
                 ),
-              const CepAddButtonWidget(),
+              _cepAddButtonWidget,
             ],
           );
         },
@@ -91,11 +103,11 @@ class _HomeScreenBodyContentWidgetState
               children: viaCeps.map((viaCep) {
                 return ViaCepCardWidget(
                   viaCep: viaCep,
-                  updateScreen: updateScreen,
+                  updateScreen: _updateScreen,
                 );
               }).toList(),
             ),
-            const CepAddButtonWidget(),
+            _cepAddButtonWidget,
           ],
         );
       },

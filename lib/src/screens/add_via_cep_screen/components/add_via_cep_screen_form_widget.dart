@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/utils/input_border_style.dart';
+import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_field_widget.dart';
 
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
@@ -53,63 +53,63 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
               ),
             ),
             const SizedBox(height: 20.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'Localidade',
               hintText: 'São Paulo',
               fieldController: _localidadeFieldController,
             ),
             const SizedBox(height: 10.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'Logradouro',
               hintText: 'Praça da Sé',
               fieldController: _logradouroFieldController,
             ),
             const SizedBox(height: 10.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'Bairro',
               hintText: 'Sé',
               fieldController: _bairroFieldController,
             ),
             const SizedBox(height: 10.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'Complemento',
               hintText: 'lado ímpar',
               fieldController: _complementoFieldController,
               isRequired: false,
             ),
             const SizedBox(height: 10.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'CEP',
               hintText: '01001-000',
               fieldController: _cepFieldController,
               maxLength: 9,
             ),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'UF',
               hintText: 'SP',
               fieldController: _ufFieldController,
               maxLength: 2,
             ),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'IBGE',
               hintText: '3550308',
               fieldController: _ibgeFieldController,
             ),
             const SizedBox(height: 10.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'GIA',
               hintText: '1004',
               fieldController: _giaFieldController,
               isRequired: false,
             ),
             const SizedBox(height: 10.0),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'DDD',
               hintText: '+11',
               fieldController: _dddFieldController,
               maxLength: 2,
             ),
-            FormField(
+            AddViaCepScreenFormFieldWidget(
               fieldTitle: 'Siafi',
               hintText: '7107',
               fieldController: _siafiFieldController,
@@ -123,85 +123,6 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class FormField extends StatelessWidget {
-  const FormField({
-    super.key,
-    required this.fieldTitle,
-    required this.hintText,
-    required this.fieldController,
-    this.isRequired = true,
-    this.maxLength,
-  });
-
-  final String fieldTitle;
-  final String hintText;
-  final TextEditingController fieldController;
-  final bool isRequired;
-  final int? maxLength;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: '$fieldTitle:',
-            style: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-            ),
-            children: <TextSpan>[
-              if (isRequired)
-                TextSpan(
-                  text: ' *',
-                  style: TextStyle(
-                    color: Colors.red.shade400,
-                  ),
-                ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 2.0),
-        TextFormField(
-          controller: fieldController,
-          validator: (value) {
-            if (value == null || (isRequired && value.isEmpty)) {
-              return 'Insirá algum valor';
-            }
-
-            return null;
-          },
-          maxLength: maxLength,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 18.0,
-              horizontal: 10.0,
-            ),
-            hintText: hintText,
-            enabledBorder: inputBorderStyle(Colors.grey).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            focusedBorder: inputBorderStyle(Colors.black).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            focusedErrorBorder: inputBorderStyle(Colors.red).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            errorBorder: inputBorderStyle(Colors.red).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          onTapOutside: (_) {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-        ),
-      ],
     );
   }
 }

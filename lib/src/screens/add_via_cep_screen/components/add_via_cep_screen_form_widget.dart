@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
+
+import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
 class AddViaCepScreenFormWidget extends StatefulWidget {
   const AddViaCepScreenFormWidget({super.key});
@@ -56,21 +57,18 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
               fieldTitle: 'Localidade',
               hintText: 'São Paulo',
               fieldController: _localidadeFieldController,
-              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Logradouro',
               hintText: 'Praça da Sé',
               fieldController: _logradouroFieldController,
-              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Bairro',
               hintText: 'Sé',
               fieldController: _bairroFieldController,
-              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
@@ -84,21 +82,18 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
               fieldTitle: 'CEP',
               hintText: '01001-000',
               fieldController: _cepFieldController,
-              isRequired: true,
+              maxLength: 9,
             ),
-            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'UF',
               hintText: 'SP',
               fieldController: _ufFieldController,
-              isRequired: true,
+              maxLength: 2,
             ),
-            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'IBGE',
               hintText: '3550308',
               fieldController: _ibgeFieldController,
-              isRequired: true,
             ),
             const SizedBox(height: 10.0),
             FormField(
@@ -112,14 +107,12 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
               fieldTitle: 'DDD',
               hintText: '+11',
               fieldController: _dddFieldController,
-              isRequired: true,
+              maxLength: 2,
             ),
-            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Siafi',
               hintText: '7107',
               fieldController: _siafiFieldController,
-              isRequired: true,
             ),
             DefaultButtonWidget(
               text: 'Adicionar',
@@ -140,13 +133,15 @@ class FormField extends StatelessWidget {
     required this.fieldTitle,
     required this.hintText,
     required this.fieldController,
-    required this.isRequired,
+    this.isRequired = true,
+    this.maxLength,
   });
 
   final String fieldTitle;
   final String hintText;
   final TextEditingController fieldController;
   final bool isRequired;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -182,6 +177,7 @@ class FormField extends StatelessWidget {
 
             return null;
           },
+          maxLength: maxLength,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
               vertical: 18.0,
@@ -201,7 +197,7 @@ class FormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
           ),
-          onTapOutside: (event) {
+          onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
         ),

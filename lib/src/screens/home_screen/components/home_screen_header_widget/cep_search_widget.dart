@@ -15,15 +15,14 @@ class CEPSearchWidget extends StatefulWidget {
 class _CEPSearchWidgetState extends State<CEPSearchWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _cepFieldController = TextEditingController();
-  final FocusNode _cepFieldFocusNode = FocusNode();
 
-  final maskFormatter = MaskTextInputFormatter(
+  final _maskFormatter = MaskTextInputFormatter(
     mask: '#####-###',
     filter: {"#": RegExp(r'[0-9]')},
   );
 
-  void performUpdateCepToSearch(String cep) {
-    _cepFieldFocusNode.unfocus();
+  void _performUpdateCepToSearch(String cep) {
+    FocusManager.instance.primaryFocus?.unfocus();
 
     final void Function(String) updateCepToSearch =
         HomeScreenInheritedWidget.of(context)!.updateCepToSearch;
@@ -37,8 +36,7 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
       key: _formKey,
       child: TextFormField(
         controller: _cepFieldController,
-        focusNode: _cepFieldFocusNode,
-        inputFormatters: [maskFormatter],
+        inputFormatters: [_maskFormatter],
         maxLength: 9,
         style: const TextStyle(
           color: Colors.white,
@@ -48,7 +46,7 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
             onTap: () {
               _cepFieldController.text = '';
 
-              performUpdateCepToSearch('');
+              _performUpdateCepToSearch('');
             },
             child: const Icon(
               Icons.close,
@@ -64,14 +62,14 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
           focusedErrorBorder: inputBorderStyle(Colors.red),
           errorBorder: inputBorderStyle(Colors.red),
         ),
-        onTapOutside: (event) {
+        onTapOutside: (_) {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         onEditingComplete: () {
           if (_formKey.currentState!.validate()) {
             final String cep = _cepFieldController.text;
 
-            performUpdateCepToSearch(cep);
+            _performUpdateCepToSearch(cep);
           }
         },
         validator: (value) {

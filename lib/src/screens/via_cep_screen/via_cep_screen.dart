@@ -9,6 +9,8 @@ import 'package:via_cep_dio/src/screens/via_cep_screen/components/via_cep_custom
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
+import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
+
 class ViaCepScreen extends StatefulWidget {
   const ViaCepScreen({
     super.key,
@@ -43,17 +45,10 @@ class _ViaCepScreenState extends State<ViaCepScreen> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
-            leading: Tooltip(
-              message: 'Sair',
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-              ),
+            leading: BackButtonWidget(
+              action: () {
+                Navigator.pop(context);
+              },
             ),
             title: Text(
               '${viaCep.localidade} - ${viaCep.uf}',

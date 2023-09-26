@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_widget.dart';
 
+import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
+
 class AddViaCepScreen extends StatefulWidget {
   const AddViaCepScreen({super.key});
 
@@ -85,21 +87,14 @@ class _AddViaCepScreenState extends State<AddViaCepScreen> {
             color: Colors.white,
           ),
         ),
-        leading: Tooltip(
-          message: 'Sair',
-          child: GestureDetector(
-            onTap: () {
-              if (_hasValuesInFields()) {
-                _showAlertDialog();
-              } else {
-                Navigator.pop(context);
-              }
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-          ),
+        leading: BackButtonWidget(
+          action: () {
+            if (_hasValuesInFields()) {
+              _showAlertDialog();
+            } else {
+              Navigator.pop(context);
+            }
+          },
         ),
       ),
       body: SingleChildScrollView(

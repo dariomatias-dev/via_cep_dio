@@ -13,20 +13,34 @@ class AddViaCepScreenFormWidget extends StatefulWidget {
 class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _localidadeFieldController =
+      TextEditingController();
+  final TextEditingController _logradouroFieldController =
+      TextEditingController();
+  final TextEditingController _bairroFieldController = TextEditingController();
+  final TextEditingController _complementoFieldController =
+      TextEditingController();
+  final TextEditingController _cepFieldController = TextEditingController();
+  final TextEditingController _ufFieldController = TextEditingController();
+  final TextEditingController _ibgeFieldController = TextEditingController();
+  final TextEditingController _giaFieldController = TextEditingController();
+  final TextEditingController _dddFieldController = TextEditingController();
+  final TextEditingController _siafiFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: const Padding(
-        padding: EdgeInsets.symmetric(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
           vertical: 10.0,
           horizontal: 16.0,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10.0),
-            Align(
+            const SizedBox(height: 10.0),
+            const Align(
               alignment: Alignment.center,
               child: Text(
                 'Preencha o formulário',
@@ -36,55 +50,65 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             FormField(
               fieldTitle: 'Localidade',
               hintText: 'São Paulo',
+              fieldController: _localidadeFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Logradouro',
               hintText: 'Praça da Sé',
+              fieldController: _logradouroFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Bairro',
               hintText: 'Sé',
+              fieldController: _bairroFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Complemento',
               hintText: 'lado ímpar',
+              fieldController: _complementoFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'CEP',
               hintText: '01001-000',
+              fieldController: _cepFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'UF',
               hintText: 'SP',
+              fieldController: _ufFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'IBGE',
               hintText: '3550308',
+              fieldController: _ibgeFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'GIA',
               hintText: '1004',
+              fieldController: _giaFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'DDD',
               hintText: '+11',
+              fieldController: _dddFieldController,
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             FormField(
               fieldTitle: 'Siafi',
               hintText: '7107',
+              fieldController: _siafiFieldController,
             ),
           ],
         ),
@@ -98,10 +122,12 @@ class FormField extends StatelessWidget {
     super.key,
     required this.fieldTitle,
     required this.hintText,
+    required this.fieldController,
   });
 
   final String fieldTitle;
   final String hintText;
+  final TextEditingController fieldController;
 
   @override
   Widget build(BuildContext context) {
@@ -111,13 +137,14 @@ class FormField extends StatelessWidget {
         Text(
           '$fieldTitle:',
           style: TextStyle(
-            color: Colors.grey.shade900,
+            color: Colors.grey.shade800,
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 2.0),
         TextFormField(
+          controller: fieldController,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
               vertical: 18.0,
@@ -137,6 +164,9 @@ class FormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
           ),
+          onTapOutside: (event) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
         ),
       ],
     );

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
+
+import 'package:via_cep_dio/src/screens/add_via_cep_screen/add_via_cep_screen.dart';
+
 class CepAddButtonWidget extends StatelessWidget {
   const CepAddButtonWidget({super.key});
 
@@ -15,7 +19,12 @@ class CepAddButtonWidget extends StatelessWidget {
         horizontal: 10.0,
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          navigationFadeTransition(
+            context,
+            () => const AddViaCepScreen(),
+          );
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
           shape: RoundedRectangleBorder(

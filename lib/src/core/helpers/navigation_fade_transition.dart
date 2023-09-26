@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/routes/via_cep_route_names.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_screen/via_cep_screen.dart';
-
 void navigationFadeTransition(
   BuildContext screenContext,
-  String cep,
+  Widget Function() screen,
 ) {
   Navigator.push(
     screenContext,
@@ -19,9 +17,7 @@ void navigationFadeTransition(
         animation,
         secondaryAnimation,
       ) {
-        return ViaCepScreen(
-          cep: cep,
-        );
+        return screen();
       },
       transitionsBuilder: (
         context,

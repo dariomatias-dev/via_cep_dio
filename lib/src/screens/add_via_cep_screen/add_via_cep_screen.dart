@@ -13,7 +13,7 @@ class AddViaCepScreen extends StatelessWidget {
         title: const Text(
           'Adicionar Via Cep',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         leading: Tooltip(

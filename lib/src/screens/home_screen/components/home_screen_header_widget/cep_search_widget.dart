@@ -3,6 +3,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
+import 'package:via_cep_dio/src/utils/input_border_style.dart';
+
 class CEPSearchWidget extends StatefulWidget {
   const CEPSearchWidget({super.key});
 
@@ -14,12 +16,6 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _cepFieldController = TextEditingController();
   final FocusNode _cepFieldFocusNode = FocusNode();
-
-  OutlineInputBorder borderStyle(Color color) => OutlineInputBorder(
-        borderSide: BorderSide(
-          color: color,
-        ),
-      );
 
   final maskFormatter = MaskTextInputFormatter(
     mask: '#####-###',
@@ -63,10 +59,10 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
           hintStyle: TextStyle(
             color: Colors.grey.shade700,
           ),
-          enabledBorder: borderStyle(Colors.grey),
-          focusedBorder: borderStyle(Colors.white),
-          focusedErrorBorder: borderStyle(Colors.red),
-          errorBorder: borderStyle(Colors.red),
+          enabledBorder: inputBorderStyle(Colors.grey),
+          focusedBorder: inputBorderStyle(Colors.white),
+          focusedErrorBorder: inputBorderStyle(Colors.red),
+          errorBorder: inputBorderStyle(Colors.red),
         ),
         onTapOutside: (event) {
           FocusManager.instance.primaryFocus?.unfocus();

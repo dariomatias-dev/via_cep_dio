@@ -4,6 +4,8 @@ import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 
+import 'package:via_cep_dio/src/screens/via_cep_screen/via_cep_screen.dart';
+
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 class ViaCepCardWidget extends StatefulWidget {
@@ -54,7 +56,9 @@ class _ViaCepCardWidgetState extends State<ViaCepCardWidget> {
       ),
       onTap: () => navigationFadeTransition(
         context,
-        viaCep.cep,
+        () => ViaCepScreen(
+          cep: viaCep.cep,
+        ),
       ),
     );
   }

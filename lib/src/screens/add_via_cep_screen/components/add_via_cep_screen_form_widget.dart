@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_field_widget.dart';
+import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_fields_widget.dart';
 
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
@@ -53,66 +53,17 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
               ),
             ),
             const SizedBox(height: 20.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'Localidade',
-              hintText: 'São Paulo',
-              fieldController: _localidadeFieldController,
-            ),
-            const SizedBox(height: 10.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'Logradouro',
-              hintText: 'Praça da Sé',
-              fieldController: _logradouroFieldController,
-            ),
-            const SizedBox(height: 10.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'Bairro',
-              hintText: 'Sé',
-              fieldController: _bairroFieldController,
-            ),
-            const SizedBox(height: 10.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'Complemento',
-              hintText: 'lado ímpar',
-              fieldController: _complementoFieldController,
-              isRequired: false,
-            ),
-            const SizedBox(height: 10.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'CEP',
-              hintText: '01001-000',
-              fieldController: _cepFieldController,
-              maxLength: 9,
-            ),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'UF',
-              hintText: 'SP',
-              fieldController: _ufFieldController,
-              maxLength: 2,
-            ),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'IBGE',
-              hintText: '3550308',
-              fieldController: _ibgeFieldController,
-            ),
-            const SizedBox(height: 10.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'GIA',
-              hintText: '1004',
-              fieldController: _giaFieldController,
-              isRequired: false,
-            ),
-            const SizedBox(height: 10.0),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'DDD',
-              hintText: '+11',
-              fieldController: _dddFieldController,
-              maxLength: 2,
-            ),
-            AddViaCepScreenFormFieldWidget(
-              fieldTitle: 'Siafi',
-              hintText: '7107',
-              fieldController: _siafiFieldController,
+            AddViaCepScreenFormFielsdWidget(
+              localidadeFieldController: _localidadeFieldController,
+              logradouroFieldController: _logradouroFieldController,
+              bairroFieldController: _bairroFieldController,
+              complementoFieldController: _complementoFieldController,
+              cepFieldController: _cepFieldController,
+              ufFieldController: _ufFieldController,
+              ibgeFieldController: _ibgeFieldController,
+              giaFieldController: _giaFieldController,
+              dddFieldController: _dddFieldController,
+              siafiFieldController: _siafiFieldController,
             ),
             DefaultButtonWidget(
               text: 'Adicionar',

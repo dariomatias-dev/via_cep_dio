@@ -4,27 +4,30 @@ import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_ce
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
-class AddViaCepScreen extends StatefulWidget {
-  const AddViaCepScreen({super.key});
+class AddViaCepScreen extends StatelessWidget {
+  AddViaCepScreen({super.key});
 
-  @override
-  State<AddViaCepScreen> createState() => _AddViaCepScreenState();
-}
-
-class _AddViaCepScreenState extends State<AddViaCepScreen> {
   final TextEditingController _localidadeFieldController =
       TextEditingController();
 
   final TextEditingController _logradouroFieldController =
       TextEditingController();
+
   final TextEditingController _bairroFieldController = TextEditingController();
+
   final TextEditingController _complementoFieldController =
       TextEditingController();
+
   final TextEditingController _cepFieldController = TextEditingController();
+
   final TextEditingController _ufFieldController = TextEditingController();
+
   final TextEditingController _ibgeFieldController = TextEditingController();
+
   final TextEditingController _giaFieldController = TextEditingController();
+
   final TextEditingController _dddFieldController = TextEditingController();
+
   final TextEditingController _siafiFieldController = TextEditingController();
 
   bool _hasValuesInFields() {
@@ -46,14 +49,14 @@ class _AddViaCepScreenState extends State<AddViaCepScreen> {
     });
   }
 
-  void _showAlertDialog() {
+  void _showAlertDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (alertDialogContext) {
         return AlertDialog(
           title: const Text('Deseja mesmo sair?'),
           content: const Text(
-            'Se sair da tela os dados do formulário serão perdidos, não será possível recuperá-los.',
+            'Se sair da tela todos os dados do formulário serão perdidos, não será possível recuperá-los.',
             textAlign: TextAlign.justify,
           ),
           actions: [
@@ -82,7 +85,7 @@ class _AddViaCepScreenState extends State<AddViaCepScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text(
-          'Adicionar Via Cep',
+          'Adicionar CEP',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -90,7 +93,7 @@ class _AddViaCepScreenState extends State<AddViaCepScreen> {
         leading: BackButtonWidget(
           action: () {
             if (_hasValuesInFields()) {
-              _showAlertDialog();
+              _showAlertDialog(context);
             } else {
               Navigator.pop(context);
             }
@@ -99,6 +102,7 @@ class _AddViaCepScreenState extends State<AddViaCepScreen> {
       ),
       body: SingleChildScrollView(
         child: AddViaCepScreenFormWidget(
+          screenContext: context,
           localidadeFieldController: _localidadeFieldController,
           logradouroFieldController: _logradouroFieldController,
           bairroFieldController: _bairroFieldController,

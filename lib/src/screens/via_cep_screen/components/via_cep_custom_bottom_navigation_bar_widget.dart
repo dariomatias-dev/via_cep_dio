@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/services/via_cep_service.dart';
+
 class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
-  const ViaCepCustomBottomNavigationBarWidget({super.key});
+  ViaCepCustomBottomNavigationBarWidget({
+    super.key,
+    required this.screenContext,
+    required this.viaCepId,
+  });
+
+  final BuildContext screenContext;
+  final String viaCepId;
+
+  final ViaCepService viaCepService = ViaCepService();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +47,12 @@ class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
           const SizedBox(width: 6.0),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(screenContext);
+                viaCepService.deleteViaCep(
+                  viaCepId,
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: const EdgeInsets.symmetric(

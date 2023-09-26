@@ -4,9 +4,10 @@ import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_ce
 
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
-class AddViaCepScreenFormWidget extends StatefulWidget {
-  const AddViaCepScreenFormWidget({
+class AddViaCepScreenFormWidget extends StatelessWidget {
+  AddViaCepScreenFormWidget({
     super.key,
+    required this.screenContext,
     required this.localidadeFieldController,
     required this.logradouroFieldController,
     required this.bairroFieldController,
@@ -19,6 +20,8 @@ class AddViaCepScreenFormWidget extends StatefulWidget {
     required this.siafiFieldController,
   });
 
+  final BuildContext screenContext;
+
   final TextEditingController localidadeFieldController;
   final TextEditingController logradouroFieldController;
   final TextEditingController bairroFieldController;
@@ -30,12 +33,6 @@ class AddViaCepScreenFormWidget extends StatefulWidget {
   final TextEditingController dddFieldController;
   final TextEditingController siafiFieldController;
 
-  @override
-  State<AddViaCepScreenFormWidget> createState() =>
-      _AddViaCepScreenFormWidgetState();
-}
-
-class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -63,21 +60,23 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
             ),
             const SizedBox(height: 20.0),
             AddViaCepScreenFormFielsdWidget(
-              localidadeFieldController: widget.localidadeFieldController,
-              logradouroFieldController: widget.logradouroFieldController,
-              bairroFieldController: widget.bairroFieldController,
-              complementoFieldController: widget.complementoFieldController,
-              cepFieldController: widget.cepFieldController,
-              ufFieldController: widget.ufFieldController,
-              ibgeFieldController: widget.ibgeFieldController,
-              giaFieldController: widget.giaFieldController,
-              dddFieldController: widget.dddFieldController,
-              siafiFieldController: widget.siafiFieldController,
+              localidadeFieldController: localidadeFieldController,
+              logradouroFieldController: logradouroFieldController,
+              bairroFieldController: bairroFieldController,
+              complementoFieldController: complementoFieldController,
+              cepFieldController: cepFieldController,
+              ufFieldController: ufFieldController,
+              ibgeFieldController: ibgeFieldController,
+              giaFieldController: giaFieldController,
+              dddFieldController: dddFieldController,
+              siafiFieldController: siafiFieldController,
             ),
             DefaultButtonWidget(
-              text: 'Adicionar',
+              text: 'ADICIONAR',
               action: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  //Navigator.pop(widget.screenContext);
+                }
               },
             ),
           ],

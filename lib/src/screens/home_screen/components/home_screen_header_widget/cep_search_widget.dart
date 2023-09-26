@@ -6,18 +6,14 @@ import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
-class CEPSearchWidget extends StatefulWidget {
-  const CEPSearchWidget({super.key});
+class CEPSearchWidget extends StatelessWidget {
+  CEPSearchWidget({super.key});
 
-  @override
-  State<CEPSearchWidget> createState() => _CEPSearchWidgetState();
-}
-
-class _CEPSearchWidgetState extends State<CEPSearchWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController _cepFieldController = TextEditingController();
 
-  void _performUpdateCepToSearch(String cep) {
+  void _performUpdateCepToSearch(BuildContext context, String cep) {
     FocusManager.instance.primaryFocus?.unfocus();
 
     final void Function(String) updateCepToSearch =
@@ -42,7 +38,7 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
             onTap: () {
               _cepFieldController.text = '';
 
-              _performUpdateCepToSearch('');
+              _performUpdateCepToSearch(context, '');
             },
             child: const Icon(
               Icons.close,
@@ -65,14 +61,14 @@ class _CEPSearchWidgetState extends State<CEPSearchWidget> {
           if (_formKey.currentState!.validate()) {
             final String cep = _cepFieldController.text;
 
-            _performUpdateCepToSearch(cep);
+            _performUpdateCepToSearch(context, cep);
           }
         },
         validator: (value) {
           if (value == null) {
-            return 'Insirá um CEP';
+            return 'Insira um CEP';
           } else if (value.isNotEmpty && value.length < 9) {
-            return 'Insirá um CEP válido';
+            return 'Insira um CEP válido';
           }
 
           return null;

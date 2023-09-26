@@ -16,6 +16,7 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.onChanged,
     this.inputFormatter,
+    this.validation,
   });
 
   final String fieldTitle;
@@ -27,6 +28,7 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
   final TextInputFormatter? inputFormatter;
+  final bool Function(String?)? validation;
 
   List<TextInputFormatter> get _inputFormatters => [
         if (mask != null) mask!,
@@ -65,7 +67,9 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
           keyboardType: keyboardType,
           validator: (value) {
             if (value == null || (isRequired && value.trim().isEmpty)) {
-              return 'Insirá algum valor';
+              return 'Insira algum valor';
+            } else if (validation != null ? validation!(value) : false) {
+              return 'Insira um $fieldTitle válido';
             }
 
             return null;

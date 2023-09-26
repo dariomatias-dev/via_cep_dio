@@ -11,25 +11,20 @@ import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
-class ViaCepScreen extends StatefulWidget {
-  const ViaCepScreen({
+class ViaCepScreen extends StatelessWidget {
+  ViaCepScreen({
     super.key,
     required this.cep,
   });
 
   final String cep;
 
-  @override
-  State<ViaCepScreen> createState() => _ViaCepScreenState();
-}
-
-class _ViaCepScreenState extends State<ViaCepScreen> {
   final ViaCepService viaCepService = ViaCepService();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: viaCepService.getViaCep(widget.cep),
+      future: viaCepService.getViaCep(cep),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,
@@ -62,7 +57,10 @@ class _ViaCepScreenState extends State<ViaCepScreen> {
               viaCep: viaCep,
             ),
           ),
-          bottomNavigationBar: const ViaCepCustomBottomNavigationBarWidget(),
+          bottomNavigationBar: ViaCepCustomBottomNavigationBarWidget(
+            screenContext: context,
+            viaCepId: viaCep.id,
+          ),
         );
       },
     );

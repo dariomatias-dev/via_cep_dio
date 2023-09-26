@@ -8,17 +8,19 @@ class HomeScreenHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 26.0,
-        horizontal: 24.0,
+      padding: const EdgeInsets.only(
+        top: 26.0,
+        right: 24.0,
+        bottom: 8.0,
+        left: 24.0,
       ),
       decoration: const BoxDecoration(
         color: Colors.black,
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Via CEP',
             style: TextStyle(
               color: Colors.yellow,
@@ -26,7 +28,7 @@ class HomeScreenHeaderWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           CEPSearchWidget(),
         ],
       ),

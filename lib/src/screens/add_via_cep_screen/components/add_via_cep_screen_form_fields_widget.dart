@@ -34,7 +34,7 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
 
   FilteringTextInputFormatter get _lettersOnlyFormatter =>
       FilteringTextInputFormatter.allow(
-        RegExp(r'[a-zA-Z]'),
+        RegExp(r'[a-zA-ZáÁéÉíÍóÓúÚâÂêÊôÔãÃõÕçÇ ]'),
       );
 
   void _handleUfFieldChange() {
@@ -110,6 +110,8 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           maxLength: 9,
           mask: masksHelper.cep,
           keyboardType: TextInputType.number,
+          validation: (String? value) =>
+              value != null ? value.length < 9 : false,
         ),
         AddViaCepScreenFormFieldWidget(
           fieldTitle: 'UF',
@@ -118,6 +120,8 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           maxLength: 2,
           onChanged: (_) => _handleUfFieldChange(),
           inputFormatter: _lettersOnlyFormatter,
+          validation: (String? value) =>
+              value != null ? value.length < 2 : false,
         ),
         AddViaCepScreenFormFieldWidget(
           fieldTitle: 'IBGE',
@@ -142,6 +146,8 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           maxLength: 3,
           mask: masksHelper.ddd,
           keyboardType: TextInputType.number,
+          validation: (String? value) =>
+              value != null ? value.length < 3 : false,
         ),
         AddViaCepScreenFormFieldWidget(
           fieldTitle: 'Siafi',

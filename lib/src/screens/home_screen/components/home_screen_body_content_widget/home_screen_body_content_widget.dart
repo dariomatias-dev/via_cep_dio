@@ -27,14 +27,19 @@ class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
 
-  DefaultButtonWidget get _cepAddButtonWidget => DefaultButtonWidget(
-        text: 'Adicionar novo CEP',
-        action: () {
-          navigationFadeTransition(
-            context,
-            () => const AddViaCepScreen(),
-          );
-        },
+  Padding get _cepAddButtonWidget => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+        ),
+        child: DefaultButtonWidget(
+          text: 'Adicionar novo CEP',
+          action: () {
+            navigationFadeTransition(
+              context,
+              () => const AddViaCepScreen(),
+            );
+          },
+        ),
       );
 
   void _updateScreen() {

@@ -64,7 +64,7 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
               _inputFormatters.isNotEmpty ? _inputFormatters : null,
           keyboardType: keyboardType,
           validator: (value) {
-            if (value == null || (isRequired && value.isEmpty)) {
+            if (value == null || (isRequired && value.trim().isEmpty)) {
               return 'Insirá algum valor';
             }
 

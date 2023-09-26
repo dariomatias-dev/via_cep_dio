@@ -18,9 +18,6 @@ class DefaultButtonWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(
         vertical: 10.0,
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
       child: ElevatedButton(
         onPressed: () => action(),
         style: ElevatedButton.styleFrom(

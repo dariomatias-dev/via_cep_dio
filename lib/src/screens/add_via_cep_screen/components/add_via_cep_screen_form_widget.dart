@@ -5,7 +5,30 @@ import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_ce
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
 class AddViaCepScreenFormWidget extends StatefulWidget {
-  const AddViaCepScreenFormWidget({super.key});
+  const AddViaCepScreenFormWidget({
+    super.key,
+    required this.localidadeFieldController,
+    required this.logradouroFieldController,
+    required this.bairroFieldController,
+    required this.complementoFieldController,
+    required this.cepFieldController,
+    required this.ufFieldController,
+    required this.ibgeFieldController,
+    required this.giaFieldController,
+    required this.dddFieldController,
+    required this.siafiFieldController,
+  });
+
+  final TextEditingController localidadeFieldController;
+  final TextEditingController logradouroFieldController;
+  final TextEditingController bairroFieldController;
+  final TextEditingController complementoFieldController;
+  final TextEditingController cepFieldController;
+  final TextEditingController ufFieldController;
+  final TextEditingController ibgeFieldController;
+  final TextEditingController giaFieldController;
+  final TextEditingController dddFieldController;
+  final TextEditingController siafiFieldController;
 
   @override
   State<AddViaCepScreenFormWidget> createState() =>
@@ -14,20 +37,6 @@ class AddViaCepScreenFormWidget extends StatefulWidget {
 
 class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _localidadeFieldController =
-      TextEditingController();
-  final TextEditingController _logradouroFieldController =
-      TextEditingController();
-  final TextEditingController _bairroFieldController = TextEditingController();
-  final TextEditingController _complementoFieldController =
-      TextEditingController();
-  final TextEditingController _cepFieldController = TextEditingController();
-  final TextEditingController _ufFieldController = TextEditingController();
-  final TextEditingController _ibgeFieldController = TextEditingController();
-  final TextEditingController _giaFieldController = TextEditingController();
-  final TextEditingController _dddFieldController = TextEditingController();
-  final TextEditingController _siafiFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +63,16 @@ class _AddViaCepScreenFormWidgetState extends State<AddViaCepScreenFormWidget> {
             ),
             const SizedBox(height: 20.0),
             AddViaCepScreenFormFielsdWidget(
-              localidadeFieldController: _localidadeFieldController,
-              logradouroFieldController: _logradouroFieldController,
-              bairroFieldController: _bairroFieldController,
-              complementoFieldController: _complementoFieldController,
-              cepFieldController: _cepFieldController,
-              ufFieldController: _ufFieldController,
-              ibgeFieldController: _ibgeFieldController,
-              giaFieldController: _giaFieldController,
-              dddFieldController: _dddFieldController,
-              siafiFieldController: _siafiFieldController,
+              localidadeFieldController: widget.localidadeFieldController,
+              logradouroFieldController: widget.logradouroFieldController,
+              bairroFieldController: widget.bairroFieldController,
+              complementoFieldController: widget.complementoFieldController,
+              cepFieldController: widget.cepFieldController,
+              ufFieldController: widget.ufFieldController,
+              ibgeFieldController: widget.ibgeFieldController,
+              giaFieldController: widget.giaFieldController,
+              dddFieldController: widget.dddFieldController,
+              siafiFieldController: widget.siafiFieldController,
             ),
             DefaultButtonWidget(
               text: 'Adicionar',

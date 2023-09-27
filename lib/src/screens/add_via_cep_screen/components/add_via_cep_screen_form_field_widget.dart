@@ -68,7 +68,7 @@ class AddViaCepScreenFormFieldWidget extends StatelessWidget {
           validator: (value) {
             if (value == null || (isRequired && value.trim().isEmpty)) {
               return 'Insira algum valor';
-            } else if (validation != null ? validation!(value) : false) {
+            } else if (validation != null ? validation!(value.trim()) : false) {
               return 'Insira um $fieldTitle válido';
             }
 

@@ -4,30 +4,26 @@ import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_ce
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
-class AddViaCepScreen extends StatelessWidget {
-  AddViaCepScreen({super.key});
+class AddViaCepScreen extends StatefulWidget {
+  const AddViaCepScreen({super.key});
 
+  @override
+  State<AddViaCepScreen> createState() => _AddViaCepScreenState();
+}
+
+class _AddViaCepScreenState extends State<AddViaCepScreen> {
   final TextEditingController _localidadeFieldController =
       TextEditingController();
-
   final TextEditingController _logradouroFieldController =
       TextEditingController();
-
   final TextEditingController _bairroFieldController = TextEditingController();
-
   final TextEditingController _complementoFieldController =
       TextEditingController();
-
   final TextEditingController _cepFieldController = TextEditingController();
-
   final TextEditingController _ufFieldController = TextEditingController();
-
   final TextEditingController _ibgeFieldController = TextEditingController();
-
   final TextEditingController _giaFieldController = TextEditingController();
-
   final TextEditingController _dddFieldController = TextEditingController();
-
   final TextEditingController _siafiFieldController = TextEditingController();
 
   bool _hasValuesInFields() {
@@ -77,6 +73,21 @@ class AddViaCepScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _localidadeFieldController.dispose();
+    _logradouroFieldController.dispose();
+    _bairroFieldController.dispose();
+    _complementoFieldController.dispose();
+    _cepFieldController.dispose();
+    _ufFieldController.dispose();
+    _ibgeFieldController.dispose();
+    _giaFieldController.dispose();
+    _dddFieldController.dispose();
+    _siafiFieldController.dispose();
+    super.dispose();
   }
 
   @override

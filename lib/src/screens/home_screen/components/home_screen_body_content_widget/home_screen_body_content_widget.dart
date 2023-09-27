@@ -38,7 +38,7 @@ class _HomeScreenBodyContentWidgetState
           action: () {
             navigationFadeTransition(
               context,
-              () => AddViaCepScreen(),
+              () => const AddViaCepScreen(),
             );
           },
         ),

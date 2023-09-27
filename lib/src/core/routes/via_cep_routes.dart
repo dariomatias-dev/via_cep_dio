@@ -5,5 +5,5 @@ import 'package:via_cep_dio/src/screens/home_screen/home_screen.dart';
 
 final viaCepRoutes = {
   ViaCepRouteNames.initial: (_) => const HomeScreen(),
-  ViaCepRouteNames.addViaCep: (_) => AddViaCepScreen(),
+  ViaCepRouteNames.addViaCep: (_) => const AddViaCepScreen(),
 };

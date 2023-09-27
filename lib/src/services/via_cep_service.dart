@@ -5,6 +5,8 @@ import 'package:via_cep_dio/src/core/rest_client/rest_client.dart';
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
+import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
+
 class ViaCepService {
   final dio = dioConfigured();
 
@@ -46,5 +48,6 @@ class ViaCepService {
 
   Future<void> deleteViaCep(String viaCepId) async {
     await dio.delete(viaCepId);
+    viaCepServiceNotifier.notify();
   }
 }

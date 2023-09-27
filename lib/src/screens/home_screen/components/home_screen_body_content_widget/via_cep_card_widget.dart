@@ -12,11 +12,9 @@ class ViaCepCardWidget extends StatelessWidget {
   ViaCepCardWidget({
     super.key,
     required this.viaCep,
-    required this.updateScreen,
   });
 
   final ViaCepCardModel viaCep;
-  final VoidCallback updateScreen;
 
   final ViaCepService viaCepService = ViaCepService();
 
@@ -32,7 +30,6 @@ class ViaCepCardWidget extends StatelessWidget {
           } else {
             viaCepService.deleteViaCep(viaCep.id);
           }
-          updateScreen();
         },
         itemBuilder: (context) => <PopupMenuEntry>[
           const PopupMenuItem(

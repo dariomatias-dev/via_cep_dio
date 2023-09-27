@@ -5,6 +5,8 @@ import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 
+import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
+
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
 import 'package:via_cep_dio/src/screens/add_via_cep_screen/add_via_cep_screen.dart';
@@ -42,8 +44,19 @@ class _HomeScreenBodyContentWidgetState
         ),
       );
 
-  void _updateScreen() {
-    setState(() {});
+  @override
+  void initState() {
+    viaCepServiceNotifier.onViaCepServiceCalled.listen((_) {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    viaCepServiceNotifier.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,7 +86,6 @@ class _HomeScreenBodyContentWidgetState
               if (snapshot.data != null)
                 ViaCepCardWidget(
                   viaCep: viaCep!,
-                  updateScreen: _updateScreen,
                 )
               else
                 const CustomMessageWidget(
@@ -108,7 +120,6 @@ class _HomeScreenBodyContentWidgetState
               children: viaCeps.map((viaCep) {
                 return ViaCepCardWidget(
                   viaCep: viaCep,
-                  updateScreen: _updateScreen,
                 );
               }).toList(),
             ),

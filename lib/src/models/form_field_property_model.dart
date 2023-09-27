@@ -7,7 +7,7 @@ class FormFieldPropertyModel {
     required this.fieldTitle,
     required this.hintText,
     required this.fieldController,
-    required this.isRequired,
+    this.isRequired = false,
     this.maxLength,
     this.mask,
     this.keyboardType,

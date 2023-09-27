@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
 import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
+import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget.dart';
 
@@ -34,7 +35,12 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
 
   FilteringTextInputFormatter get _lettersOnlyFormatter =>
       FilteringTextInputFormatter.allow(
-        RegExp(r'[a-zA-ZáÁéÉíÍóÓúÚâÂêÊôÔãÃõÕçÇ ]'),
+        RegexHelper.alphabeticAndAccentPattern,
+      );
+
+  FilteringTextInputFormatter get _filterNumeric =>
+      FilteringTextInputFormatter.deny(
+        RegexHelper.hyphenAndDot,
       );
 
   void _handleUfFieldChange() {
@@ -55,18 +61,19 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
       decimalDigits: 0,
     );
     final String ibgeFieldValue = ibgeFieldController.text.replaceAll(
-      RegExp(r'[^0-9]'),
+      RegexHelper.nonDigit,
       '',
     );
     final value = ibgeFieldValue.isNotEmpty ? int.parse(ibgeFieldValue) : 0;
     final formattedValue = value != 0 ? numberFormat.format(value) : '';
 
-    ibgeFieldController.value = ibgeFieldController.value.copyWith(
-      text: formattedValue,
+    final trimmedFormattedValue = formattedValue.trim();
+
+    ibgeFieldController.value = TextEditingValue(
+      text: trimmedFormattedValue,
       selection: TextSelection.collapsed(
-        offset: formattedValue.length,
+        offset: trimmedFormattedValue.length,
       ),
-      composing: TextRange.empty,
     );
   }
 
@@ -128,7 +135,7 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
           fieldTitle: 'IBGE',
           hintText: '3.550.308',
           fieldController: ibgeFieldController,
-          maxLength: 10,
+          maxLength: 9,
           keyboardType: TextInputType.number,
           onChanged: (_) => _handleIbgeFieldChange(),
         ),
@@ -138,6 +145,7 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
           fieldController: giaFieldController,
           isRequired: false,
           keyboardType: TextInputType.number,
+          inputFormatter: _filterNumeric,
         ),
         const SizedBox(height: 10.0),
         ViaCepFormFieldWidget(
@@ -155,6 +163,7 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
           hintText: '7107',
           fieldController: siafiFieldController,
           keyboardType: TextInputType.number,
+          inputFormatter: _filterNumeric,
         ),
       ],
     );

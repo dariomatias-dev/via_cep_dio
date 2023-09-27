@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
+
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_fields_widget.dart';
@@ -44,7 +46,10 @@ class ViaCepFormWidget extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String removeNonDigits(String input) {
-    return input.replaceAll(RegExp(r'[^0-9]'), '');
+    return input.replaceAll(
+      RegexHelper.nonDigit,
+      '',
+    );
   }
 
   @override
@@ -97,7 +102,9 @@ class ViaCepFormWidget extends StatelessWidget {
                     localidade: localidadeFieldController.text,
                     uf: ufFieldController.text,
                     ibge: int.parse(removeNonDigits(ibgeFieldController.text)),
-                    gia: giaFieldController.text.isNotEmpty ? int.parse(giaFieldController.text) : null,
+                    gia: giaFieldController.text.isNotEmpty
+                        ? int.parse(giaFieldController.text)
+                        : null,
                     ddd: int.parse(removeNonDigits(dddFieldController.text)),
                     siafi: int.parse(siafiFieldController.text),
                   );

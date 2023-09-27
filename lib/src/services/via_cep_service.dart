@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'package:via_cep_dio/src/core/restClient/rest_client.dart';
+import 'package:via_cep_dio/src/core/rest_client/rest_client.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';

@@ -4,8 +4,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
-class AddViaCepScreenFormFieldWidget extends StatelessWidget {
-  const AddViaCepScreenFormFieldWidget({
+class ViaCepFormFieldWidget extends StatelessWidget {
+  const ViaCepFormFieldWidget({
     super.key,
     required this.fieldTitle,
     required this.hintText,

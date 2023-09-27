@@ -9,7 +9,7 @@ import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/screens/add_via_cep_screen/add_via_cep_screen.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';

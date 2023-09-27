@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_widget.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_widget.dart';
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
-class AddViaCepScreen extends StatefulWidget {
-  const AddViaCepScreen({super.key});
+class ViaCepFormScreen extends StatefulWidget {
+  const ViaCepFormScreen({super.key});
 
   @override
-  State<AddViaCepScreen> createState() => _AddViaCepScreenState();
+  State<ViaCepFormScreen> createState() => _ViaCepFormScreenState();
 }
 
-class _AddViaCepScreenState extends State<AddViaCepScreen> {
+class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
   final TextEditingController _localidadeFieldController =
       TextEditingController();
   final TextEditingController _logradouroFieldController =
@@ -112,7 +112,7 @@ class _AddViaCepScreenState extends State<AddViaCepScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: AddViaCepScreenFormWidget(
+        child: ViaCepFormWidget(
           screenContext: context,
           localidadeFieldController: _localidadeFieldController,
           logradouroFieldController: _logradouroFieldController,

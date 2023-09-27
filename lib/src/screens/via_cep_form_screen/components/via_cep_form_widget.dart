@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_fields_widget.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_fields_widget.dart';
 
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
-class AddViaCepScreenFormWidget extends StatelessWidget {
-  AddViaCepScreenFormWidget({
+class ViaCepFormWidget extends StatelessWidget {
+  ViaCepFormWidget({
     super.key,
     required this.screenContext,
     required this.localidadeFieldController,
@@ -59,7 +59,7 @@ class AddViaCepScreenFormWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20.0),
-            AddViaCepScreenFormFielsdWidget(
+            ViaCepFormFielsdWidget(
               localidadeFieldController: localidadeFieldController,
               logradouroFieldController: logradouroFieldController,
               bairroFieldController: bairroFieldController,

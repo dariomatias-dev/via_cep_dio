@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 
 import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
 
-import 'package:via_cep_dio/src/screens/add_via_cep_screen/components/add_via_cep_screen_form_field_widget.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget.dart';
 
-class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
-  const AddViaCepScreenFormFielsdWidget({
+class ViaCepFormFielsdWidget extends StatelessWidget {
+  const ViaCepFormFielsdWidget({
     super.key,
     required this.localidadeFieldController,
     required this.logradouroFieldController,
@@ -75,35 +75,35 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'Localidade',
           hintText: 'São Paulo',
           fieldController: localidadeFieldController,
           inputFormatter: _lettersOnlyFormatter,
         ),
         const SizedBox(height: 10.0),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'Logradouro',
           hintText: 'Praça da Sé',
           fieldController: logradouroFieldController,
           inputFormatter: _lettersOnlyFormatter,
         ),
         const SizedBox(height: 10.0),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'Bairro',
           hintText: 'Sé',
           fieldController: bairroFieldController,
           inputFormatter: _lettersOnlyFormatter,
         ),
         const SizedBox(height: 10.0),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'Complemento',
           hintText: 'lado ímpar',
           fieldController: complementoFieldController,
           isRequired: false,
         ),
         const SizedBox(height: 10.0),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'CEP',
           hintText: '01001-000',
           fieldController: cepFieldController,
@@ -113,7 +113,7 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           validation: (String? value) =>
               value != null ? value.length < 9 : false,
         ),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'UF',
           hintText: 'SP',
           fieldController: ufFieldController,
@@ -123,7 +123,7 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           validation: (String? value) =>
               value != null ? value.length < 2 : false,
         ),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'IBGE',
           hintText: '3.550.308',
           fieldController: ibgeFieldController,
@@ -131,7 +131,7 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           keyboardType: TextInputType.number,
           onChanged: (_) => _handleIbgeFieldChange(),
         ),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'GIA',
           hintText: '1004',
           fieldController: giaFieldController,
@@ -139,7 +139,7 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 10.0),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'DDD',
           hintText: '+11',
           fieldController: dddFieldController,
@@ -149,7 +149,7 @@ class AddViaCepScreenFormFielsdWidget extends StatelessWidget {
           validation: (String? value) =>
               value != null ? value.length < 3 : false,
         ),
-        AddViaCepScreenFormFieldWidget(
+        ViaCepFormFieldWidget(
           fieldTitle: 'Siafi',
           hintText: '7107',
           fieldController: siafiFieldController,

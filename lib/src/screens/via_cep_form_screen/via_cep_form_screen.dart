@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
+
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_widget.dart';
@@ -108,9 +110,9 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
     _complementoFieldController.text = complemento ?? '';
     _cepFieldController.text = cep;
     _ufFieldController.text = uf;
-    _ibgeFieldController.text = ibge.toString();
+    _ibgeFieldController.text = numberFormatBrazilHelper(ibge);
     _giaFieldController.text = gia != null ? gia.toString() : '';
-    _dddFieldController.text = ddd.toString();
+    _dddFieldController.text = '+$ddd';
     _siafiFieldController.text = siafi.toString();
   }
 
@@ -162,6 +164,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
         child: ViaCepFormWidget(
           screenContext: context,
           formType: widget.formType,
+          viaCepId: widget.viaCepId,
           localidadeFieldController: _localidadeFieldController,
           logradouroFieldController: _logradouroFieldController,
           bairroFieldController: _bairroFieldController,

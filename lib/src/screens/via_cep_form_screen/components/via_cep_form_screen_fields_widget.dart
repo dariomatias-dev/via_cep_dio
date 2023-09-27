@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
 import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
+import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget.dart';
@@ -55,24 +55,17 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
   }
 
   void _handleIbgeFieldChange() {
-    final NumberFormat numberFormat = NumberFormat.currency(
-      locale: 'pt_BR',
-      symbol: '',
-      decimalDigits: 0,
-    );
     final String ibgeFieldValue = ibgeFieldController.text.replaceAll(
       RegexHelper.nonDigit,
       '',
     );
     final value = ibgeFieldValue.isNotEmpty ? int.parse(ibgeFieldValue) : 0;
-    final formattedValue = value != 0 ? numberFormat.format(value) : '';
-
-    final trimmedFormattedValue = formattedValue.trim();
+    final formattedValue = value != 0 ? numberFormatBrazilHelper(value) : '';
 
     ibgeFieldController.value = TextEditingValue(
-      text: trimmedFormattedValue,
+      text: formattedValue,
       selection: TextSelection.collapsed(
-        offset: trimmedFormattedValue.length,
+        offset: formattedValue.length,
       ),
     );
   }

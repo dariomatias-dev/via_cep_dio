@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
+
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 class ViaCepScreenBodyContentWidget extends StatelessWidget {
@@ -116,7 +118,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                viaCep.ibge.toString(),
+                numberFormatBrazilHelper(viaCep.ibge),
                 style: const TextStyle(
                   fontSize: 18,
                 ),
@@ -156,7 +158,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '+${viaCep.ddd.toString()}',
+                '+${viaCep.ddd}',
                 style: const TextStyle(
                   fontSize: 18,
                 ),

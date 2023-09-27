@@ -15,6 +15,7 @@ class ViaCepFormWidget extends StatelessWidget {
     super.key,
     required this.screenContext,
     required this.formType,
+    this.viaCepId,
     required this.localidadeFieldController,
     required this.logradouroFieldController,
     required this.bairroFieldController,
@@ -31,6 +32,7 @@ class ViaCepFormWidget extends StatelessWidget {
 
   final BuildContext screenContext;
   final String formType;
+  final String? viaCepId;
 
   final TextEditingController localidadeFieldController;
   final TextEditingController logradouroFieldController;
@@ -111,7 +113,12 @@ class ViaCepFormWidget extends StatelessWidget {
 
                   if (formType == 'creation') {
                     viaCepService.createViaCep(viaCep);
-                  } else {}
+                  } else {
+                    viaCepService.updateViaCep(
+                      viaCepId!,
+                      viaCep,
+                    );
+                  }
                 }
               },
             ),

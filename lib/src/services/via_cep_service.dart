@@ -54,6 +54,14 @@ class ViaCepService {
     return ViaCepModel.fromMap(results[0]);
   }
 
+  Future<void> updateViaCep(String viaCepId, ViaCepModel viaCep) async {
+    await dio.put(
+      viaCepId,
+      data: viaCep.toMap(),
+    );
+    viaCepServiceNotifier.notify();
+  }
+
   Future<void> deleteViaCep(String viaCepId) async {
     await dio.delete(viaCepId);
     viaCepServiceNotifier.notify();

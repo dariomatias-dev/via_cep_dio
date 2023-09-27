@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/models/via_cep_model.dart';
+
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_fields_widget.dart';
+
+import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
@@ -21,6 +25,8 @@ class ViaCepFormWidget extends StatelessWidget {
     required this.siafiFieldController,
   });
 
+  final ViaCepService viaCepService = ViaCepService();
+
   final BuildContext screenContext;
   final String formType;
 
@@ -36,6 +42,10 @@ class ViaCepFormWidget extends StatelessWidget {
   final TextEditingController siafiFieldController;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String removeNonDigits(String input) {
+    return input.replaceAll(RegExp(r'[^0-9]'), '');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +87,23 @@ class ViaCepFormWidget extends StatelessWidget {
               text: formType == 'creation' ? 'ADICIONAR' : 'ATUALIZAR',
               action: () {
                 if (_formKey.currentState!.validate()) {
-                  //Navigator.pop(widget.screenContext);
+                  Navigator.pop(screenContext);
+
+                  final ViaCepModel viaCep = ViaCepModel(
+                    cep: cepFieldController.text,
+                    logradouro: logradouroFieldController.text,
+                    complemento: complementoFieldController.text,
+                    bairro: bairroFieldController.text,
+                    localidade: localidadeFieldController.text,
+                    uf: ufFieldController.text,
+                    ibge: int.parse(removeNonDigits(ibgeFieldController.text)),
+                    gia: giaFieldController.text.isNotEmpty ? int.parse(giaFieldController.text) : null,
+                    ddd: int.parse(removeNonDigits(dddFieldController.text)),
+                    siafi: int.parse(siafiFieldController.text),
+                  );
 
                   if (formType == 'creation') {
+                    viaCepService.createViaCep(viaCep);
                   } else {}
                 }
               },

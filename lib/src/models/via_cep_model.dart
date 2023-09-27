@@ -1,6 +1,6 @@
 class ViaCepModel {
   ViaCepModel({
-    required this.id,
+    this.id,
     required this.cep,
     required this.logradouro,
     this.complemento,
@@ -11,11 +11,9 @@ class ViaCepModel {
     this.gia,
     required this.ddd,
     required this.siafi,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
-  final String id;
+  final String? id;
   final String cep;
   final String logradouro;
   final String? complemento;
@@ -26,8 +24,6 @@ class ViaCepModel {
   final int? gia;
   final int ddd;
   final int siafi;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 
   factory ViaCepModel.fromMap(Map<String, dynamic> map) {
     return ViaCepModel(
@@ -42,8 +38,21 @@ class ViaCepModel {
       gia: (map['gia'] as String).isNotEmpty ? int.parse(map['gia']) : null,
       ddd: int.parse(map['ddd']),
       siafi: int.parse(map['siafi']),
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'cep': cep,
+      'logradouro': logradouro,
+      'complemento': complemento ?? '',
+      'bairro': bairro,
+      'localidade': localidade,
+      'uf': uf,
+      'ibge': ibge.toString(),
+      'gia': gia != null ? gia.toString() : '',
+      'ddd': ddd.toString(),
+      'siafi': siafi.toString(),
+    };
   }
 }

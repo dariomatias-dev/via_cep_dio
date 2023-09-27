@@ -66,6 +66,7 @@ class ViaCepFormFielsdWidget extends StatelessWidget {
       selection: TextSelection.collapsed(
         offset: formattedValue.length,
       ),
+      composing: TextRange.empty,
     );
   }
 

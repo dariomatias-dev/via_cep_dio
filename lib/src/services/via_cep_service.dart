@@ -12,6 +12,14 @@ class ViaCepService {
 
   final String cardFieldKeys = 'keys=localidade,uf,cep';
 
+  Future<void> createViaCep(ViaCepModel viaCep) async {
+    await dio.post(
+      '',
+      data: viaCep.toMap(),
+    );
+    viaCepServiceNotifier.notify();
+  }
+
   Future<ViaCepCardModel?> getViaCepCardData(cep) async {
     final String queries = '?where={"cep": "$cep"}&$cardFieldKeys';
     final Response response = await dio.get(queries);

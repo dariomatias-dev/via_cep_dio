@@ -59,7 +59,7 @@ class ViaCepScreen extends StatelessWidget {
           ),
           bottomNavigationBar: ViaCepCustomBottomNavigationBarWidget(
             screenContext: context,
-            viaCepId: viaCep.id,
+            viaCepId: viaCep.id!,
           ),
         );
       },

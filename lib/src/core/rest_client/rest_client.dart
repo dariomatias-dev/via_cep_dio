@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Dio dioConfigured() {
   final Map<String, dynamic> headers = {
+    'Content-Type': 'application/json',
     'X-Parse-Application-Id': dotenv.env['APPLICATION_ID'],
     'X-Parse-REST-API-Key': dotenv.env['API_KEY'],
   };

@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/models/via_cep_model.dart';
+
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_widget.dart';
+
+import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
 class ViaCepFormScreen extends StatefulWidget {
-  const ViaCepFormScreen({super.key});
+  const ViaCepFormScreen({
+    super.key,
+    required this.formType,
+    this.viaCepId,
+  });
+
+  final String formType;
+  final String? viaCepId;
 
   @override
   State<ViaCepFormScreen> createState() => _ViaCepFormScreenState();
 }
 
 class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
+  final ViaCepService _viaCepService = ViaCepService();
+
   final TextEditingController _localidadeFieldController =
       TextEditingController();
   final TextEditingController _logradouroFieldController =
@@ -75,6 +88,40 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
     );
   }
 
+  Future<void> _fetchData() async {
+    final ViaCepModel(
+      :localidade,
+      :logradouro,
+      :bairro,
+      :complemento,
+      :cep,
+      :uf,
+      :ibge,
+      :gia,
+      :ddd,
+      :siafi,
+    ) = await _viaCepService.getViaCep(widget.viaCepId!);
+
+    _localidadeFieldController.text = localidade;
+    _logradouroFieldController.text = logradouro;
+    _bairroFieldController.text = bairro;
+    _complementoFieldController.text = complemento ?? '';
+    _cepFieldController.text = cep;
+    _ufFieldController.text = uf;
+    _ibgeFieldController.text = ibge.toString();
+    _giaFieldController.text = gia != null ? gia.toString() : '';
+    _dddFieldController.text = ddd.toString();
+    _siafiFieldController.text = siafi.toString();
+  }
+
+  @override
+  void initState() {
+    if (widget.formType == 'update') {
+      _fetchData();
+    }
+    super.initState();
+  }
+
   @override
   void dispose() {
     _localidadeFieldController.dispose();
@@ -95,9 +142,9 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          'Adicionar CEP',
-          style: TextStyle(
+        title: Text(
+          widget.formType == 'creation' ? 'Adicionar CEP' : 'Atualizar CEP',
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -114,6 +161,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
       body: SingleChildScrollView(
         child: ViaCepFormWidget(
           screenContext: context,
+          formType: widget.formType,
           localidadeFieldController: _localidadeFieldController,
           logradouroFieldController: _logradouroFieldController,
           bairroFieldController: _bairroFieldController,

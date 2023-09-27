@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:via_cep_dio/src/core/routes/via_cep_route_names.dart';
 
 void navigationFadeTransition(
-  BuildContext screenContext,
+  BuildContext context,
   Widget Function() screen,
 ) {
   Navigator.push(
-    screenContext,
+    context,
     PageRouteBuilder(
       settings: RouteSettings(
         name: ViaCepRouteNames.viaCep,

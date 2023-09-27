@@ -38,8 +38,8 @@ class ViaCepService {
     return viaCepCardDatas;
   }
 
-  Future<ViaCepModel> getViaCep(String cep) async {
-    final String queries = '?where={"cep": "$cep"}';
+  Future<ViaCepModel> getViaCep(String viaCepId) async {
+    final String queries = '?where={"objectId": "$viaCepId"}';
     final Response response = await dio.get(queries);
     final List<dynamic> results = response.data['results'];
 

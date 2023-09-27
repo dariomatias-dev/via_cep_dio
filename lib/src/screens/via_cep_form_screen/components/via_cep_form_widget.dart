@@ -8,6 +8,7 @@ class ViaCepFormWidget extends StatelessWidget {
   ViaCepFormWidget({
     super.key,
     required this.screenContext,
+    required this.formType,
     required this.localidadeFieldController,
     required this.logradouroFieldController,
     required this.bairroFieldController,
@@ -21,6 +22,7 @@ class ViaCepFormWidget extends StatelessWidget {
   });
 
   final BuildContext screenContext;
+  final String formType;
 
   final TextEditingController localidadeFieldController;
   final TextEditingController logradouroFieldController;
@@ -72,10 +74,13 @@ class ViaCepFormWidget extends StatelessWidget {
               siafiFieldController: siafiFieldController,
             ),
             DefaultButtonWidget(
-              text: 'ADICIONAR',
+              text: formType == 'creation' ? 'ADICIONAR' : 'ATUALIZAR',
               action: () {
                 if (_formKey.currentState!.validate()) {
                   //Navigator.pop(widget.screenContext);
+
+                  if (formType == 'creation') {
+                  } else {}
                 }
               },
             ),

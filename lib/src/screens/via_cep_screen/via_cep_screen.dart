@@ -14,17 +14,17 @@ import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 class ViaCepScreen extends StatelessWidget {
   ViaCepScreen({
     super.key,
-    required this.cep,
+    required this.viaCepId,
   });
 
-  final String cep;
+  final String viaCepId;
 
   final ViaCepService viaCepService = ViaCepService();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: viaCepService.getViaCep(cep),
+      future: viaCepService.getViaCep(viaCepId),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,

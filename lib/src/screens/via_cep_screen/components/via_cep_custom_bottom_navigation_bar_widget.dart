@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
+
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
+
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
@@ -26,7 +30,17 @@ class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                navigationFadeTransition(
+                  context,
+                  () {
+                    return ViaCepFormScreen(
+                      formType: 'update',
+                      viaCepId: viaCepId,
+                    );
+                  },
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: const EdgeInsets.symmetric(

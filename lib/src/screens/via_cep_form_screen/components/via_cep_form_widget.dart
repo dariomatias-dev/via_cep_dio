@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
+import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_fields_widget.dart';
@@ -16,16 +17,7 @@ class ViaCepFormWidget extends StatelessWidget {
     required this.screenContext,
     required this.formType,
     this.viaCepId,
-    required this.localidadeFieldController,
-    required this.logradouroFieldController,
-    required this.bairroFieldController,
-    required this.complementoFieldController,
-    required this.cepFieldController,
-    required this.ufFieldController,
-    required this.ibgeFieldController,
-    required this.giaFieldController,
-    required this.dddFieldController,
-    required this.siafiFieldController,
+    required this.formFieldsProperties,
   });
 
   final ViaCepService viaCepService = ViaCepService();
@@ -33,19 +25,20 @@ class ViaCepFormWidget extends StatelessWidget {
   final BuildContext screenContext;
   final String formType;
   final String? viaCepId;
-
-  final TextEditingController localidadeFieldController;
-  final TextEditingController logradouroFieldController;
-  final TextEditingController bairroFieldController;
-  final TextEditingController complementoFieldController;
-  final TextEditingController cepFieldController;
-  final TextEditingController ufFieldController;
-  final TextEditingController ibgeFieldController;
-  final TextEditingController giaFieldController;
-  final TextEditingController dddFieldController;
-  final TextEditingController siafiFieldController;
+  final List<FormFieldPropertyModel> formFieldsProperties;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _fieldValue(String fieldTitle) {
+    return formFieldsProperties
+        .firstWhere(
+          (formFieldsProperty) {
+            return formFieldsProperty.fieldTitle.toLowerCase() == fieldTitle;
+          },
+        )
+        .fieldController
+        .text;
+  }
 
   String removeNonDigits(String input) {
     return input.replaceAll(
@@ -79,16 +72,7 @@ class ViaCepFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: 20.0),
             ViaCepFormFielsdWidget(
-              localidadeFieldController: localidadeFieldController,
-              logradouroFieldController: logradouroFieldController,
-              bairroFieldController: bairroFieldController,
-              complementoFieldController: complementoFieldController,
-              cepFieldController: cepFieldController,
-              ufFieldController: ufFieldController,
-              ibgeFieldController: ibgeFieldController,
-              giaFieldController: giaFieldController,
-              dddFieldController: dddFieldController,
-              siafiFieldController: siafiFieldController,
+              formFieldsProperties: formFieldsProperties,
             ),
             DefaultButtonWidget(
               text: formType == 'creation' ? 'ADICIONAR' : 'ATUALIZAR',
@@ -97,18 +81,18 @@ class ViaCepFormWidget extends StatelessWidget {
                   Navigator.pop(screenContext);
 
                   final ViaCepModel viaCep = ViaCepModel(
-                    cep: cepFieldController.text,
-                    logradouro: logradouroFieldController.text,
-                    complemento: complementoFieldController.text,
-                    bairro: bairroFieldController.text,
-                    localidade: localidadeFieldController.text,
-                    uf: ufFieldController.text,
-                    ibge: int.parse(removeNonDigits(ibgeFieldController.text)),
-                    gia: giaFieldController.text.isNotEmpty
-                        ? int.parse(giaFieldController.text)
+                    cep: _fieldValue('cep'),
+                    logradouro: _fieldValue('logradouro'),
+                    complemento: _fieldValue('complemento'),
+                    bairro: _fieldValue('bairro'),
+                    localidade: _fieldValue('localidade'),
+                    uf: _fieldValue('uf'),
+                    ibge: int.parse(removeNonDigits(_fieldValue('ibge'))),
+                    gia: _fieldValue('gia').isNotEmpty
+                        ? int.parse(_fieldValue('gia'))
                         : null,
-                    ddd: int.parse(removeNonDigits(dddFieldController.text)),
-                    siafi: int.parse(siafiFieldController.text),
+                    ddd: int.parse(removeNonDigits(_fieldValue('ddd'))),
+                    siafi: int.parse(_fieldValue('siafi')),
                   );
 
                   if (formType == 'creation') {

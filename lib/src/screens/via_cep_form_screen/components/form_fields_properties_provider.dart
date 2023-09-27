@@ -8,30 +8,6 @@ import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
 class FormFieldsPropertiesProvider {
-  FormFieldsPropertiesProvider({
-    required this.localidadeFieldController,
-    required this.logradouroFieldController,
-    required this.bairroFieldController,
-    required this.complementoFieldController,
-    required this.cepFieldController,
-    required this.ufFieldController,
-    required this.ibgeFieldController,
-    required this.giaFieldController,
-    required this.dddFieldController,
-    required this.siafiFieldController,
-  });
-
-  final TextEditingController localidadeFieldController;
-  final TextEditingController logradouroFieldController;
-  final TextEditingController bairroFieldController;
-  final TextEditingController complementoFieldController;
-  final TextEditingController cepFieldController;
-  final TextEditingController ufFieldController;
-  final TextEditingController ibgeFieldController;
-  final TextEditingController giaFieldController;
-  final TextEditingController dddFieldController;
-  final TextEditingController siafiFieldController;
-
   FilteringTextInputFormatter get _lettersOnlyFormatter =>
       FilteringTextInputFormatter.allow(
         RegexHelper.alphabeticAndAccentPattern,
@@ -42,7 +18,7 @@ class FormFieldsPropertiesProvider {
         RegexHelper.hyphenAndDot,
       );
 
-  void _handleUfFieldChange() {
+  void _handleUfFieldChange(TextEditingController ufFieldController) {
     final value = ufFieldController.text;
     final formattedValue = value.toUpperCase();
     ufFieldController.value = ufFieldController.value.copyWith(
@@ -53,7 +29,7 @@ class FormFieldsPropertiesProvider {
     );
   }
 
-  void _handleIbgeFieldChange() {
+  void _handleIbgeFieldChange(TextEditingController ibgeFieldController) {
     final String ibgeFieldValue = ibgeFieldController.text.replaceAll(
       RegexHelper.nonDigit,
       '',
@@ -69,7 +45,18 @@ class FormFieldsPropertiesProvider {
     );
   }
 
-  List<FormFieldPropertyModel> get() {
+  List<FormFieldPropertyModel> get(
+    final TextEditingController localidadeFieldController,
+    final TextEditingController logradouroFieldController,
+    final TextEditingController bairroFieldController,
+    final TextEditingController complementoFieldController,
+    final TextEditingController cepFieldController,
+    final TextEditingController ufFieldController,
+    final TextEditingController ibgeFieldController,
+    final TextEditingController giaFieldController,
+    final TextEditingController dddFieldController,
+    final TextEditingController siafiFieldController,
+  ) {
     return [
       FormFieldPropertyModel(
         fieldTitle: 'Localidade',
@@ -109,7 +96,7 @@ class FormFieldsPropertiesProvider {
         hintText: 'SP',
         fieldController: ufFieldController,
         maxLength: 2,
-        onChanged: (_) => _handleUfFieldChange(),
+        onChanged: (_) => _handleUfFieldChange(ufFieldController),
         inputFormatter: _lettersOnlyFormatter,
         validation: (String? value) => value != null ? value.length < 2 : false,
       ),
@@ -119,7 +106,7 @@ class FormFieldsPropertiesProvider {
         fieldController: ibgeFieldController,
         maxLength: 9,
         keyboardType: TextInputType.number,
-        onChanged: (_) => _handleIbgeFieldChange(),
+        onChanged: (_) => _handleIbgeFieldChange(ibgeFieldController),
       ),
       FormFieldPropertyModel(
         fieldTitle: 'GIA',

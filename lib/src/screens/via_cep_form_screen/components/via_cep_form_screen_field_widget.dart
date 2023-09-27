@@ -1,42 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
 class ViaCepFormFieldWidget extends StatelessWidget {
   const ViaCepFormFieldWidget({
     super.key,
-    required this.fieldTitle,
-    required this.hintText,
-    required this.fieldController,
-    this.isRequired = true,
-    this.maxLength,
-    this.mask,
-    this.keyboardType,
-    this.onChanged,
-    this.inputFormatter,
-    this.validation,
+    required this.formFieldsProperty,
   });
 
-  final String fieldTitle;
-  final String hintText;
-  final TextEditingController fieldController;
-  final bool isRequired;
-  final int? maxLength;
-  final MaskTextInputFormatter? mask;
-  final TextInputType? keyboardType;
-  final void Function(String)? onChanged;
-  final TextInputFormatter? inputFormatter;
-  final bool Function(String?)? validation;
+  final FormFieldPropertyModel formFieldsProperty;
 
   List<TextInputFormatter> get _inputFormatters => [
-        if (mask != null) mask!,
-        if (inputFormatter != null) inputFormatter!,
+        if (formFieldsProperty.mask != null) formFieldsProperty.mask!,
+        if (formFieldsProperty.inputFormatter != null)
+          formFieldsProperty.inputFormatter!,
       ];
 
   @override
   Widget build(BuildContext context) {
+    final FormFieldPropertyModel(
+      :fieldTitle,
+      :hintText,
+      :fieldController,
+      :isRequired,
+      :maxLength,
+      :keyboardType,
+      :onChanged,
+      :validation,
+    ) = formFieldsProperty;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,7 +63,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
           validator: (value) {
             if (value == null || (isRequired && value.trim().isEmpty)) {
               return 'Insira algum valor';
-            } else if (validation != null ? validation!(value.trim()) : false) {
+            } else if (validation != null ? validation(value.trim()) : false) {
               return 'Insira um $fieldTitle válido';
             }
 

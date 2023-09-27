@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 
+import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider.dart';
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
@@ -26,6 +28,8 @@ class ViaCepFormScreen extends StatefulWidget {
 
 class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
   final ViaCepService _viaCepService = ViaCepService();
+  final FormFieldsPropertiesProvider formFieldsPropertiesProvider =
+      FormFieldsPropertiesProvider();
 
   final TextEditingController _localidadeFieldController =
       TextEditingController();
@@ -53,6 +57,21 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
         _dddFieldController,
         _siafiFieldController,
       ];
+
+  List<FormFieldPropertyModel> formFieldsProperties() {
+    return formFieldsPropertiesProvider.get(
+      _localidadeFieldController,
+      _logradouroFieldController,
+      _bairroFieldController,
+      _complementoFieldController,
+      _cepFieldController,
+      _ufFieldController,
+      _ibgeFieldController,
+      _giaFieldController,
+      _dddFieldController,
+      _siafiFieldController,
+    );
+  }
 
   bool _hasValuesInFields() {
     return fieldControllers.any((fieldController) {
@@ -165,16 +184,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
           screenContext: context,
           formType: widget.formType,
           viaCepId: widget.viaCepId,
-          localidadeFieldController: _localidadeFieldController,
-          logradouroFieldController: _logradouroFieldController,
-          bairroFieldController: _bairroFieldController,
-          complementoFieldController: _complementoFieldController,
-          cepFieldController: _cepFieldController,
-          ufFieldController: _ufFieldController,
-          ibgeFieldController: _ibgeFieldController,
-          giaFieldController: _giaFieldController,
-          dddFieldController: _dddFieldController,
-          siafiFieldController: _siafiFieldController,
+          formFieldsProperties: formFieldsProperties(),
         ),
       ),
     );

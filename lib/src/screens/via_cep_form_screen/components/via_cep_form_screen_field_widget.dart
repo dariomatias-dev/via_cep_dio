@@ -75,6 +75,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
             return null;
           },
           maxLength: maxLength,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
               vertical: 18.0,

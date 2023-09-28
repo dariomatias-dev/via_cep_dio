@@ -36,5 +36,5 @@ class FormFieldPropertyModel {
     int? exactCharacterCount,
   ) validateValue;
   final FocusNode inputFocusNode;
-  final VoidCallback handleOnDone;
+  final void Function(String fieldName) handleOnDone;
 }

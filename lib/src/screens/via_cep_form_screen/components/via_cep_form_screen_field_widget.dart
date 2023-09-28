@@ -8,15 +8,15 @@ import 'package:via_cep_dio/src/utils/input_border_style.dart';
 class ViaCepFormFieldWidget extends StatelessWidget {
   const ViaCepFormFieldWidget({
     super.key,
-    required this.formFieldsProperty,
+    required this.formFieldProperties,
   });
 
-  final FormFieldPropertyModel formFieldsProperty;
+  final FormFieldPropertyModel formFieldProperties;
 
   List<TextInputFormatter> get _inputFormatters => [
-        if (formFieldsProperty.mask != null) formFieldsProperty.mask!,
-        if (formFieldsProperty.inputFormatter != null)
-          formFieldsProperty.inputFormatter!,
+        if (formFieldProperties.mask != null) formFieldProperties.mask!,
+        if (formFieldProperties.inputFormatter != null)
+          formFieldProperties.inputFormatter!,
       ];
 
   @override
@@ -32,7 +32,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
       :exactCharacterCount,
       :validateValue,
       :handleOnDone,
-    ) = formFieldsProperty;
+    ) = formFieldProperties;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
         const SizedBox(height: 2.0),
         TextFormField(
           controller: fieldController,
-          focusNode: formFieldsProperty.inputFocusNode,
+          focusNode: formFieldProperties.inputFocusNode,
           inputFormatters:
               _inputFormatters.isNotEmpty ? _inputFormatters : null,
           keyboardType: keyboardType,

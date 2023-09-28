@@ -20,13 +20,7 @@ class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      for (FormFieldPropertyModel formFieldsProperty
-          in widget.formFieldsProperties) {
-        if (formFieldsProperty.fieldTitle.toLowerCase() == 'localidade') {
-          formFieldsProperty.inputFocusNode.requestFocus();
-          break;
-        }
-      }
+      widget.formFieldsProperties[0].inputFocusNode.requestFocus();
     });
     super.initState();
   }
@@ -38,15 +32,15 @@ class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.formFieldsProperties.length,
       itemBuilder: (context, index) {
-        final FormFieldPropertyModel formFieldsProperty =
+        final FormFieldPropertyModel formFieldProperties =
             widget.formFieldsProperties[index];
 
         return Padding(
           padding: EdgeInsets.only(
-            bottom: formFieldsProperty.maxLength != null ? 0.0 : 10.0,
+            bottom: formFieldProperties.maxLength != null ? 0.0 : 10.0,
           ),
           child: ViaCepFormFieldWidget(
-            formFieldsProperty: formFieldsProperty,
+            formFieldProperties: formFieldProperties,
           ),
         );
       },

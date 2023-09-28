@@ -13,8 +13,10 @@ class FormFieldPropertyModel {
     this.keyboardType,
     this.onChanged,
     this.inputFormatter,
-    this.validation,
+    this.exactCharacterCount,
+    required this.validateValue,
     required this.inputFocusNode,
+    required this.handleOnDone,
   });
 
   final String fieldTitle;
@@ -26,6 +28,13 @@ class FormFieldPropertyModel {
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
   final TextInputFormatter? inputFormatter;
-  final bool Function(String?)? validation;
+  final int? exactCharacterCount;
+  final String? Function(
+    String fieldTitle,
+    bool isRequired,
+    String? value,
+    int? exactCharacterCount,
+  ) validateValue;
   final FocusNode inputFocusNode;
+  final VoidCallback handleOnDone;
 }

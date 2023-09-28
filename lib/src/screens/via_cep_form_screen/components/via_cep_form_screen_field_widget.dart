@@ -29,7 +29,9 @@ class ViaCepFormFieldWidget extends StatelessWidget {
       :maxLength,
       :keyboardType,
       :onChanged,
-      :validation,
+      :exactCharacterCount,
+      :validateValue,
+      :handleOnDone,
     ) = formFieldsProperty;
 
     return Column(
@@ -61,15 +63,12 @@ class ViaCepFormFieldWidget extends StatelessWidget {
           inputFormatters:
               _inputFormatters.isNotEmpty ? _inputFormatters : null,
           keyboardType: keyboardType,
-          validator: (value) {
-            if (value == null || (isRequired && value.trim().isEmpty)) {
-              return 'Insira algum valor';
-            } else if (validation != null ? validation(value.trim()) : false) {
-              return 'Insira um $fieldTitle válido';
-            }
-
-            return null;
-          },
+          validator: (value) => validateValue(
+            fieldTitle,
+            isRequired,
+            value,
+            exactCharacterCount,
+          ),
           maxLength: maxLength,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
@@ -91,10 +90,22 @@ class ViaCepFormFieldWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
           ),
+          onChanged: onChanged,
+          onEditingComplete: () {
+            final validationResult = validateValue(
+              fieldTitle,
+              isRequired,
+              fieldController.text,
+              exactCharacterCount,
+            );
+
+            if (validationResult == null) {
+              handleOnDone();
+            }
+          },
           onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
-          onChanged: onChanged,
         ),
       ],
     );

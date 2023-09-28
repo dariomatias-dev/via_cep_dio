@@ -6,6 +6,7 @@ import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/auto_focus_and_submit_on_done.dart';
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_ibge_field_change.dart';
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_uf_field_change.dart';
 
@@ -31,6 +32,37 @@ class FormFieldsPropertiesProvider {
         RegexHelper.hyphenAndDot,
       );
 
+  String? _validateValue(
+    String fieldTitle,
+    bool isRequired,
+    String? value,
+    int? exactCharacterCount,
+  ) {
+    if (value == null || (isRequired && value.trim().isEmpty)) {
+      return 'Insira algum valor';
+    } else if ((exactCharacterCount != null
+        ? (value.trim()).length < exactCharacterCount
+        : false)) {
+      return 'Insira um $fieldTitle válido';
+    }
+
+    return null;
+  }
+
+  void _handleOnDone() => autoFocusAndSubmitOnDone(
+        cepFocusNode,
+        logradouroFocusNode,
+        complementoFocusNode,
+        bairroFocusNode,
+        localidadeFocusNode,
+        ufFocusNode,
+        ibgeFocusNode,
+        giaFocusNode,
+        dddFocusNode,
+        siafiFocusNode,
+        _validateValue,
+      );
+
   List<FormFieldPropertyModel> get(
     final TextEditingController localidadeFieldController,
     final TextEditingController logradouroFieldController,
@@ -49,28 +81,36 @@ class FormFieldsPropertiesProvider {
         hintText: 'São Paulo',
         fieldController: localidadeFieldController,
         inputFormatter: _lettersOnlyFormatter,
+        validateValue: _validateValue,
         inputFocusNode: localidadeFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Logradouro',
         hintText: 'Praça da Sé',
         fieldController: logradouroFieldController,
         inputFormatter: _lettersOnlyFormatter,
+        validateValue: _validateValue,
         inputFocusNode: logradouroFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Bairro',
         hintText: 'Sé',
         fieldController: bairroFieldController,
         inputFormatter: _lettersOnlyFormatter,
+        validateValue: _validateValue,
         inputFocusNode: bairroFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Complemento',
         hintText: 'lado ímpar',
         fieldController: complementoFieldController,
         isRequired: false,
+        validateValue: _validateValue,
         inputFocusNode: complementoFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'CEP',
@@ -79,8 +119,10 @@ class FormFieldsPropertiesProvider {
         maxLength: 9,
         mask: masksHelper.cep,
         keyboardType: TextInputType.number,
-        validation: (String? value) => value != null ? value.length < 9 : false,
+        exactCharacterCount: 9,
+        validateValue: _validateValue,
         inputFocusNode: cepFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'UF',
@@ -89,8 +131,10 @@ class FormFieldsPropertiesProvider {
         maxLength: 2,
         onChanged: (_) => handleUfFieldChange(ufFieldController),
         inputFormatter: _lettersOnlyFormatter,
-        validation: (String? value) => value != null ? value.length < 2 : false,
+        exactCharacterCount: 2,
+        validateValue: _validateValue,
         inputFocusNode: ufFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'IBGE',
@@ -99,7 +143,9 @@ class FormFieldsPropertiesProvider {
         maxLength: 9,
         keyboardType: TextInputType.number,
         onChanged: (_) => handleIbgeFieldChange(ibgeFieldController),
+        validateValue: _validateValue,
         inputFocusNode: ibgeFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'GIA',
@@ -108,7 +154,9 @@ class FormFieldsPropertiesProvider {
         isRequired: false,
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
+        validateValue: _validateValue,
         inputFocusNode: giaFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'DDD',
@@ -117,8 +165,10 @@ class FormFieldsPropertiesProvider {
         maxLength: 3,
         mask: masksHelper.ddd,
         keyboardType: TextInputType.number,
-        validation: (String? value) => value != null ? value.length < 3 : false,
+        exactCharacterCount: 3,
+        validateValue: _validateValue,
         inputFocusNode: dddFocusNode,
+        handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Siafi',
@@ -126,7 +176,9 @@ class FormFieldsPropertiesProvider {
         fieldController: siafiFieldController,
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
+        validateValue: _validateValue,
         inputFocusNode: siafiFocusNode,
+        handleOnDone: _handleOnDone,
       ),
     ];
   }

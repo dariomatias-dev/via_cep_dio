@@ -1,22 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
 void autoFocusAndSubmitOnDone(
-  final FocusNode cepFocusNode,
-  final FocusNode logradouroFocusNode,
-  final FocusNode complementoFocusNode,
-  final FocusNode bairroFocusNode,
-  final FocusNode localidadeFocusNode,
-  final FocusNode ufFocusNode,
-  final FocusNode ibgeFocusNode,
-  final FocusNode giaFocusNode,
-  final FocusNode dddFocusNode,
-  final FocusNode siafiFocusNode,
-  final String? Function(
-    String fieldTitle,
-    bool isRequired,
-    String? value,
-    int? exactCharacterCount,
-  ) validateValue,
+  final List<FormFieldPropertyModel> formFieldsProperties,
 ) {
   print('chamou');
 }

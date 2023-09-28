@@ -11,6 +11,30 @@ import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fiel
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_uf_field_change.dart';
 
 class FormFieldsPropertiesProvider {
+  FormFieldsPropertiesProvider({
+    required this.localidadeFieldController,
+    required this.logradouroFieldController,
+    required this.bairroFieldController,
+    required this.complementoFieldController,
+    required this.cepFieldController,
+    required this.ufFieldController,
+    required this.ibgeFieldController,
+    required this.giaFieldController,
+    required this.dddFieldController,
+    required this.siafiFieldController,
+  });
+
+  final TextEditingController localidadeFieldController;
+  final TextEditingController logradouroFieldController;
+  final TextEditingController bairroFieldController;
+  final TextEditingController complementoFieldController;
+  final TextEditingController cepFieldController;
+  final TextEditingController ufFieldController;
+  final TextEditingController ibgeFieldController;
+  final TextEditingController giaFieldController;
+  final TextEditingController dddFieldController;
+  final TextEditingController siafiFieldController;
+
   final FocusNode cepFocusNode = FocusNode();
   final FocusNode logradouroFocusNode = FocusNode();
   final FocusNode complementoFocusNode = FocusNode();
@@ -39,7 +63,7 @@ class FormFieldsPropertiesProvider {
     int? exactCharacterCount,
   ) {
     if (value == null || (isRequired && value.trim().isEmpty)) {
-      return 'Insira algum valor';
+      return 'Insira um valor';
     } else if ((exactCharacterCount != null
         ? (value.trim()).length < exactCharacterCount
         : false)) {
@@ -49,32 +73,9 @@ class FormFieldsPropertiesProvider {
     return null;
   }
 
-  void _handleOnDone() => autoFocusAndSubmitOnDone(
-        cepFocusNode,
-        logradouroFocusNode,
-        complementoFocusNode,
-        bairroFocusNode,
-        localidadeFocusNode,
-        ufFocusNode,
-        ibgeFocusNode,
-        giaFocusNode,
-        dddFocusNode,
-        siafiFocusNode,
-        _validateValue,
-      );
+  void _handleOnDone() => autoFocusAndSubmitOnDone(get());
 
-  List<FormFieldPropertyModel> get(
-    final TextEditingController localidadeFieldController,
-    final TextEditingController logradouroFieldController,
-    final TextEditingController bairroFieldController,
-    final TextEditingController complementoFieldController,
-    final TextEditingController cepFieldController,
-    final TextEditingController ufFieldController,
-    final TextEditingController ibgeFieldController,
-    final TextEditingController giaFieldController,
-    final TextEditingController dddFieldController,
-    final TextEditingController siafiFieldController,
-  ) {
+  List<FormFieldPropertyModel> get() {
     return [
       FormFieldPropertyModel(
         fieldTitle: 'Localidade',

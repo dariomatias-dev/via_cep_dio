@@ -28,7 +28,7 @@ class ViaCepFormScreen extends StatefulWidget {
 
 class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
   final ViaCepService _viaCepService = ViaCepService();
-  final FormFieldsPropertiesProvider formFieldsPropertiesProvider =
+  final FormFieldsPropertiesProvider _formFieldsPropertiesProvider =
       FormFieldsPropertiesProvider();
 
   final TextEditingController _localidadeFieldController =
@@ -58,8 +58,8 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
         _siafiFieldController,
       ];
 
-  List<FormFieldPropertyModel> formFieldsProperties() {
-    return formFieldsPropertiesProvider.get(
+  List<FormFieldPropertyModel> _formFieldsProperties() {
+    return _formFieldsPropertiesProvider.get(
       _localidadeFieldController,
       _logradouroFieldController,
       _bairroFieldController,
@@ -155,6 +155,9 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
     _giaFieldController.dispose();
     _dddFieldController.dispose();
     _siafiFieldController.dispose();
+
+    _formFieldsPropertiesProvider.disposeFocusNodes();
+
     super.dispose();
   }
 
@@ -184,7 +187,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
           screenContext: context,
           formType: widget.formType,
           viaCepId: widget.viaCepId,
-          formFieldsProperties: formFieldsProperties(),
+          formFieldsProperties: _formFieldsProperties(),
         ),
       ),
     );

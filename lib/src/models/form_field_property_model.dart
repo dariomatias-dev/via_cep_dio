@@ -14,6 +14,7 @@ class FormFieldPropertyModel {
     this.onChanged,
     this.inputFormatter,
     this.validation,
+    required this.inputFocusNode,
   });
 
   final String fieldTitle;
@@ -26,4 +27,5 @@ class FormFieldPropertyModel {
   final void Function(String)? onChanged;
   final TextInputFormatter? inputFormatter;
   final bool Function(String?)? validation;
+  final FocusNode inputFocusNode;
 }

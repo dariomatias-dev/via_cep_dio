@@ -57,6 +57,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
         const SizedBox(height: 2.0),
         TextFormField(
           controller: fieldController,
+          focusNode: formFieldsProperty.inputFocusNode,
           inputFormatters:
               _inputFormatters.isNotEmpty ? _inputFormatters : null,
           keyboardType: keyboardType,

@@ -10,6 +10,17 @@ import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fiel
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_uf_field_change.dart';
 
 class FormFieldsPropertiesProvider {
+  final FocusNode cepFocusNode = FocusNode();
+  final FocusNode logradouroFocusNode = FocusNode();
+  final FocusNode complementoFocusNode = FocusNode();
+  final FocusNode bairroFocusNode = FocusNode();
+  final FocusNode localidadeFocusNode = FocusNode();
+  final FocusNode ufFocusNode = FocusNode();
+  final FocusNode ibgeFocusNode = FocusNode();
+  final FocusNode giaFocusNode = FocusNode();
+  final FocusNode dddFocusNode = FocusNode();
+  final FocusNode siafiFocusNode = FocusNode();
+
   FilteringTextInputFormatter get _lettersOnlyFormatter =>
       FilteringTextInputFormatter.allow(
         RegexHelper.alphabeticAndAccentPattern,
@@ -38,24 +49,28 @@ class FormFieldsPropertiesProvider {
         hintText: 'São Paulo',
         fieldController: localidadeFieldController,
         inputFormatter: _lettersOnlyFormatter,
+        inputFocusNode: localidadeFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Logradouro',
         hintText: 'Praça da Sé',
         fieldController: logradouroFieldController,
         inputFormatter: _lettersOnlyFormatter,
+        inputFocusNode: logradouroFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Bairro',
         hintText: 'Sé',
         fieldController: bairroFieldController,
         inputFormatter: _lettersOnlyFormatter,
+        inputFocusNode: bairroFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Complemento',
         hintText: 'lado ímpar',
         fieldController: complementoFieldController,
         isRequired: false,
+        inputFocusNode: complementoFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'CEP',
@@ -65,6 +80,7 @@ class FormFieldsPropertiesProvider {
         mask: masksHelper.cep,
         keyboardType: TextInputType.number,
         validation: (String? value) => value != null ? value.length < 9 : false,
+        inputFocusNode: cepFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'UF',
@@ -74,6 +90,7 @@ class FormFieldsPropertiesProvider {
         onChanged: (_) => handleUfFieldChange(ufFieldController),
         inputFormatter: _lettersOnlyFormatter,
         validation: (String? value) => value != null ? value.length < 2 : false,
+        inputFocusNode: ufFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'IBGE',
@@ -82,6 +99,7 @@ class FormFieldsPropertiesProvider {
         maxLength: 9,
         keyboardType: TextInputType.number,
         onChanged: (_) => handleIbgeFieldChange(ibgeFieldController),
+        inputFocusNode: ibgeFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'GIA',
@@ -90,6 +108,7 @@ class FormFieldsPropertiesProvider {
         isRequired: false,
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
+        inputFocusNode: giaFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'DDD',
@@ -99,6 +118,7 @@ class FormFieldsPropertiesProvider {
         mask: masksHelper.ddd,
         keyboardType: TextInputType.number,
         validation: (String? value) => value != null ? value.length < 3 : false,
+        inputFocusNode: dddFocusNode,
       ),
       FormFieldPropertyModel(
         fieldTitle: 'Siafi',
@@ -106,7 +126,21 @@ class FormFieldsPropertiesProvider {
         fieldController: siafiFieldController,
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
+        inputFocusNode: siafiFocusNode,
       ),
     ];
+  }
+
+  void disposeFocusNodes() {
+    cepFocusNode.dispose();
+    logradouroFocusNode.dispose();
+    complementoFocusNode.dispose();
+    bairroFocusNode.dispose();
+    localidadeFocusNode.dispose();
+    ufFocusNode.dispose();
+    ibgeFocusNode.dispose();
+    giaFocusNode.dispose();
+    dddFocusNode.dispose();
+    siafiFocusNode.dispose();
   }
 }

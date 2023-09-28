@@ -5,7 +5,7 @@ import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/form_fields_properties_provider.dart';
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';

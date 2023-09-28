@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
-import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
+
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_ibge_field_change.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_uf_field_change.dart';
 
 class FormFieldsPropertiesProvider {
   FilteringTextInputFormatter get _lettersOnlyFormatter =>
@@ -17,33 +19,6 @@ class FormFieldsPropertiesProvider {
       FilteringTextInputFormatter.deny(
         RegexHelper.hyphenAndDot,
       );
-
-  void _handleUfFieldChange(TextEditingController ufFieldController) {
-    final value = ufFieldController.text;
-    final formattedValue = value.toUpperCase();
-    ufFieldController.value = ufFieldController.value.copyWith(
-      text: formattedValue,
-      selection: TextSelection.collapsed(
-        offset: formattedValue.length,
-      ),
-    );
-  }
-
-  void _handleIbgeFieldChange(TextEditingController ibgeFieldController) {
-    final String ibgeFieldValue = ibgeFieldController.text.replaceAll(
-      RegexHelper.nonDigit,
-      '',
-    );
-    final value = ibgeFieldValue.isNotEmpty ? int.parse(ibgeFieldValue) : 0;
-    final formattedValue = value != 0 ? numberFormatBrazilHelper(value) : '';
-
-    ibgeFieldController.value = TextEditingValue(
-      text: formattedValue,
-      selection: TextSelection.collapsed(
-        offset: formattedValue.length,
-      ),
-    );
-  }
 
   List<FormFieldPropertyModel> get(
     final TextEditingController localidadeFieldController,
@@ -96,7 +71,7 @@ class FormFieldsPropertiesProvider {
         hintText: 'SP',
         fieldController: ufFieldController,
         maxLength: 2,
-        onChanged: (_) => _handleUfFieldChange(ufFieldController),
+        onChanged: (_) => handleUfFieldChange(ufFieldController),
         inputFormatter: _lettersOnlyFormatter,
         validation: (String? value) => value != null ? value.length < 2 : false,
       ),
@@ -106,7 +81,7 @@ class FormFieldsPropertiesProvider {
         fieldController: ibgeFieldController,
         maxLength: 9,
         keyboardType: TextInputType.number,
-        onChanged: (_) => _handleIbgeFieldChange(ibgeFieldController),
+        onChanged: (_) => handleIbgeFieldChange(ibgeFieldController),
       ),
       FormFieldPropertyModel(
         fieldTitle: 'GIA',

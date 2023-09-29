@@ -31,6 +31,7 @@ class _HomeScreenBodyContentWidgetState
   final ViaCepService viaCepService = ViaCepService();
 
   int skip = 0;
+  final int limit = 8;
 
   Padding get _cepAddButtonWidget => Padding(
         padding: const EdgeInsets.symmetric(
@@ -104,7 +105,7 @@ class _HomeScreenBodyContentWidgetState
     }
 
     return FutureBuilder(
-      future: viaCepService.getViaCepCardDatas(),
+      future: viaCepService.getViaCepCardDatas(skip, limit),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,
@@ -133,19 +134,23 @@ class _HomeScreenBodyContentWidgetState
               children: [
                 CustomIconButtonWidget(
                   icon: Icons.arrow_back_ios_rounded,
-                  action: () {
-                    if (skip < viaCepCardsData.count) {
-                      skip += 3;
-                    }
-                  },
+                  action: skip >= limit
+                      ? () {
+                          setState(() {
+                            skip -= limit;
+                          });
+                        }
+                      : null,
                 ),
                 CustomIconButtonWidget(
                   icon: Icons.arrow_forward_ios_rounded,
-                  action: () {
-                    if (skip >= 3) {
-                      skip -= 3;
-                    }
-                  },
+                  action: (skip + limit) < viaCepCardsData.count
+                      ? () {
+                          setState(() {
+                            skip += limit;
+                          });
+                        }
+                      : null,
                 ),
               ],
             ),
@@ -165,20 +170,21 @@ class CustomIconButtonWidget extends StatelessWidget {
   });
 
   final IconData icon;
-  final void Function() action;
+  final void Function()? action;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => action(),
+      onPressed: action,
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(1.0),
         backgroundColor: Colors.grey.shade100,
+        padding: const EdgeInsets.all(1.0),
+        disabledBackgroundColor: Colors.grey.shade300,
         shape: const CircleBorder(),
       ),
       child: Icon(
         icon,
-        color: Colors.grey,
+        color: action != null ? Colors.grey.shade400 : Colors.grey.shade100,
       ),
     );
   }

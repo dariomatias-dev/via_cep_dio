@@ -33,9 +33,9 @@ class ViaCepService {
     return null;
   }
 
-  Future<ViaCepCardsDataModel> getViaCepCardDatas() async {
-    //final String queries = 'skip=$skip&limit=8&count=1';
-    final Response response = await dio.get('?$cardFieldKeys&count=1');
+  Future<ViaCepCardsDataModel> getViaCepCardDatas(int skip, int limit) async {
+    final String queries = 'skip=$skip&limit=$limit&count=1';
+    final Response response = await dio.get('?$cardFieldKeys&$queries');
     final Map<String, dynamic> data = response.data;
     final List<dynamic> results = data['results'];
     final int count = data['count'];

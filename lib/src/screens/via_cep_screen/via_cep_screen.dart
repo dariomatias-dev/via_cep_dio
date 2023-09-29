@@ -19,12 +19,12 @@ class ViaCepScreen extends StatelessWidget {
 
   final String viaCepId;
 
-  final ViaCepService viaCepService = ViaCepService();
+  final ViaCepService _viaCepService = ViaCepService();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: viaCepService.getViaCep(viaCepId),
+      future: _viaCepService.getViaCep(viaCepId),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,

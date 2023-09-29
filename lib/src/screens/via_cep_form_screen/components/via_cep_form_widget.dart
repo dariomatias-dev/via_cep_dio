@@ -26,7 +26,7 @@ class ViaCepFormWidget extends StatelessWidget {
   final String? viaCepId;
   final List<FormFieldPropertyModel> formFieldsProperties;
 
-  final ViaCepService viaCepService = ViaCepService();
+  final ViaCepService _viaCepService = ViaCepService();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -41,7 +41,7 @@ class ViaCepFormWidget extends StatelessWidget {
         .text;
   }
 
-  String removeNonDigits(String input) {
+  String _removeNonDigits(String input) {
     return input.replaceAll(
       RegexHelper.nonDigit,
       '',
@@ -100,18 +100,18 @@ class ViaCepFormWidget extends StatelessWidget {
                     bairro: _fieldValue('bairro'),
                     localidade: _fieldValue('localidade'),
                     uf: _fieldValue('uf'),
-                    ibge: int.parse(removeNonDigits(_fieldValue('ibge'))),
+                    ibge: int.parse(_removeNonDigits(_fieldValue('ibge'))),
                     gia: _fieldValue('gia').isNotEmpty
                         ? int.parse(_fieldValue('gia'))
                         : null,
-                    ddd: int.parse(removeNonDigits(_fieldValue('ddd'))),
+                    ddd: int.parse(_removeNonDigits(_fieldValue('ddd'))),
                     siafi: int.parse(_fieldValue('siafi')),
                   );
 
                   if (formType == 'creation') {
-                    viaCepService.createViaCep(viaCep);
+                    _viaCepService.createViaCep(viaCep);
                   } else {
-                    viaCepService.updateViaCep(
+                    _viaCepService.updateViaCep(
                       viaCepId!,
                       viaCep,
                     );

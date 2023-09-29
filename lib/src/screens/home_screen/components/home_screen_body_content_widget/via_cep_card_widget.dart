@@ -17,7 +17,7 @@ class ViaCepCardWidget extends StatelessWidget {
 
   final ViaCepCardModel viaCep;
 
-  final ViaCepService viaCepService = ViaCepService();
+  final ViaCepService _viaCepService = ViaCepService();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class ViaCepCardWidget extends StatelessWidget {
               },
             );
           } else {
-            viaCepService.deleteViaCep(id);
+            _viaCepService.deleteViaCep(id);
           }
         },
         itemBuilder: (context) => <PopupMenuEntry>[

@@ -35,16 +35,16 @@ class FormFieldsPropertiesProvider {
   final TextEditingController dddFieldController;
   final TextEditingController siafiFieldController;
 
-  final FocusNode cepFocusNode = FocusNode();
-  final FocusNode logradouroFocusNode = FocusNode();
-  final FocusNode complementoFocusNode = FocusNode();
-  final FocusNode bairroFocusNode = FocusNode();
-  final FocusNode localidadeFocusNode = FocusNode();
-  final FocusNode ufFocusNode = FocusNode();
-  final FocusNode ibgeFocusNode = FocusNode();
-  final FocusNode giaFocusNode = FocusNode();
-  final FocusNode dddFocusNode = FocusNode();
-  final FocusNode siafiFocusNode = FocusNode();
+  final FocusNode _cepFocusNode = FocusNode();
+  final FocusNode _logradouroFocusNode = FocusNode();
+  final FocusNode _complementoFocusNode = FocusNode();
+  final FocusNode _bairroFocusNode = FocusNode();
+  final FocusNode _localidadeFocusNode = FocusNode();
+  final FocusNode _ufFocusNode = FocusNode();
+  final FocusNode _ibgeFocusNode = FocusNode();
+  final FocusNode _giaFocusNode = FocusNode();
+  final FocusNode _dddFocusNode = FocusNode();
+  final FocusNode _siafiFocusNode = FocusNode();
 
   FilteringTextInputFormatter get _lettersOnlyFormatter =>
       FilteringTextInputFormatter.allow(
@@ -90,7 +90,7 @@ class FormFieldsPropertiesProvider {
         fieldController: localidadeFieldController,
         inputFormatter: _lettersOnlyFormatter,
         validateValue: _validateValue,
-        inputFocusNode: localidadeFocusNode,
+        inputFocusNode: _localidadeFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -99,7 +99,7 @@ class FormFieldsPropertiesProvider {
         fieldController: logradouroFieldController,
         inputFormatter: _lettersOnlyFormatter,
         validateValue: _validateValue,
-        inputFocusNode: logradouroFocusNode,
+        inputFocusNode: _logradouroFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -108,7 +108,7 @@ class FormFieldsPropertiesProvider {
         fieldController: bairroFieldController,
         inputFormatter: _lettersOnlyFormatter,
         validateValue: _validateValue,
-        inputFocusNode: bairroFocusNode,
+        inputFocusNode: _bairroFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -117,7 +117,7 @@ class FormFieldsPropertiesProvider {
         fieldController: complementoFieldController,
         isRequired: false,
         validateValue: _validateValue,
-        inputFocusNode: complementoFocusNode,
+        inputFocusNode: _complementoFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -129,7 +129,7 @@ class FormFieldsPropertiesProvider {
         keyboardType: TextInputType.number,
         exactCharacterCount: 9,
         validateValue: _validateValue,
-        inputFocusNode: cepFocusNode,
+        inputFocusNode: _cepFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -141,7 +141,7 @@ class FormFieldsPropertiesProvider {
         inputFormatter: _lettersOnlyFormatter,
         exactCharacterCount: 2,
         validateValue: _validateValue,
-        inputFocusNode: ufFocusNode,
+        inputFocusNode: _ufFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -152,7 +152,7 @@ class FormFieldsPropertiesProvider {
         keyboardType: TextInputType.number,
         onChanged: (_) => handleIbgeFieldChange(ibgeFieldController),
         validateValue: _validateValue,
-        inputFocusNode: ibgeFocusNode,
+        inputFocusNode: _ibgeFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -163,7 +163,7 @@ class FormFieldsPropertiesProvider {
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
         validateValue: _validateValue,
-        inputFocusNode: giaFocusNode,
+        inputFocusNode: _giaFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -175,7 +175,7 @@ class FormFieldsPropertiesProvider {
         keyboardType: TextInputType.number,
         exactCharacterCount: 3,
         validateValue: _validateValue,
-        inputFocusNode: dddFocusNode,
+        inputFocusNode: _dddFocusNode,
         handleOnDone: _handleOnDone,
       ),
       FormFieldPropertyModel(
@@ -185,22 +185,22 @@ class FormFieldsPropertiesProvider {
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
         validateValue: _validateValue,
-        inputFocusNode: siafiFocusNode,
+        inputFocusNode: _siafiFocusNode,
         handleOnDone: _handleOnDone,
       ),
     ];
   }
 
   void disposeFocusNodes() {
-    cepFocusNode.dispose();
-    logradouroFocusNode.dispose();
-    complementoFocusNode.dispose();
-    bairroFocusNode.dispose();
-    localidadeFocusNode.dispose();
-    ufFocusNode.dispose();
-    ibgeFocusNode.dispose();
-    giaFocusNode.dispose();
-    dddFocusNode.dispose();
-    siafiFocusNode.dispose();
+    _cepFocusNode.dispose();
+    _logradouroFocusNode.dispose();
+    _complementoFocusNode.dispose();
+    _bairroFocusNode.dispose();
+    _localidadeFocusNode.dispose();
+    _ufFocusNode.dispose();
+    _ibgeFocusNode.dispose();
+    _giaFocusNode.dispose();
+    _dddFocusNode.dispose();
+    _siafiFocusNode.dispose();
   }
 }

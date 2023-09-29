@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String cepToSearch = '';
 
-  void updateCepToSearch(String cep) {
+  void _updateCepToSearch(String cep) {
     if (cep != cepToSearch) {
       setState(() {
         cepToSearch = cep;
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return HomeScreenInheritedWidget(
       cepToSearch: cepToSearch,
-      updateCepToSearch: updateCepToSearch,
+      updateCepToSearch: _updateCepToSearch,
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,

@@ -32,7 +32,7 @@ class _HomeScreenBodyContentWidgetState
   final ViaCepService viaCepService = ViaCepService();
 
   int skip = 0;
-  final int limit = 8;
+  final int _limit = 8;
 
   Padding get _cepAddButtonWidget => Padding(
         padding: const EdgeInsets.symmetric(
@@ -106,7 +106,7 @@ class _HomeScreenBodyContentWidgetState
     }
 
     return FutureBuilder(
-      future: viaCepService.getViaCepCardDatas(skip, limit),
+      future: viaCepService.getViaCepCardDatas(skip, _limit),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,
@@ -160,26 +160,26 @@ class _HomeScreenBodyContentWidgetState
                 );
               }).toList(),
             ),
-            if (viaCepCardsData.count > limit)
+            if (viaCepCardsData.count > _limit)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   PaginationButtonWidget(
                     icon: Icons.arrow_back_ios_rounded,
-                    action: skip >= limit
+                    action: skip >= _limit
                         ? () {
                             setState(() {
-                              skip -= limit;
+                              skip -= _limit;
                             });
                           }
                         : null,
                   ),
                   PaginationButtonWidget(
                     icon: Icons.arrow_forward_ios_rounded,
-                    action: (skip + limit) < viaCepCardsData.count
+                    action: (skip + _limit) < viaCepCardsData.count
                         ? () {
                             setState(() {
-                              skip += limit;
+                              skip += _limit;
                             });
                           }
                         : null,

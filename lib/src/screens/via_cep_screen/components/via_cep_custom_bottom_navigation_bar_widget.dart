@@ -16,7 +16,7 @@ class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
   final BuildContext screenContext;
   final String viaCepId;
 
-  final ViaCepService viaCepService = ViaCepService();
+  final ViaCepService _viaCepService = ViaCepService();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.pop(screenContext);
-                viaCepService.deleteViaCep(
+                _viaCepService.deleteViaCep(
                   viaCepId,
                 );
               },

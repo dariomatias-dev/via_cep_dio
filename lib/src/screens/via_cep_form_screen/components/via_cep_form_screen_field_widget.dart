@@ -18,7 +18,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
   final ValueNotifier<String?> fieldErrorNotifier =
       ValueNotifier<String?>(null);
 
-  String? validateFormFieldValue({bool shouldUpdateValidValue = true}) {
+  String? _validateFormFieldValue({bool shouldUpdateValidValue = true}) {
     final FormFieldPropertyModel(
       :validateValue,
       :fieldTitle,
@@ -114,7 +114,7 @@ class ViaCepFormFieldWidget extends StatelessWidget {
                 ),
               ),
               validator: (value) {
-                validateFormFieldValue(
+                _validateFormFieldValue(
                   shouldUpdateValidValue: false,
                 );
                 return null;
@@ -122,10 +122,10 @@ class ViaCepFormFieldWidget extends StatelessWidget {
               onChanged: (value) {
                 if (onChanged != null) onChanged(value);
 
-                validateFormFieldValue();
+                _validateFormFieldValue();
               },
               onEditingComplete: () {
-                final validationResult = validateFormFieldValue();
+                final validationResult = _validateFormFieldValue();
 
                 if (validationResult == null) {
                   handleOnDone(

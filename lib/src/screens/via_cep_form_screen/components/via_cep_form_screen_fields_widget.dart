@@ -25,6 +25,9 @@ class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
     super.initState();
   }
 
+  List<FormFieldPropertyModel> get getFormFieldProperties =>
+      widget.formFieldsProperties;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -33,7 +36,7 @@ class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
       itemCount: widget.formFieldsProperties.length,
       itemBuilder: (context, index) {
         final FormFieldPropertyModel formFieldProperties =
-            widget.formFieldsProperties[index];
+            getFormFieldProperties[index];
 
         return Padding(
           padding: EdgeInsets.only(
@@ -41,6 +44,7 @@ class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
           ),
           child: ViaCepFormFieldWidget(
             formFieldProperties: formFieldProperties,
+            getFormFieldProperties: getFormFieldProperties,
           ),
         );
       },

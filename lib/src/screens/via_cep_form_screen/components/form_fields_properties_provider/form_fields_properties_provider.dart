@@ -73,7 +73,14 @@ class FormFieldsPropertiesProvider {
     return null;
   }
 
-  void _handleOnDone(String fieldTitle) => autoFocusOnDone(fieldTitle, get());
+  void _handleOnDone(
+    String fieldTitle,
+    List<FormFieldPropertyModel> getFormFieldProperties,
+  ) =>
+      autoFocusOnDone(
+        fieldTitle,
+        getFormFieldProperties,
+      );
 
   List<FormFieldPropertyModel> get() {
     return [

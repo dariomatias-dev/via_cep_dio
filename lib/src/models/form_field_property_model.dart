@@ -14,6 +14,7 @@ class FormFieldPropertyModel {
     this.onChanged,
     this.inputFormatter,
     this.exactCharacterCount,
+    this.validValue = false,
     required this.validateValue,
     required this.inputFocusNode,
     required this.handleOnDone,
@@ -29,12 +30,20 @@ class FormFieldPropertyModel {
   final void Function(String)? onChanged;
   final TextInputFormatter? inputFormatter;
   final int? exactCharacterCount;
+  bool validValue;
   final String? Function(
-    String fieldTitle,
-    bool isRequired,
-    String? value,
-    int? exactCharacterCount,
+    String,
+    bool,
+    String?,
+    int?,
   ) validateValue;
   final FocusNode inputFocusNode;
-  final void Function(String fieldName) handleOnDone;
+  final void Function(
+    String,
+    List<FormFieldPropertyModel>,
+  ) handleOnDone;
+
+  setValidValue(bool value) {
+    validValue = value;
+  }
 }

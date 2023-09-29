@@ -5,20 +5,17 @@ import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
-class ViaCepFormFieldWidget extends StatefulWidget {
-  const ViaCepFormFieldWidget({
+class ViaCepFormFieldWidget extends StatelessWidget {
+  ViaCepFormFieldWidget({
     super.key,
     required this.formFieldProperties,
+    required this.getFormFieldProperties,
   });
 
   final FormFieldPropertyModel formFieldProperties;
+  final List<FormFieldPropertyModel> getFormFieldProperties;
 
-  @override
-  State<ViaCepFormFieldWidget> createState() => _ViaCepFormFieldWidgetState();
-}
-
-class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
-  ValueNotifier<String?> fieldErrorNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> fieldErrorNotifier = ValueNotifier<String?>(null);
 
   String? validateFormFieldValue() {
     final FormFieldPropertyModel(
@@ -27,7 +24,8 @@ class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
       :isRequired,
       :fieldController,
       :exactCharacterCount,
-    ) = widget.formFieldProperties;
+      :setValidValue,
+    ) = formFieldProperties;
 
     final validationResult = validateValue(
       fieldTitle,
@@ -36,15 +34,17 @@ class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
       exactCharacterCount,
     );
 
+    setValidValue(validationResult == null);
+
     fieldErrorNotifier.value = validationResult;
     return validationResult;
   }
 
   List<TextInputFormatter> get _inputFormatters => [
-        if (widget.formFieldProperties.mask != null)
-          widget.formFieldProperties.mask!,
-        if (widget.formFieldProperties.inputFormatter != null)
-          widget.formFieldProperties.inputFormatter!,
+        if (formFieldProperties.mask != null)
+          formFieldProperties.mask!,
+        if (formFieldProperties.inputFormatter != null)
+          formFieldProperties.inputFormatter!,
       ];
 
   @override
@@ -58,7 +58,7 @@ class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
       :keyboardType,
       :onChanged,
       :handleOnDone,
-    ) = widget.formFieldProperties;
+    ) = formFieldProperties;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +88,7 @@ class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
           builder: (context, child) {
             return TextFormField(
               controller: fieldController,
-              focusNode: widget.formFieldProperties.inputFocusNode,
+              focusNode: formFieldProperties.inputFocusNode,
               inputFormatters:
                   _inputFormatters.isNotEmpty ? _inputFormatters : null,
               keyboardType: keyboardType,
@@ -122,7 +122,10 @@ class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
                 final validationResult = validateFormFieldValue();
 
                 if (validationResult == null) {
-                  handleOnDone(fieldTitle);
+                  handleOnDone(
+                    fieldTitle,
+                    getFormFieldProperties,
+                  );
                 }
               },
               onTapOutside: (_) {

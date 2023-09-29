@@ -33,24 +33,28 @@ class ViaCepService {
     return null;
   }
 
-  Future<ViaCepCardsDataModel> getViaCepCardDatas(int skip, int limit) async {
-    final String queries = 'skip=$skip&limit=$limit&count=1';
-    final Response response = await dio.get('?$cardFieldKeys&$queries');
-    final Map<String, dynamic> data = response.data;
-    final List<dynamic> results = data['results'];
-    final int count = data['count'];
-    final List<ViaCepCardModel> viaCepCardDatas = results.map((
-      viaCepCardsJson,
-    ) {
-      return ViaCepCardModel.fromMap(
+  Future<ViaCepCardsDataModel?> getViaCepCardDatas(int skip, int limit) async {
+    try {
+      final String queries = 'skip=$skip&limit=$limit&count=1';
+      final Response response = await dio.get('?$cardFieldKeys&$queries');
+      final Map<String, dynamic> data = response.data;
+      final List<dynamic> results = data['results'];
+      final int count = data['count'];
+      final List<ViaCepCardModel> viaCepCardDatas = results.map((
         viaCepCardsJson,
-      );
-    }).toList();
+      ) {
+        return ViaCepCardModel.fromMap(
+          viaCepCardsJson,
+        );
+      }).toList();
 
-    return ViaCepCardsDataModel(
-      results: viaCepCardDatas,
-      count: count,
-    );
+      return ViaCepCardsDataModel(
+        results: viaCepCardDatas,
+        count: count,
+      );
+    } catch (err) {
+      return ViaCepCardsDataModel.empty();
+    }
   }
 
   Future<ViaCepModel> getViaCep(String viaCepId) async {

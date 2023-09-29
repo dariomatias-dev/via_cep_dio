@@ -74,7 +74,7 @@ class _HomeScreenBodyContentWidgetState
       return FutureBuilder(
         future: viaCepService.getViaCepCardData(cepToSearch),
         builder: (context, snapshot) {
-          const String nullDataMessage = 'CEP não encontrado';
+          const String nullDataMessage = 'CEP não encontrado.';
 
           final Widget? verificationResult = verificationsHelper(
             snapshot.connectionState,
@@ -117,6 +117,36 @@ class _HomeScreenBodyContentWidgetState
         }
 
         final ViaCepCardsDataModel viaCepCardsData = snapshot.data!;
+
+        if (viaCepCardsData.results.isEmpty) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 100.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Não há nenhum CEP.',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'Adicione um!',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _cepAddButtonWidget,
+            ],
+          );
+        }
 
         return Column(
           children: [

@@ -8,4 +8,11 @@ class ViaCepCardsDataModel {
 
   final List<ViaCepCardModel> results;
   final int count;
+
+  factory ViaCepCardsDataModel.empty() {
+    return ViaCepCardsDataModel(
+      results: [],
+      count: 0,
+    );
+  }
 }

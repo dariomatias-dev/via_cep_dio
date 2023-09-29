@@ -16,7 +16,7 @@ class CustomMessageWidget extends StatelessWidget {
         child: Text(
           content,
           style: const TextStyle(
-            fontSize: 16.0,
+            fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
         ),

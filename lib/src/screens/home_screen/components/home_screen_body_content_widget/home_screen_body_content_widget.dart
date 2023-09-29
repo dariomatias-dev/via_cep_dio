@@ -4,6 +4,7 @@ import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
+import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
 
 import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
 
@@ -28,6 +29,8 @@ class HomeScreenBodyContentWidget extends StatefulWidget {
 class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
+
+  int skip = 0;
 
   Padding get _cepAddButtonWidget => Padding(
         padding: const EdgeInsets.symmetric(
@@ -112,23 +115,71 @@ class _HomeScreenBodyContentWidgetState
           return verificationResult;
         }
 
-        final List<ViaCepCardModel> viaCeps = snapshot.data!;
+        final ViaCepCardsDataModel viaCepCardsData = snapshot.data!;
 
         return Column(
           children: [
             ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              children: viaCeps.map((viaCep) {
+              children: viaCepCardsData.results.map((viaCep) {
                 return ViaCepCardWidget(
                   viaCep: viaCep,
                 );
               }).toList(),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomIconButtonWidget(
+                  icon: Icons.arrow_back_ios_rounded,
+                  action: () {
+                    if (skip < viaCepCardsData.count) {
+                      skip += 3;
+                    }
+                  },
+                ),
+                CustomIconButtonWidget(
+                  icon: Icons.arrow_forward_ios_rounded,
+                  action: () {
+                    if (skip >= 3) {
+                      skip -= 3;
+                    }
+                  },
+                ),
+              ],
+            ),
             _cepAddButtonWidget,
           ],
         );
       },
+    );
+  }
+}
+
+class CustomIconButtonWidget extends StatelessWidget {
+  const CustomIconButtonWidget({
+    super.key,
+    required this.icon,
+    required this.action,
+  });
+
+  final IconData icon;
+  final void Function() action;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => action(),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(1.0),
+        backgroundColor: Colors.grey.shade100,
+        shape: const CircleBorder(),
+      ),
+      child: Icon(
+        icon,
+        color: Colors.grey,
+      ),
     );
   }
 }

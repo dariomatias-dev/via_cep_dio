@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:via_cep_dio/src/core/rest_client/rest_client.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
+import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
 import 'package:via_cep_dio/src/models/via_cep_model.dart';
 
 import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
@@ -32,18 +33,24 @@ class ViaCepService {
     return null;
   }
 
-  Future<List<ViaCepCardModel>> getViaCepCardDatas() async {
-    final Response response = await dio.get('?$cardFieldKeys');
-    final List<dynamic> results = response.data['results'];
+  Future<ViaCepCardsDataModel> getViaCepCardDatas() async {
+    //final String queries = 'skip=$skip&limit=8&count=1';
+    final Response response = await dio.get('?$cardFieldKeys&count=1');
+    final Map<String, dynamic> data = response.data;
+    final List<dynamic> results = data['results'];
+    final int count = data['count'];
     final List<ViaCepCardModel> viaCepCardDatas = results.map((
-      viaCepCardDataJson,
+      viaCepCardsJson,
     ) {
       return ViaCepCardModel.fromMap(
-        viaCepCardDataJson,
+        viaCepCardsJson,
       );
     }).toList();
 
-    return viaCepCardDatas;
+    return ViaCepCardsDataModel(
+      results: viaCepCardDatas,
+      count: count,
+    );
   }
 
   Future<ViaCepModel> getViaCep(String viaCepId) async {

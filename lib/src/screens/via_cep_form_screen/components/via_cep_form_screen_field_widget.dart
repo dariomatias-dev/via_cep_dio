@@ -5,7 +5,7 @@ import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
-class ViaCepFormFieldWidget extends StatelessWidget {
+class ViaCepFormFieldWidget extends StatefulWidget {
   const ViaCepFormFieldWidget({
     super.key,
     required this.formFieldProperties,
@@ -13,10 +13,38 @@ class ViaCepFormFieldWidget extends StatelessWidget {
 
   final FormFieldPropertyModel formFieldProperties;
 
+  @override
+  State<ViaCepFormFieldWidget> createState() => _ViaCepFormFieldWidgetState();
+}
+
+class _ViaCepFormFieldWidgetState extends State<ViaCepFormFieldWidget> {
+  ValueNotifier<String?> fieldErrorNotifier = ValueNotifier<String?>(null);
+
+  String? validateFormFieldValue() {
+    final FormFieldPropertyModel(
+      :validateValue,
+      :fieldTitle,
+      :isRequired,
+      :fieldController,
+      :exactCharacterCount,
+    ) = widget.formFieldProperties;
+
+    final validationResult = validateValue(
+      fieldTitle,
+      isRequired,
+      fieldController.text,
+      exactCharacterCount,
+    );
+
+    fieldErrorNotifier.value = validationResult;
+    return validationResult;
+  }
+
   List<TextInputFormatter> get _inputFormatters => [
-        if (formFieldProperties.mask != null) formFieldProperties.mask!,
-        if (formFieldProperties.inputFormatter != null)
-          formFieldProperties.inputFormatter!,
+        if (widget.formFieldProperties.mask != null)
+          widget.formFieldProperties.mask!,
+        if (widget.formFieldProperties.inputFormatter != null)
+          widget.formFieldProperties.inputFormatter!,
       ];
 
   @override
@@ -29,10 +57,8 @@ class ViaCepFormFieldWidget extends StatelessWidget {
       :maxLength,
       :keyboardType,
       :onChanged,
-      :exactCharacterCount,
-      :validateValue,
       :handleOnDone,
-    ) = formFieldProperties;
+    ) = widget.formFieldProperties;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,54 +83,52 @@ class ViaCepFormFieldWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 2.0),
-        TextFormField(
-          controller: fieldController,
-          focusNode: formFieldProperties.inputFocusNode,
-          inputFormatters:
-              _inputFormatters.isNotEmpty ? _inputFormatters : null,
-          keyboardType: keyboardType,
-          validator: (value) => validateValue(
-            fieldTitle,
-            isRequired,
-            value,
-            exactCharacterCount,
-          ),
-          maxLength: maxLength,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 18.0,
-              horizontal: 10.0,
-            ),
-            hintText: hintText,
-            enabledBorder: inputBorderStyle(Colors.grey).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            focusedBorder: inputBorderStyle(Colors.black).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            focusedErrorBorder: inputBorderStyle(Colors.red).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            errorBorder: inputBorderStyle(Colors.red).copyWith(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          onChanged: onChanged,
-          onEditingComplete: () {
-            final validationResult = validateValue(
-              fieldTitle,
-              isRequired,
-              fieldController.text,
-              exactCharacterCount,
-            );
+        ListenableBuilder(
+          listenable: fieldErrorNotifier,
+          builder: (context, child) {
+            return TextFormField(
+              controller: fieldController,
+              focusNode: widget.formFieldProperties.inputFocusNode,
+              inputFormatters:
+                  _inputFormatters.isNotEmpty ? _inputFormatters : null,
+              keyboardType: keyboardType,
+              maxLength: maxLength,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 18.0,
+                  horizontal: 10.0,
+                ),
+                hintText: hintText,
+                errorText: fieldErrorNotifier.value,
+                enabledBorder: inputBorderStyle(Colors.grey).copyWith(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: inputBorderStyle(Colors.black).copyWith(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedErrorBorder: inputBorderStyle(Colors.red).copyWith(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                errorBorder: inputBorderStyle(Colors.red).copyWith(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              onChanged: (value) {
+                if (onChanged != null) onChanged(value);
 
-            if (validationResult == null) {
-              handleOnDone(fieldTitle);
-            }
-          },
-          onTapOutside: (_) {
-            FocusManager.instance.primaryFocus?.unfocus();
+                validateFormFieldValue();
+              },
+              onEditingComplete: () {
+                final validationResult = validateFormFieldValue();
+
+                if (validationResult == null) {
+                  handleOnDone(fieldTitle);
+                }
+              },
+              onTapOutside: (_) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+            );
           },
         ),
       ],

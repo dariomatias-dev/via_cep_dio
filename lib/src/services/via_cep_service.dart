@@ -11,7 +11,7 @@ import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
 class ViaCepService {
   final dio = dioConfigured();
 
-  final String cardFieldKeys = 'keys=localidade,uf,cep';
+  final String cardFieldKeys = 'keys=bairro,localidade,uf,cep';
 
   Future<void> createViaCep(ViaCepModel viaCep) async {
     await dio.post(

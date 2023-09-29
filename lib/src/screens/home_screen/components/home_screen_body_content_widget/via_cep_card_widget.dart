@@ -21,10 +21,20 @@ class ViaCepCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ViaCepCardModel(
+      :id,
+      :bairro,
+      :localidade,
+      :uf,
+      :cep,
+    ) = viaCep;
+
     return ListTile(
       leading: const Icon(Icons.map),
-      title: Text('${viaCep.localidade} - ${viaCep.uf}'),
-      subtitle: Text(viaCep.cep),
+      title: Text(
+        '$bairro - $localidade/$uf',
+      ),
+      subtitle: Text(cep),
       trailing: PopupMenuButton(
         onSelected: (action) {
           if (action == 'update') {
@@ -33,12 +43,12 @@ class ViaCepCardWidget extends StatelessWidget {
               () {
                 return ViaCepFormScreen(
                   formType: 'update',
-                  viaCepId: viaCep.id,
+                  viaCepId: id,
                 );
               },
             );
           } else {
-            viaCepService.deleteViaCep(viaCep.id);
+            viaCepService.deleteViaCep(id);
           }
         },
         itemBuilder: (context) => <PopupMenuEntry>[
@@ -55,7 +65,7 @@ class ViaCepCardWidget extends StatelessWidget {
       onTap: () => navigationFadeTransition(
         context,
         () => ViaCepScreen(
-          viaCepId: viaCep.id,
+          viaCepId: id,
         ),
       ),
     );

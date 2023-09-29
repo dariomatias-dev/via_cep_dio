@@ -132,14 +132,6 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
   }
 
   @override
-  void initState() {
-    if (widget.formType == 'update') {
-      _fetchData();
-    }
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _localidadeFieldController.dispose();
     _logradouroFieldController.dispose();
@@ -178,13 +170,24 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: ViaCepFormWidget(
-          screenContext: context,
-          formType: widget.formType,
-          viaCepId: widget.viaCepId,
-          formFieldsProperties: _formFieldsPropertiesInstance.get(),
-        ),
+      body: FutureBuilder(
+        future: widget.formType == 'update' ? _fetchData() : null,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return SingleChildScrollView(
+            child: ViaCepFormWidget(
+              screenContext: context,
+              formType: widget.formType,
+              viaCepId: widget.viaCepId,
+              formFieldsProperties: _formFieldsPropertiesInstance.get(),
+            ),
+          );
+        },
       ),
     );
   }

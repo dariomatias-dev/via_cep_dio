@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
-void autoFocusOnDone(
+bool autoFocusOnDone(
   final String fieldTitle,
   final List<FormFieldPropertyModel> formFieldsProperties,
 ) {
@@ -23,7 +23,7 @@ void autoFocusOnDone(
         filledFieldCount++;
       } else {
         formFieldProperties.inputFocusNode.requestFocus();
-        break;
+        return false;
       }
     }
 
@@ -33,9 +33,11 @@ void autoFocusOnDone(
 
     if (filledFieldCount == formFieldsProperties.length) {
       FocusManager.instance.primaryFocus?.unfocus();
-      break;
+      return true;
     }
 
     index++;
   }
+
+  return false;
 }

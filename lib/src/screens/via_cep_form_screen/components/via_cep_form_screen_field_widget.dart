@@ -15,9 +15,10 @@ class ViaCepFormFieldWidget extends StatelessWidget {
   final FormFieldPropertyModel formFieldProperties;
   final List<FormFieldPropertyModel> getFormFieldProperties;
 
-  final ValueNotifier<String?> fieldErrorNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> fieldErrorNotifier =
+      ValueNotifier<String?>(null);
 
-  String? validateFormFieldValue() {
+  String? validateFormFieldValue({bool shouldUpdateValidValue = true}) {
     final FormFieldPropertyModel(
       :validateValue,
       :fieldTitle,
@@ -34,15 +35,14 @@ class ViaCepFormFieldWidget extends StatelessWidget {
       exactCharacterCount,
     );
 
-    setValidValue(validationResult == null);
+    if (shouldUpdateValidValue) setValidValue(validationResult == null);
 
     fieldErrorNotifier.value = validationResult;
     return validationResult;
   }
 
   List<TextInputFormatter> get _inputFormatters => [
-        if (formFieldProperties.mask != null)
-          formFieldProperties.mask!,
+        if (formFieldProperties.mask != null) formFieldProperties.mask!,
         if (formFieldProperties.inputFormatter != null)
           formFieldProperties.inputFormatter!,
       ];
@@ -113,6 +113,12 @@ class ViaCepFormFieldWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
+              validator: (value) {
+                validateFormFieldValue(
+                  shouldUpdateValidValue: false,
+                );
+                return null;
+              },
               onChanged: (value) {
                 if (onChanged != null) onChanged(value);
 

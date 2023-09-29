@@ -42,7 +42,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
   final TextEditingController _dddFieldController = TextEditingController();
   final TextEditingController _siafiFieldController = TextEditingController();
 
-  List<TextEditingController> get fieldControllers => [
+  List<TextEditingController> get _fieldControllers => [
         _localidadeFieldController,
         _logradouroFieldController,
         _bairroFieldController,
@@ -70,7 +70,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
       );
 
   bool _hasValuesInFields() {
-    return fieldControllers.any((fieldController) {
+    return _fieldControllers.any((fieldController) {
       return fieldController.text.trim().isNotEmpty;
     });
   }

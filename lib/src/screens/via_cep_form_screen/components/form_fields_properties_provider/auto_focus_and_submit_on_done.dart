@@ -7,7 +7,7 @@ void autoFocusOnDone(
   final List<FormFieldPropertyModel> formFieldsProperties,
 ) {
   int index = 0;
-  int? foundFormFieldPropertiesIndex;
+  bool foundFormFieldProperties = false;
   int filledFieldCount = 0;
 
   while (index <= formFieldsProperties.length) {
@@ -17,35 +17,18 @@ void autoFocusOnDone(
 
     final FormFieldPropertyModel formFieldProperties =
         formFieldsProperties[index];
-    if (foundFormFieldPropertiesIndex != null) {
-      final String value = formFieldProperties.fieldController.text;
-      final int? exactCharacterCount = formFieldProperties.exactCharacterCount;
 
-      final bool valueIsEmpty = value.trim().isEmpty;
-      final bool isRequired = formFieldProperties.isRequired;
-      final bool isNotRequiredAndBeforeIndex =
-          !isRequired && index < foundFormFieldPropertiesIndex;
-      final bool isShorterThanExactCount = exactCharacterCount != null
-          ? (value.trim()).length < exactCharacterCount
-          : false;
-
-      if ((!isRequired && valueIsEmpty) ||
-          isNotRequiredAndBeforeIndex ||
-          !isShorterThanExactCount) {
+    if (foundFormFieldProperties) {
+      if (formFieldProperties.validValue) {
         filledFieldCount++;
-      }
-
-      if (filledFieldCount != formFieldsProperties.length) {
-        if ((valueIsEmpty || isShorterThanExactCount) &&
-            (!isNotRequiredAndBeforeIndex || isShorterThanExactCount)) {
-          formFieldProperties.inputFocusNode.requestFocus();
-          break;
-        }
+      } else {
+        formFieldProperties.inputFocusNode.requestFocus();
+        break;
       }
     }
 
     if (formFieldProperties.fieldTitle == fieldTitle) {
-      foundFormFieldPropertiesIndex = index;
+      foundFormFieldProperties = true;
     }
 
     if (filledFieldCount == formFieldsProperties.length) {

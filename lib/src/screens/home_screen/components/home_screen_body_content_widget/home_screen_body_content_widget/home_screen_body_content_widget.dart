@@ -10,6 +10,7 @@ import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
 
 import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
 
+import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/home_screen_body_content_widget/pagination_button_widget.dart';
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
 import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
 
@@ -159,63 +160,36 @@ class _HomeScreenBodyContentWidgetState
                 );
               }).toList(),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomIconButtonWidget(
-                  icon: Icons.arrow_back_ios_rounded,
-                  action: skip >= limit
-                      ? () {
-                          setState(() {
-                            skip -= limit;
-                          });
-                        }
-                      : null,
-                ),
-                CustomIconButtonWidget(
-                  icon: Icons.arrow_forward_ios_rounded,
-                  action: (skip + limit) < viaCepCardsData.count
-                      ? () {
-                          setState(() {
-                            skip += limit;
-                          });
-                        }
-                      : null,
-                ),
-              ],
-            ),
+            if (viaCepCardsData.count > limit)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  PaginationButtonWidget(
+                    icon: Icons.arrow_back_ios_rounded,
+                    action: skip >= limit
+                        ? () {
+                            setState(() {
+                              skip -= limit;
+                            });
+                          }
+                        : null,
+                  ),
+                  PaginationButtonWidget(
+                    icon: Icons.arrow_forward_ios_rounded,
+                    action: (skip + limit) < viaCepCardsData.count
+                        ? () {
+                            setState(() {
+                              skip += limit;
+                            });
+                          }
+                        : null,
+                  ),
+                ],
+              ),
             _cepAddButtonWidget,
           ],
         );
       },
-    );
-  }
-}
-
-class CustomIconButtonWidget extends StatelessWidget {
-  const CustomIconButtonWidget({
-    super.key,
-    required this.icon,
-    required this.action,
-  });
-
-  final IconData icon;
-  final void Function()? action;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: action,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey.shade100,
-        padding: const EdgeInsets.all(1.0),
-        disabledBackgroundColor: Colors.grey.shade300,
-        shape: const CircleBorder(),
-      ),
-      child: Icon(
-        icon,
-        color: action != null ? Colors.grey.shade400 : Colors.grey.shade100,
-      ),
     );
   }
 }

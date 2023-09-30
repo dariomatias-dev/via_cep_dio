@@ -6,16 +6,19 @@ String? validateValue(
   final FormFieldPropertyModel(
     :fieldTitle,
     :fieldController,
+    :minLenght,
     :isRequired,
     :exactCharacterCount,
   ) = formFieldProperties;
 
-  final String value = fieldController.text;
+  final String value = fieldController.text.trim();
 
-  if (isRequired && value.trim().isEmpty) {
+  if (isRequired && value.isEmpty) {
     return 'Insira um valor';
+  } else if (minLenght != null ? value.length < minLenght : false) {
+    return 'O campo deve conter pelo menos $minLenght caracteres';
   } else if ((exactCharacterCount != null
-      ? (value.trim()).length < exactCharacterCount
+      ? value.length < exactCharacterCount
       : false)) {
     return 'Insira um $fieldTitle válido';
   }

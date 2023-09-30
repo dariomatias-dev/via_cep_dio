@@ -8,6 +8,7 @@ class FormFieldPropertyModel {
     required this.hintText,
     required this.fieldController,
     this.isRequired = true,
+    this.minLenght,
     this.maxLength,
     this.mask,
     this.keyboardType,
@@ -23,6 +24,7 @@ class FormFieldPropertyModel {
   final String hintText;
   final TextEditingController fieldController;
   final bool isRequired;
+  final int? minLenght;
   final int? maxLength;
   final MaskTextInputFormatter? mask;
   final TextInputType? keyboardType;

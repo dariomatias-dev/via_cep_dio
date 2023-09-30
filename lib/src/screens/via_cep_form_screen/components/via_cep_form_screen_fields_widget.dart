@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget.dart';
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget/via_cep_form_screen_field_widget.dart';
 
 class ViaCepFormFielsdWidget extends StatefulWidget {
   const ViaCepFormFielsdWidget({

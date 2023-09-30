@@ -15,7 +15,6 @@ class FormFieldPropertyModel {
     this.inputFormatter,
     this.exactCharacterCount,
     this.validValue = false,
-    required this.validateValue,
     required this.inputFocusNode,
     required this.handleOnDone,
   });
@@ -31,12 +30,6 @@ class FormFieldPropertyModel {
   final TextInputFormatter? inputFormatter;
   final int? exactCharacterCount;
   bool validValue;
-  final String? Function(
-    String,
-    bool,
-    String?,
-    int?,
-  ) validateValue;
   final FocusNode inputFocusNode;
   final void Function(
     String,

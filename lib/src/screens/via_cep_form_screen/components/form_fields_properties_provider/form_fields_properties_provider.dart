@@ -56,23 +56,6 @@ class FormFieldsPropertiesProvider {
         RegexHelper.hyphenAndDot,
       );
 
-  String? _validateValue(
-    String fieldTitle,
-    bool isRequired,
-    String? value,
-    int? exactCharacterCount,
-  ) {
-    if (value == null || (isRequired && value.trim().isEmpty)) {
-      return 'Insira um valor';
-    } else if ((exactCharacterCount != null
-        ? (value.trim()).length < exactCharacterCount
-        : false)) {
-      return 'Insira um $fieldTitle válido';
-    }
-
-    return null;
-  }
-
   void _handleOnDone(
     String fieldTitle,
     List<FormFieldPropertyModel> getFormFieldProperties,
@@ -89,7 +72,6 @@ class FormFieldsPropertiesProvider {
         hintText: 'São Paulo',
         fieldController: localidadeFieldController,
         inputFormatter: _lettersOnlyFormatter,
-        validateValue: _validateValue,
         inputFocusNode: _localidadeFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -98,7 +80,6 @@ class FormFieldsPropertiesProvider {
         hintText: 'Praça da Sé',
         fieldController: logradouroFieldController,
         inputFormatter: _lettersOnlyFormatter,
-        validateValue: _validateValue,
         inputFocusNode: _logradouroFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -107,7 +88,6 @@ class FormFieldsPropertiesProvider {
         hintText: 'Sé',
         fieldController: bairroFieldController,
         inputFormatter: _lettersOnlyFormatter,
-        validateValue: _validateValue,
         inputFocusNode: _bairroFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -116,7 +96,6 @@ class FormFieldsPropertiesProvider {
         hintText: 'lado ímpar',
         fieldController: complementoFieldController,
         isRequired: false,
-        validateValue: _validateValue,
         inputFocusNode: _complementoFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -128,7 +107,6 @@ class FormFieldsPropertiesProvider {
         mask: masksHelper.cep,
         keyboardType: TextInputType.number,
         exactCharacterCount: 9,
-        validateValue: _validateValue,
         inputFocusNode: _cepFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -140,7 +118,6 @@ class FormFieldsPropertiesProvider {
         onChanged: (_) => handleUfFieldChange(ufFieldController),
         inputFormatter: _lettersOnlyFormatter,
         exactCharacterCount: 2,
-        validateValue: _validateValue,
         inputFocusNode: _ufFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -151,7 +128,6 @@ class FormFieldsPropertiesProvider {
         maxLength: 9,
         keyboardType: TextInputType.number,
         onChanged: (_) => handleIbgeFieldChange(ibgeFieldController),
-        validateValue: _validateValue,
         inputFocusNode: _ibgeFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -162,7 +138,6 @@ class FormFieldsPropertiesProvider {
         isRequired: false,
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
-        validateValue: _validateValue,
         inputFocusNode: _giaFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -174,7 +149,6 @@ class FormFieldsPropertiesProvider {
         mask: masksHelper.ddd,
         keyboardType: TextInputType.number,
         exactCharacterCount: 3,
-        validateValue: _validateValue,
         inputFocusNode: _dddFocusNode,
         handleOnDone: _handleOnDone,
       ),
@@ -184,7 +158,6 @@ class FormFieldsPropertiesProvider {
         fieldController: siafiFieldController,
         keyboardType: TextInputType.number,
         inputFormatter: _filterNumeric,
-        validateValue: _validateValue,
         inputFocusNode: _siafiFocusNode,
         handleOnDone: _handleOnDone,
       ),

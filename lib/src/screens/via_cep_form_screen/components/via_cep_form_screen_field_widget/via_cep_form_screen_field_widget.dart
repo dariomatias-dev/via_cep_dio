@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
+import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget/validate_value.dart';
+
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
 class ViaCepFormFieldWidget extends StatelessWidget {
@@ -20,20 +22,10 @@ class ViaCepFormFieldWidget extends StatelessWidget {
 
   String? _validateFormFieldValue({bool shouldUpdateValidValue = true}) {
     final FormFieldPropertyModel(
-      :validateValue,
-      :fieldTitle,
-      :isRequired,
-      :fieldController,
-      :exactCharacterCount,
       :setValidValue,
     ) = formFieldProperties;
 
-    final validationResult = validateValue(
-      fieldTitle,
-      isRequired,
-      fieldController.text,
-      exactCharacterCount,
-    );
+    final validationResult = validateValue(formFieldProperties);
 
     if (shouldUpdateValidValue) setValidValue(validationResult == null);
 

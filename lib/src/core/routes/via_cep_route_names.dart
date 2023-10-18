@@ -1,5 +1,5 @@
 class ViaCepRouteNames {
   static String initial = '/';
-  static String viaCep = '/viaCep';
-  static String addViaCep = '/addViaCep';
+  static String viaCep = '/via_cep';
+  static String addViaCep = '/add_via_cep';
 }

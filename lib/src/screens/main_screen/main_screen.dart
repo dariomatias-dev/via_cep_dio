@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
+import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_header_widget/home_screen_header_widget.dart';
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/home_screen_body_content_widget/home_screen_body_content_widget.dart';
+import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_header_widget/main_screen_header_widget.dart';
+import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/main_screen_body_content_widget.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   String cepToSearch = '';
 
   void _updateCepToSearch(String cep) {
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreenInheritedWidget(
+    return MainScreenInheritedWidget(
       cepToSearch: cepToSearch,
       updateCepToSearch: _updateCepToSearch,
       child: Scaffold(
@@ -37,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                HomeScreenHeaderWidget(),
-                HomeScreenBodyContentWidget(),
+                MainScreenHeaderWidget(),
+                MainScreenBodyContentWidget(),
               ],
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreenInheritedWidget extends InheritedWidget {
-  const HomeScreenInheritedWidget({
+class MainScreenInheritedWidget extends InheritedWidget {
+  const MainScreenInheritedWidget({
     super.key,
     required this.cepToSearch,
     required this.updateCepToSearch,
@@ -11,13 +11,13 @@ class HomeScreenInheritedWidget extends InheritedWidget {
   final String cepToSearch;
   final void Function(String) updateCepToSearch;
 
-  static HomeScreenInheritedWidget? of(BuildContext context) {
+  static MainScreenInheritedWidget? of(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<HomeScreenInheritedWidget>();
+        .dependOnInheritedWidgetOfExactType<MainScreenInheritedWidget>();
   }
 
   @override
-  bool updateShouldNotify(HomeScreenInheritedWidget oldWidget) {
+  bool updateShouldNotify(MainScreenInheritedWidget oldWidget) {
     return true;
   }
 }

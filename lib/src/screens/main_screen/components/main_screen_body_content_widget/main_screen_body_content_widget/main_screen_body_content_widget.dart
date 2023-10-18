@@ -8,27 +8,27 @@ import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
 
 import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
 
-import 'package:via_cep_dio/src/providers/home_screen_inherited_widget.dart';
+import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/home_screen_body_content_widget/pagination_button_widget.dart';
+import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/pagination_button_widget.dart';
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_body_content_widget/via_cep_card_widget.dart';
+import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/via_cep_card_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/custom_message_widget.dart';
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
-class HomeScreenBodyContentWidget extends StatefulWidget {
-  const HomeScreenBodyContentWidget({super.key});
+class MainScreenBodyContentWidget extends StatefulWidget {
+  const MainScreenBodyContentWidget({super.key});
 
   @override
-  State<HomeScreenBodyContentWidget> createState() =>
-      _HomeScreenBodyContentWidgetState();
+  State<MainScreenBodyContentWidget> createState() =>
+      _MainScreenBodyContentWidgetState();
 }
 
-class _HomeScreenBodyContentWidgetState
-    extends State<HomeScreenBodyContentWidget> {
+class _MainScreenBodyContentWidgetState
+    extends State<MainScreenBodyContentWidget> {
   final ViaCepService viaCepService = ViaCepService();
 
   int skip = 0;
@@ -69,7 +69,7 @@ class _HomeScreenBodyContentWidgetState
   @override
   Widget build(BuildContext context) {
     final String cepToSearch =
-        HomeScreenInheritedWidget.of(context)!.cepToSearch;
+        MainScreenInheritedWidget.of(context)!.cepToSearch;
 
     if (cepToSearch.isNotEmpty) {
       return FutureBuilder(

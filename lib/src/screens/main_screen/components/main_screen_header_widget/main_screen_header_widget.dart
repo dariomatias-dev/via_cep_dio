@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/screens/home_screen/components/home_screen_header_widget/cep_search_widget.dart';
+import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_header_widget/cep_search_widget.dart';
 
-class HomeScreenHeaderWidget extends StatelessWidget {
-  const HomeScreenHeaderWidget({super.key});
+class MainScreenHeaderWidget extends StatelessWidget {
+  const MainScreenHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

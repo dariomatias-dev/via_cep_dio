@@ -5,8 +5,11 @@ import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
 import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
 
+import 'package:via_cep_dio/src/screens/cep_list_view_screen/cep_list_view_screen.dart';
+
 import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_header_widget/main_screen_header_widget.dart';
 import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/main_screen_body_content_widget.dart';
+
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -36,10 +39,7 @@ class _MainScreenState extends State<MainScreen> {
         MainScreenBodyContentWidget(),
       ],
     ),
-    const SizedBox(
-      height: 400.0,
-      child: Text('Olá!'),
-    )
+    const CEPListViewScreen(),
   ];
 
   @override
@@ -49,8 +49,21 @@ class _MainScreenState extends State<MainScreen> {
       updateCepToSearch: _updateCepToSearch,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 0,
+          toolbarHeight: _currentIndex == 1 ? null : 0,
           backgroundColor: Colors.black,
+          title: _currentIndex == 1
+              ? const Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                  ),
+                  child: Text(
+                    'CEPs cadastrados',
+                    style: TextStyle(
+                      color: Colors.yellow,
+                    ),
+                  ),
+                )
+              : null,
         ),
         body: SafeArea(
           child: SingleChildScrollView(

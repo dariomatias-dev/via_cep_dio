@@ -35,8 +35,11 @@ class _CepSearchScreenState extends State<CepSearchScreen> {
             child: ListenableBuilder(
               listenable: _cepToSearchValueNotifier,
               builder: (context, child) {
+                final cepToSearch = _cepToSearchValueNotifier.value;
+                _cepToSearchValueNotifier.value = null;
+
                 return CepSearchScreenSearcherWidget(
-                  cepToSearch: _cepToSearchValueNotifier.value,
+                  cepToSearch: cepToSearch,
                 );
               },
             ),

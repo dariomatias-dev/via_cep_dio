@@ -84,6 +84,8 @@ class _CepSearchScreenFieldWidgetState
               context,
               cep.isNotEmpty ? cep : null,
             );
+
+            _cepFieldController.text = '';
           }
         },
         validator: (value) {

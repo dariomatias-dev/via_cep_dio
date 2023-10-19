@@ -75,7 +75,7 @@ class _CepFormScreenState extends State<CepFormScreen> {
     });
   }
 
-  void _showAlertDialog(BuildContext context) {
+  void _leaveConfirmationDialog() {
     showDialog(
       context: context,
       builder: (alertDialogContext) {
@@ -105,30 +105,64 @@ class _CepFormScreenState extends State<CepFormScreen> {
     );
   }
 
-  Future<void> _fetchData() async {
-    final CepModel(
-      :localidade,
-      :logradouro,
-      :bairro,
-      :complemento,
-      :cep,
-      :uf,
-      :ibge,
-      :gia,
-      :ddd,
-      :siafi,
-    ) = await _cepService.getCep(widget.cepId!);
+  void _dataFetchErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (alertDialogContext) => AlertDialog(
+        title: const Text('Ocorreu um problema'),
+        content: const Text(
+          'Não foi possível buscar os dados do CEP.\nPor favor, tente novamente ou volte mais tarde.',
+          textAlign: TextAlign.justify,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(alertDialogContext);
+              Navigator.pop(context);
+            },
+            child: const Text('Sair'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(alertDialogContext);
+              _fetchData();
+            },
+            child: const Text('Tentar novamente'),
+          ),
+        ],
+      ),
+    );
+  }
 
-    _localidadeFieldController.text = localidade;
-    _logradouroFieldController.text = logradouro;
-    _bairroFieldController.text = bairro;
-    _complementoFieldController.text = complemento ?? '';
-    _cepFieldController.text = cep;
-    _ufFieldController.text = uf;
-    _ibgeFieldController.text = numberFormatBrazilHelper(ibge);
-    _giaFieldController.text = gia != null ? gia.toString() : '';
-    _dddFieldController.text = '+$ddd';
-    _siafiFieldController.text = siafi.toString();
+  Future<void> _fetchData() async {
+    final CepModel? cep = await _cepService.getCep(widget.cepId!);
+
+    if (cep == null) {
+      _dataFetchErrorDialog();
+    } else {
+      final CepModel(
+        :localidade,
+        :logradouro,
+        :bairro,
+        :complemento,
+        :uf,
+        :ibge,
+        :gia,
+        :ddd,
+        :siafi,
+      ) = cep;
+
+      _localidadeFieldController.text = localidade;
+      _logradouroFieldController.text = logradouro;
+      _bairroFieldController.text = bairro;
+      _complementoFieldController.text = complemento ?? '';
+      _cepFieldController.text = cep.cep;
+      _ufFieldController.text = uf;
+      _ibgeFieldController.text = numberFormatBrazilHelper(ibge);
+      _giaFieldController.text = gia != null ? gia.toString() : '';
+      _dddFieldController.text = '+$ddd';
+      _siafiFieldController.text = siafi.toString();
+    }
   }
 
   @override
@@ -163,7 +197,7 @@ class _CepFormScreenState extends State<CepFormScreen> {
         leading: BackButtonWidget(
           action: () {
             if (_hasValuesInFields()) {
-              _showAlertDialog(context);
+              _leaveConfirmationDialog();
             } else {
               Navigator.pop(context);
             }

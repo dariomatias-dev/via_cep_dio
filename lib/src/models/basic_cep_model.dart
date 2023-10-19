@@ -7,7 +7,7 @@ class BasicCepModel {
     required this.cep,
   });
 
-  final String id;
+  final String? id;
   final String bairro;
   final String localidade;
   final String uf;

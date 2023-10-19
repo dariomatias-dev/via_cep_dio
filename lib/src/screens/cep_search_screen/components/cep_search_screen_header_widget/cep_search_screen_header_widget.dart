@@ -8,7 +8,7 @@ class CepSearchScreenHeaderWidget extends StatelessWidget {
     required this.updateCepToSearch,
   });
 
-  final void Function(String) updateCepToSearch;
+  final void Function(String?) updateCepToSearch;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import 'package:cep_dio/src/core/enums/enums.dart';
 import 'package:cep_dio/src/core/rest_client/rest_client.dart';
 
 import 'package:cep_dio/src/models/basic_cep_model.dart';
@@ -9,12 +10,12 @@ import 'package:cep_dio/src/models/cep_model.dart';
 import 'package:cep_dio/src/notifiers/cep_service_notifier.dart';
 
 class CepService {
-  final dio = dioConfigured();
+  final dioBack4app = dioConfigured();
 
   final String cardFieldKeys = 'keys=bairro,localidade,uf,cep';
 
   Future<void> createCep(CepModel cep) async {
-    await dio.post(
+    await dioBack4app.post(
       '',
       data: cep.toMap(),
     );
@@ -23,7 +24,7 @@ class CepService {
 
   Future<BasicCepModel?> getBasicCep(cep) async {
     final String queries = '?where={"cep": "$cep"}&$cardFieldKeys';
-    final Response response = await dio.get(queries);
+    final Response response = await dioBack4app.get(queries);
     final List<dynamic> results = response.data['results'];
 
     if (results.isNotEmpty) {
@@ -35,7 +36,7 @@ class CepService {
 
   Future<CepModel> getCep(String cepId) async {
     final String queries = '?where={"objectId": "$cepId"}';
-    final Response response = await dio.get(queries);
+    final Response response = await dioBack4app.get(queries);
     final List<dynamic> results = response.data['results'];
 
     return CepModel.fromMap(results[0]);
@@ -44,7 +45,8 @@ class CepService {
   Future<CepCollectionModel?> getBasicCeps(int skip, int limit) async {
     try {
       final String queries = 'skip=$skip&limit=$limit&count=1';
-      final Response response = await dio.get('?$cardFieldKeys&$queries');
+      final Response response =
+          await dioBack4app.get('?$cardFieldKeys&$queries');
       final Map<String, dynamic> data = response.data;
       final List<dynamic> results = data['results'];
       final int count = data['count'];
@@ -66,7 +68,7 @@ class CepService {
   }
 
   Future<void> updateCep(String cepId, CepModel cep) async {
-    await dio.put(
+    await dioBack4app.put(
       cepId,
       data: cep.toMap(),
     );
@@ -74,7 +76,20 @@ class CepService {
   }
 
   Future<void> deleteCep(String cepId) async {
-    await dio.delete(cepId);
+    await dioBack4app.delete(cepId);
     cepServiceNotifier.notify();
+  }
+
+  Future<BasicCepModel?> getCepByViaCep(String cep) async {
+    final dioViaCep = dioConfigured(
+      apiBaseUrl: BaseUrlsEnum.viaCep,
+    );
+
+    final Response response = await dioViaCep.get('$cep/json/');
+    final Map<String, dynamic> data = response.data;
+
+    final BasicCepModel basicCep = BasicCepModel.fromMap(data);
+
+    return basicCep;
   }
 }

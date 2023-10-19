@@ -48,7 +48,7 @@ class CepCardWidget extends StatelessWidget {
               },
             );
           } else {
-            _cepService.deleteCep(id);
+            _cepService.deleteCep(id!);
           }
         },
         itemBuilder: (context) => <PopupMenuEntry>[
@@ -65,7 +65,7 @@ class CepCardWidget extends StatelessWidget {
       onTap: () => navigationFadeTransition(
         context,
         () => CepScreen(
-          cepId: id,
+          cepId: id!,
         ),
       ),
     );

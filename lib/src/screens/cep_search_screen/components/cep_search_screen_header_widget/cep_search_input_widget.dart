@@ -10,18 +10,23 @@ class CepSearchScreenFieldWidget extends StatefulWidget {
     required this.updateCepToSearch,
   });
 
-  final void Function(String) updateCepToSearch;
+  final void Function(String?) updateCepToSearch;
 
   @override
-  State<CepSearchScreenFieldWidget> createState() => _CepSearchScreenFieldWidgetState();
+  State<CepSearchScreenFieldWidget> createState() =>
+      _CepSearchScreenFieldWidgetState();
 }
 
-class _CepSearchScreenFieldWidgetState extends State<CepSearchScreenFieldWidget> {
+class _CepSearchScreenFieldWidgetState
+    extends State<CepSearchScreenFieldWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _cepFieldController = TextEditingController();
 
-  void _performUpdateCepToSearch(BuildContext context, String cep) {
+  void _performUpdateCepToSearch(
+    BuildContext context,
+    String? cep,
+  ) {
     FocusManager.instance.primaryFocus?.unfocus();
 
     widget.updateCepToSearch(cep);
@@ -49,7 +54,10 @@ class _CepSearchScreenFieldWidgetState extends State<CepSearchScreenFieldWidget>
             onTap: () {
               _cepFieldController.text = '';
 
-              _performUpdateCepToSearch(context, '');
+              _performUpdateCepToSearch(
+                context,
+                null,
+              );
             },
             child: const Icon(
               Icons.close,
@@ -72,7 +80,10 @@ class _CepSearchScreenFieldWidgetState extends State<CepSearchScreenFieldWidget>
           if (_formKey.currentState!.validate()) {
             final String cep = _cepFieldController.text;
 
-            _performUpdateCepToSearch(context, cep);
+            _performUpdateCepToSearch(
+              context,
+              cep.isNotEmpty ? cep : null,
+            );
           }
         },
         validator: (value) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_header_widget/cep_search_widget.dart';
+import 'package:cep_dio/src/screens/main_screen/components/main_screen_header_widget/cep_search_widget.dart';
 
 class MainScreenHeaderWidget extends StatelessWidget {
   const MainScreenHeaderWidget({super.key});

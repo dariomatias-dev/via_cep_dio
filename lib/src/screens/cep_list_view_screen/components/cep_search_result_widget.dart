@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
+import 'package:cep_dio/src/core/helpers/verifications_helper.dart';
 
-import 'package:via_cep_dio/src/models/basic_cep_model.dart';
+import 'package:cep_dio/src/models/basic_cep_model.dart';
 
-import 'package:via_cep_dio/src/widgets/cep_card_widget.dart';
+import 'package:cep_dio/src/widgets/cep_card_widget.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
-import 'package:via_cep_dio/src/widgets/custom_message_widget.dart';
+import 'package:cep_dio/src/widgets/custom_message_widget.dart';
 
 class CepSearchResultWidget extends StatefulWidget {
   const CepSearchResultWidget({

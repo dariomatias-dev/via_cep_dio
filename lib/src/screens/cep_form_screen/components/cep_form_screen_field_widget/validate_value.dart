@@ -1,4 +1,4 @@
-import 'package:via_cep_dio/src/models/form_field_property_model.dart';
+import 'package:cep_dio/src/models/form_field_property_model.dart';
 
 String? validateValue(
   FormFieldPropertyModel formFieldProperties,

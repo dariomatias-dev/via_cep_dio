@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
+import 'package:cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 
-import 'package:via_cep_dio/src/models/cep_model.dart';
+import 'package:cep_dio/src/models/cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/form_fields_properties_provider.dart';
-import 'package:via_cep_dio/src/screens/cep_form_screen/components/cep_form_widget.dart';
+import 'package:cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/form_fields_properties_provider.dart';
+import 'package:cep_dio/src/screens/cep_form_screen/components/cep_form_widget.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
-import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
+import 'package:cep_dio/src/widgets/back_button_widget.dart';
 
 class CepFormScreen extends StatefulWidget {
   const CepFormScreen({

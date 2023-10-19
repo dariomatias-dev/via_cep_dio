@@ -1,4 +1,4 @@
-package com.dariomatias.via_cep_dio.via_cep_dio
+package com.dariomatias.cep_dio.cep_dio
 
 import io.flutter.embedding.android.FlutterActivity
 

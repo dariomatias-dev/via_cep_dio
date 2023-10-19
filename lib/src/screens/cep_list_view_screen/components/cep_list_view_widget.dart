@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/models/cep_collection_model.dart';
+import 'package:cep_dio/src/models/cep_collection_model.dart';
 
-import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/pagination_button_widget.dart';
-import 'package:via_cep_dio/src/widgets/cep_card_widget.dart';
+import 'package:cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/pagination_button_widget.dart';
+import 'package:cep_dio/src/widgets/cep_card_widget.dart';
 
 class CepListViewWidget extends StatelessWidget {
   const CepListViewWidget({

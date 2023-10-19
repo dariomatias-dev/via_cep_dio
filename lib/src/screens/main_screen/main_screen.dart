@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
+import 'package:cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
-import 'package:via_cep_dio/src/models/cep_collection_model.dart';
+import 'package:cep_dio/src/models/cep_collection_model.dart';
 
-import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
+import 'package:cep_dio/src/providers/main_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/screens/cep_list_view_screen/cep_list_view_screen.dart';
+import 'package:cep_dio/src/screens/cep_list_view_screen/cep_list_view_screen.dart';
 
-import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_header_widget/main_screen_header_widget.dart';
-import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/main_screen_body_content_widget.dart';
+import 'package:cep_dio/src/screens/main_screen/components/main_screen_header_widget/main_screen_header_widget.dart';
+import 'package:cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/main_screen_body_content_widget.dart';
 
-import 'package:via_cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
+import 'package:cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

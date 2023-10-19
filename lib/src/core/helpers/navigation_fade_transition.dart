@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/routes/via_cep_route_names.dart';
+import 'package:cep_dio/src/core/routes/cep_route_names.dart';
 
 void navigationFadeTransition(
   BuildContext context,
@@ -10,7 +10,7 @@ void navigationFadeTransition(
     context,
     PageRouteBuilder(
       settings: RouteSettings(
-        name: ViaCepRouteNames.cep,
+        name: CepRouteNames.cep,
       ),
       pageBuilder: (
         context,

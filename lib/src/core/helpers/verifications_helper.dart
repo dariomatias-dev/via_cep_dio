@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/widgets/custom_message_widget.dart';
+import 'package:cep_dio/src/widgets/custom_message_widget.dart';
 
 Widget? verificationsHelper(
   ConnectionState connectionState,

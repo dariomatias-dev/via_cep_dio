@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/masks_helper.dart';
+import 'package:cep_dio/src/core/helpers/masks_helper.dart';
 
-import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
+import 'package:cep_dio/src/providers/main_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/utils/input_border_style.dart';
+import 'package:cep_dio/src/utils/input_border_style.dart';
 
 class CEPSearchWidget extends StatelessWidget {
   CEPSearchWidget({super.key});

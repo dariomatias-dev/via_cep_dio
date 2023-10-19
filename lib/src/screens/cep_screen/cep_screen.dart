@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
+import 'package:cep_dio/src/core/helpers/verifications_helper.dart';
 
-import 'package:via_cep_dio/src/models/cep_model.dart';
+import 'package:cep_dio/src/models/cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/cep_screen/components/cep_screen_body_content_widget.dart';
-import 'package:via_cep_dio/src/screens/cep_screen/components/cep_custom_bottom_navigation_bar_widget.dart';
+import 'package:cep_dio/src/screens/cep_screen/components/cep_screen_body_content_widget.dart';
+import 'package:cep_dio/src/screens/cep_screen/components/cep_custom_bottom_navigation_bar_widget.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
-import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
+import 'package:cep_dio/src/widgets/back_button_widget.dart';
 
 class CepScreen extends StatelessWidget {
   CepScreen({

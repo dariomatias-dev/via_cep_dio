@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
+import 'package:cep_dio/src/core/helpers/verifications_helper.dart';
 
-import 'package:via_cep_dio/src/models/cep_collection_model.dart';
+import 'package:cep_dio/src/models/cep_collection_model.dart';
 
-import 'package:via_cep_dio/src/notifiers/cep_service_notifier.dart';
+import 'package:cep_dio/src/notifiers/cep_service_notifier.dart';
 
-import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
+import 'package:cep_dio/src/providers/main_screen_inherited_widget.dart';
 
-import 'package:via_cep_dio/src/screens/cep_list_view_screen/components/cep_list_view_widget.dart';
+import 'package:cep_dio/src/screens/cep_list_view_screen/components/cep_list_view_widget.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
 class CepDataRequestWidget extends StatefulWidget {
   const CepDataRequestWidget({super.key});

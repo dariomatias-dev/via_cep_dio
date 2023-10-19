@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/models/cep_collection_model.dart';
+import 'package:cep_dio/src/models/cep_collection_model.dart';
 
 class MainScreenInheritedWidget extends InheritedWidget {
   const MainScreenInheritedWidget({

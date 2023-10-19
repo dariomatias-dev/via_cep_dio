@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
+import 'package:cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
-import 'package:via_cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
+import 'package:cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
 class CepCustomBottomNavigationBarWidget extends StatelessWidget {
   CepCustomBottomNavigationBarWidget({

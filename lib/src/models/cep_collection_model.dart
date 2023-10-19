@@ -1,4 +1,4 @@
-import 'package:via_cep_dio/src/models/basic_cep_model.dart';
+import 'package:cep_dio/src/models/basic_cep_model.dart';
 
 class CepCollectionModel {
   CepCollectionModel({

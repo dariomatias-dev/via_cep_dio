@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:via_cep_dio/src/via_cep_dio.dart';
+import 'package:cep_dio/src/cep_dio_app.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
 
-  runApp(const ViaCepDio());
+  runApp(
+    const CepDioApp(),
+  );
 }

@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "via_cep_dio",
+            "name": "cep_dio",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "via_cep_dio (profile mode)",
+            "name": "cep_dio (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "via_cep_dio (release mode)",
+            "name": "cep_dio (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

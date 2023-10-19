@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
-import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
+import 'package:cep_dio/src/core/helpers/number_format_brazil_helper.dart';
+import 'package:cep_dio/src/core/helpers/regex_helper.dart';
 
 void handleIbgeFieldChange(TextEditingController ibgeFieldController) {
   final String ibgeFieldValue = ibgeFieldController.text.replaceAll(

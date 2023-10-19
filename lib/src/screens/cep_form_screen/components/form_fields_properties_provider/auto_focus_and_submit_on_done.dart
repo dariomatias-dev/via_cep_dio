@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/models/form_field_property_model.dart';
+import 'package:cep_dio/src/models/form_field_property_model.dart';
 
 bool autoFocusOnDone(
   final String fieldTitle,

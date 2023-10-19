@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:via_cep_dio/src/models/form_field_property_model.dart';
+import 'package:cep_dio/src/models/form_field_property_model.dart';
 
-import 'package:via_cep_dio/src/screens/cep_form_screen/components/cep_form_screen_field_widget/validate_value.dart';
+import 'package:cep_dio/src/screens/cep_form_screen/components/cep_form_screen_field_widget/validate_value.dart';
 
-import 'package:via_cep_dio/src/utils/input_border_style.dart';
+import 'package:cep_dio/src/utils/input_border_style.dart';
 
 class CepFormFieldInputWidget extends StatefulWidget {
   const CepFormFieldInputWidget({

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
+import 'package:cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
-import 'package:via_cep_dio/src/models/basic_cep_model.dart';
+import 'package:cep_dio/src/models/basic_cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
-import 'package:via_cep_dio/src/screens/cep_screen/cep_screen.dart';
+import 'package:cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
+import 'package:cep_dio/src/screens/cep_screen/cep_screen.dart';
 
-import 'package:via_cep_dio/src/services/cep_service.dart';
+import 'package:cep_dio/src/services/cep_service.dart';
 
 class CepCardWidget extends StatelessWidget {
   CepCardWidget({

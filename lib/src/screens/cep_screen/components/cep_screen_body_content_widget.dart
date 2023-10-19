@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
+import 'package:cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 
-import 'package:via_cep_dio/src/models/cep_model.dart';
+import 'package:cep_dio/src/models/cep_model.dart';
 
 class CepScreenBodyContentWidget extends StatelessWidget {
   const CepScreenBodyContentWidget({

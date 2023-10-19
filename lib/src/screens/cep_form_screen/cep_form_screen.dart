@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_model.dart';
+import 'package:via_cep_dio/src/models/cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/form_fields_properties_provider.dart';
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_widget.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/form_fields_properties_provider.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/cep_form_widget.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_service.dart';
+import 'package:via_cep_dio/src/services/cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
-class ViaCepFormScreen extends StatefulWidget {
-  const ViaCepFormScreen({
+class CepFormScreen extends StatefulWidget {
+  const CepFormScreen({
     super.key,
     required this.formType,
-    this.viaCepId,
+    this.cepId,
   });
 
   final String formType;
-  final String? viaCepId;
+  final String? cepId;
 
   @override
-  State<ViaCepFormScreen> createState() => _ViaCepFormScreenState();
+  State<CepFormScreen> createState() => _CepFormScreenState();
 }
 
-class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
-  final ViaCepService _viaCepService = ViaCepService();
+class _CepFormScreenState extends State<CepFormScreen> {
+  final CepService _cepService = CepService();
 
   final TextEditingController _localidadeFieldController =
       TextEditingController();
@@ -106,7 +106,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
   }
 
   Future<void> _fetchData() async {
-    final ViaCepModel(
+    final CepModel(
       :localidade,
       :logradouro,
       :bairro,
@@ -117,7 +117,7 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
       :gia,
       :ddd,
       :siafi,
-    ) = await _viaCepService.getViaCep(widget.viaCepId!);
+    ) = await _cepService.getCep(widget.cepId!);
 
     _localidadeFieldController.text = localidade;
     _logradouroFieldController.text = logradouro;
@@ -180,10 +180,10 @@ class _ViaCepFormScreenState extends State<ViaCepFormScreen> {
           }
 
           return SingleChildScrollView(
-            child: ViaCepFormWidget(
+            child: CepFormWidget(
               screenContext: context,
               formType: widget.formType,
-              viaCepId: widget.viaCepId,
+              cepId: widget.cepId,
               formFieldsProperties: _formFieldsPropertiesInstance.get(),
             ),
           );

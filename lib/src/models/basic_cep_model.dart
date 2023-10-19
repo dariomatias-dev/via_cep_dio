@@ -1,5 +1,5 @@
-class ViaCepCardModel {
-  ViaCepCardModel({
+class BasicCepModel {
+  BasicCepModel({
     required this.id,
     required this.bairro,
     required this.localidade,
@@ -13,8 +13,8 @@ class ViaCepCardModel {
   final String uf;
   final String cep;
 
-  factory ViaCepCardModel.fromMap(Map<String, dynamic> map) {
-    return ViaCepCardModel(
+  factory BasicCepModel.fromMap(Map<String, dynamic> map) {
+    return BasicCepModel(
       id: map['objectId'],
       bairro: map['bairro'],
       localidade: map['localidade'],

@@ -1,9 +1,9 @@
 import 'dart:async';
 
-class ViaCepServiceNotifier {
+class CepServiceNotifier {
   final _controller = StreamController<void>.broadcast();
 
-  Stream<void> get onViaCepServiceCalled => _controller.stream;
+  Stream<void> get onCepServiceCalled => _controller.stream;
 
   void notify() {
     _controller.add(null);
@@ -14,4 +14,4 @@ class ViaCepServiceNotifier {
   }
 }
 
-final viaCepServiceNotifier = ViaCepServiceNotifier();
+final cepServiceNotifier = CepServiceNotifier();

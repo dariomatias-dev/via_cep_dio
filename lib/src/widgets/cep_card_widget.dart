@@ -2,32 +2,32 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_card_model.dart';
+import 'package:via_cep_dio/src/models/basic_cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
-import 'package:via_cep_dio/src/screens/via_cep_screen/via_cep_screen.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
+import 'package:via_cep_dio/src/screens/cep_screen/cep_screen.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_service.dart';
+import 'package:via_cep_dio/src/services/cep_service.dart';
 
-class ViaCepCardWidget extends StatelessWidget {
-  ViaCepCardWidget({
+class CepCardWidget extends StatelessWidget {
+  CepCardWidget({
     super.key,
-    required this.viaCep,
+    required this.basicCep,
   });
 
-  final ViaCepCardModel viaCep;
+  final BasicCepModel basicCep;
 
-  final ViaCepService _viaCepService = ViaCepService();
+  final CepService _cepService = CepService();
 
   @override
   Widget build(BuildContext context) {
-    final ViaCepCardModel(
+    final BasicCepModel(
       :id,
       :bairro,
       :localidade,
       :uf,
       :cep,
-    ) = viaCep;
+    ) = basicCep;
 
     return ListTile(
       leading: const Icon(Icons.map),
@@ -41,14 +41,14 @@ class ViaCepCardWidget extends StatelessWidget {
             navigationFadeTransition(
               context,
               () {
-                return ViaCepFormScreen(
+                return CepFormScreen(
                   formType: 'update',
-                  viaCepId: id,
+                  cepId: id,
                 );
               },
             );
           } else {
-            _viaCepService.deleteViaCep(id);
+            _cepService.deleteCep(id);
           }
         },
         itemBuilder: (context) => <PopupMenuEntry>[
@@ -64,8 +64,8 @@ class ViaCepCardWidget extends StatelessWidget {
       ),
       onTap: () => navigationFadeTransition(
         context,
-        () => ViaCepScreen(
-          viaCepId: id,
+        () => CepScreen(
+          cepId: id,
         ),
       ),
     );

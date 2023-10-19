@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget/via_cep_form_screen_field_widget.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/cep_form_screen_field_widget/cep_form_screen_field_widget.dart';
 
-class ViaCepFormFielsdWidget extends StatefulWidget {
-  const ViaCepFormFielsdWidget({
+class CepFormFielsdWidget extends StatefulWidget {
+  const CepFormFielsdWidget({
     super.key,
     required this.formFieldsProperties,
   });
@@ -13,10 +13,10 @@ class ViaCepFormFielsdWidget extends StatefulWidget {
   final List<FormFieldPropertyModel> formFieldsProperties;
 
   @override
-  State<ViaCepFormFielsdWidget> createState() => _ViaCepFormFielsdWidgetState();
+  State<CepFormFielsdWidget> createState() => _CepFormFielsdWidgetState();
 }
 
-class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
+class _CepFormFielsdWidgetState extends State<CepFormFielsdWidget> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,7 +42,7 @@ class _ViaCepFormFielsdWidgetState extends State<ViaCepFormFielsdWidget> {
           padding: EdgeInsets.only(
             bottom: formFieldProperties.maxLength != null ? 0.0 : 10.0,
           ),
-          child: ViaCepFormFieldWidget(
+          child: CepFormFieldWidget(
             formFieldProperties: formFieldProperties,
             getFormFieldProperties: getFormFieldProperties,
           ),

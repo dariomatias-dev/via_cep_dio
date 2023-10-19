@@ -6,9 +6,9 @@ import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/auto_focus_and_submit_on_done.dart';
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_ibge_field_change.dart';
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/handle_uf_field_change.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/auto_focus_and_submit_on_done.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/handle_ibge_field_change.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/handle_uf_field_change.dart';
 
 class FormFieldsPropertiesProvider {
   FormFieldsPropertiesProvider({

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_model.dart';
+import 'package:via_cep_dio/src/models/cep_model.dart';
 
-class ViaCepScreenBodyContentWidget extends StatelessWidget {
-  const ViaCepScreenBodyContentWidget({
+class CepScreenBodyContentWidget extends StatelessWidget {
+  const CepScreenBodyContentWidget({
     super.key,
-    required this.viaCep,
+    required this.cep,
   });
 
-  final ViaCepModel viaCep;
+  final CepModel cep;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                viaCep.localidade,
+                cep.localidade,
                 style: const TextStyle(
                   fontSize: 18,
                 ),
@@ -59,7 +59,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                viaCep.uf,
+                cep.uf,
                 style: const TextStyle(
                   fontSize: 18,
                 ),
@@ -78,14 +78,14 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                viaCep.logradouro,
+                cep.logradouro,
                 style: const TextStyle(
                   fontSize: 18,
                 ),
               ),
             ],
           ),
-          if (viaCep.complemento != null) ...[
+          if (cep.complemento != null) ...[
             const SizedBox(height: 4.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +98,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  viaCep.complemento!,
+                  cep.complemento!,
                   style: const TextStyle(
                     fontSize: 18,
                   ),
@@ -118,14 +118,14 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                numberFormatBrazilHelper(viaCep.ibge),
+                numberFormatBrazilHelper(cep.ibge),
                 style: const TextStyle(
                   fontSize: 18,
                 ),
               ),
             ],
           ),
-          if (viaCep.gia != null) ...[
+          if (cep.gia != null) ...[
             const SizedBox(height: 4.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +138,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  viaCep.gia.toString(),
+                  cep.gia.toString(),
                   style: const TextStyle(
                     fontSize: 18,
                   ),
@@ -158,7 +158,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '+${viaCep.ddd}',
+                '+${cep.ddd}',
                 style: const TextStyle(
                   fontSize: 18,
                 ),
@@ -177,7 +177,7 @@ class ViaCepScreenBodyContentWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                viaCep.siafi.toString(),
+                cep.siafi.toString(),
                 style: const TextStyle(
                   fontSize: 18,
                 ),

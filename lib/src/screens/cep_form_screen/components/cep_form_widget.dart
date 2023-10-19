@@ -3,30 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:via_cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
-import 'package:via_cep_dio/src/models/via_cep_model.dart';
+import 'package:via_cep_dio/src/models/cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/form_fields_properties_provider/auto_focus_and_submit_on_done.dart';
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_fields_widget.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/form_fields_properties_provider/auto_focus_and_submit_on_done.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/cep_form_screen_fields_widget.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_service.dart';
+import 'package:via_cep_dio/src/services/cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/default_button_widget.dart';
 
-class ViaCepFormWidget extends StatelessWidget {
-  ViaCepFormWidget({
+class 
+CepFormWidget extends StatelessWidget {
+  
+  CepFormWidget({
     super.key,
     required this.screenContext,
     required this.formType,
-    this.viaCepId,
+    this.cepId,
     required this.formFieldsProperties,
   });
 
   final BuildContext screenContext;
   final String formType;
-  final String? viaCepId;
+  final String? cepId;
   final List<FormFieldPropertyModel> formFieldsProperties;
 
-  final ViaCepService _viaCepService = ViaCepService();
+  final CepService _cepService = CepService();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -82,7 +84,7 @@ class ViaCepFormWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20.0),
-            ViaCepFormFielsdWidget(
+            CepFormFielsdWidget(
               formFieldsProperties: formFieldsProperties,
             ),
             DefaultButtonWidget(
@@ -93,7 +95,7 @@ class ViaCepFormWidget extends StatelessWidget {
                 if (_validateForm()) {
                   Navigator.pop(screenContext);
 
-                  final ViaCepModel viaCep = ViaCepModel(
+                  final CepModel viaCep = CepModel(
                     cep: _fieldValue('cep'),
                     logradouro: _fieldValue('logradouro'),
                     complemento: _fieldValue('complemento'),
@@ -109,10 +111,10 @@ class ViaCepFormWidget extends StatelessWidget {
                   );
 
                   if (formType == 'creation') {
-                    _viaCepService.createViaCep(viaCep);
+                    _cepService.createCep(viaCep);
                   } else {
-                    _viaCepService.updateViaCep(
-                      viaCepId!,
+                    _cepService.updateCep(
+                      cepId!,
                       viaCep,
                     );
                   }

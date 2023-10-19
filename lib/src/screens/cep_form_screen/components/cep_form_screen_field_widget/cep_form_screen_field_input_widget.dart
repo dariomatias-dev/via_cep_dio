@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 
 import 'package:via_cep_dio/src/models/form_field_property_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/components/via_cep_form_screen_field_widget/validate_value.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/components/cep_form_screen_field_widget/validate_value.dart';
 
 import 'package:via_cep_dio/src/utils/input_border_style.dart';
 
-class ViaCepFormFieldInputWidget extends StatefulWidget {
-  const ViaCepFormFieldInputWidget({
+class CepFormFieldInputWidget extends StatefulWidget {
+  const CepFormFieldInputWidget({
     super.key,
     required this.formFieldProperties,
     required this.getFormFieldProperties,
@@ -18,12 +18,11 @@ class ViaCepFormFieldInputWidget extends StatefulWidget {
   final List<FormFieldPropertyModel> getFormFieldProperties;
 
   @override
-  State<ViaCepFormFieldInputWidget> createState() =>
-      _ViaCepFormFieldInputWidgetState();
+  State<CepFormFieldInputWidget> createState() =>
+      _CepFormFieldInputWidgetState();
 }
 
-class _ViaCepFormFieldInputWidgetState
-    extends State<ViaCepFormFieldInputWidget> {
+class _CepFormFieldInputWidgetState extends State<CepFormFieldInputWidget> {
   final ValueNotifier<String?> fieldErrorNotifier =
       ValueNotifier<String?>(null);
 

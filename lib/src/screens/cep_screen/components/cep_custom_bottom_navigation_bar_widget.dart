@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
+import 'package:via_cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_service.dart';
+import 'package:via_cep_dio/src/services/cep_service.dart';
 
-class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
-  ViaCepCustomBottomNavigationBarWidget({
+class CepCustomBottomNavigationBarWidget extends StatelessWidget {
+  CepCustomBottomNavigationBarWidget({
     super.key,
     required this.screenContext,
-    required this.viaCepId,
+    required this.cepId,
   });
 
   final BuildContext screenContext;
-  final String viaCepId;
+  final String cepId;
 
-  final ViaCepService _viaCepService = ViaCepService();
+  final CepService _cepService = CepService();
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,9 @@ class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
                 navigationFadeTransition(
                   context,
                   () {
-                    return ViaCepFormScreen(
+                    return CepFormScreen(
                       formType: 'update',
-                      viaCepId: viaCepId,
+                      cepId: cepId,
                     );
                   },
                 );
@@ -63,8 +63,8 @@ class ViaCepCustomBottomNavigationBarWidget extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.pop(screenContext);
-                _viaCepService.deleteViaCep(
-                  viaCepId,
+                _cepService.deleteCep(
+                  cepId,
                 );
               },
               style: ElevatedButton.styleFrom(

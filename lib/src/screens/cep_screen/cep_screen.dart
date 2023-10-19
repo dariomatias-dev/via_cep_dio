@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_model.dart';
+import 'package:via_cep_dio/src/models/cep_model.dart';
 
-import 'package:via_cep_dio/src/screens/via_cep_screen/components/via_cep_screen_body_content_widget.dart';
-import 'package:via_cep_dio/src/screens/via_cep_screen/components/via_cep_custom_bottom_navigation_bar_widget.dart';
+import 'package:via_cep_dio/src/screens/cep_screen/components/cep_screen_body_content_widget.dart';
+import 'package:via_cep_dio/src/screens/cep_screen/components/cep_custom_bottom_navigation_bar_widget.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_service.dart';
+import 'package:via_cep_dio/src/services/cep_service.dart';
 
 import 'package:via_cep_dio/src/widgets/back_button_widget.dart';
 
-class ViaCepScreen extends StatelessWidget {
-  ViaCepScreen({
+class CepScreen extends StatelessWidget {
+  CepScreen({
     super.key,
-    required this.viaCepId,
+    required this.cepId,
   });
 
-  final String viaCepId;
+  final String cepId;
 
-  final ViaCepService _viaCepService = ViaCepService();
+  final CepService _cepService = CepService();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _viaCepService.getViaCep(viaCepId),
+      future: _cepService.getCep(cepId),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
           snapshot.connectionState,
@@ -35,7 +35,7 @@ class ViaCepScreen extends StatelessWidget {
           return verificationResult;
         }
 
-        final ViaCepModel viaCep = snapshot.data!;
+        final CepModel cep = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
@@ -46,20 +46,20 @@ class ViaCepScreen extends StatelessWidget {
               },
             ),
             title: Text(
-              '${viaCep.localidade} - ${viaCep.uf}',
+              '${cep.localidade} - ${cep.uf}',
               style: const TextStyle(
                 color: Colors.white,
               ),
             ),
           ),
           body: SafeArea(
-            child: ViaCepScreenBodyContentWidget(
-              viaCep: viaCep,
+            child: CepScreenBodyContentWidget(
+              cep: cep,
             ),
           ),
-          bottomNavigationBar: ViaCepCustomBottomNavigationBarWidget(
+          bottomNavigationBar: CepCustomBottomNavigationBarWidget(
             screenContext: context,
-            viaCepId: viaCep.id!,
+            cepId: cep.id!,
           ),
         );
       },

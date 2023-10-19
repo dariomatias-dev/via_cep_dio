@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
+import 'package:via_cep_dio/src/models/cep_collection_model.dart';
 
 class MainScreenInheritedWidget extends InheritedWidget {
   const MainScreenInheritedWidget({
     super.key,
     required this.skip,
     required this.limit,
-    required this.ceps,
+    required this.cepCollection,
     required this.fetchCEPs,
     required this.cepToSearch,
     required this.updateCepToSearch,
@@ -16,8 +16,8 @@ class MainScreenInheritedWidget extends InheritedWidget {
 
   final int skip;
   final int limit;
-  final ViaCepCardsDataModel? ceps;
-  final Future<ViaCepCardsDataModel?> Function(int, int) fetchCEPs;
+  final CepCollectionModel? cepCollection;
+  final Future<CepCollectionModel?> Function(int, int) fetchCEPs;
   final String cepToSearch;
   final void Function(String) updateCepToSearch;
 

@@ -19,9 +19,9 @@ class _CEPListViewScreenState extends State<CEPListViewScreen> {
         MainScreenInheritedWidget.of(context)!.cepToSearch;
 
     return cepToSearch.isNotEmpty
-        ? CEPSearchResultWidget(
+        ? CepSearchResultWidget(
             cepToSearch: cepToSearch,
           )
-        : const CEPDataRequestWidget();
+        : const CepDataRequestWidget();
   }
 }

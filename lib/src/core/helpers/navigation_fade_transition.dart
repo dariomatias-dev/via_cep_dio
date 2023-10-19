@@ -10,7 +10,7 @@ void navigationFadeTransition(
     context,
     PageRouteBuilder(
       settings: RouteSettings(
-        name: ViaCepRouteNames.viaCep,
+        name: ViaCepRouteNames.cep,
       ),
       pageBuilder: (
         context,

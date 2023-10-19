@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 
 import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
-import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
+import 'package:via_cep_dio/src/models/cep_collection_model.dart';
 
-import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
+import 'package:via_cep_dio/src/notifiers/cep_service_notifier.dart';
 
 import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
 
 import 'package:via_cep_dio/src/screens/cep_list_view_screen/components/cep_list_view_widget.dart';
 
-import 'package:via_cep_dio/src/services/via_cep_service.dart';
+import 'package:via_cep_dio/src/services/cep_service.dart';
 
-class CEPDataRequestWidget extends StatefulWidget {
-  const CEPDataRequestWidget({super.key});
+class CepDataRequestWidget extends StatefulWidget {
+  const CepDataRequestWidget({super.key});
 
   @override
-  State<CEPDataRequestWidget> createState() => _CEPDataRequestWidgetState();
+  State<CepDataRequestWidget> createState() => _CepDataRequestWidgetState();
 }
 
-class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
-  final ViaCepService viaCepService = ViaCepService();
+class _CepDataRequestWidgetState extends State<CepDataRequestWidget> {
+  final CepService cepService = CepService();
 
   int _skip = 0;
   int _limit = 0;
-  ViaCepCardsDataModel? _ceps;
+  CepCollectionModel? _cepCollection;
   bool requestsEnabled = false;
 
   Future<void> _updateSkip(
@@ -36,9 +36,9 @@ class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
   }
 
   Future<void> _fetchData(
-    Future<ViaCepCardsDataModel?> Function(int, int) fetchCEPs,
+    Future<CepCollectionModel?> Function(int, int) fetchCEPs,
   ) async {
-    _ceps = await fetchCEPs(_skip, _limit);
+    _cepCollection = await fetchCEPs(_skip, _limit);
   }
 
   @override
@@ -46,13 +46,13 @@ class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
     final MainScreenInheritedWidget(
       :skip,
       :limit,
-      :ceps,
+      :cepCollection,
     ) = MainScreenInheritedWidget.of(context)!;
 
     _skip = skip;
     _limit = limit;
-    _ceps = ceps;
-    viaCepServiceNotifier.onViaCepServiceCalled.listen((_) {
+    _cepCollection = cepCollection;
+    cepServiceNotifier.onCepServiceCalled.listen((_) {
       setState(() {});
     });
 
@@ -61,7 +61,7 @@ class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
 
   @override
   void dispose() {
-    viaCepServiceNotifier.dispose();
+    cepServiceNotifier.dispose();
 
     super.dispose();
   }
@@ -86,7 +86,7 @@ class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
           requestsEnabled = true;
         }
 
-        if (_ceps!.results.isEmpty) {
+        if (_cepCollection!.results.isEmpty) {
           return const SizedBox(
             height: 100.0,
             child: Column(
@@ -111,8 +111,8 @@ class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
           );
         }
 
-        return CEPListViewWidget(
-          viaCepCardsData: _ceps!,
+        return CepListViewWidget(
+          cepCollection: _cepCollection!,
           skip: _skip,
           limit: _limit,
           updateSkip: (int value) async {

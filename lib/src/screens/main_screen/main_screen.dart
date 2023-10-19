@@ -82,9 +82,7 @@ class _MainScreenState extends State<MainScreen> {
               : null,
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: _screenContents.elementAt(_currentIndex),
-          ),
+          child: _screenContents.elementAt(_currentIndex),
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {

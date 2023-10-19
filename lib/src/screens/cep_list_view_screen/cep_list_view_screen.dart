@@ -79,7 +79,9 @@ class _CepListViewScreenState extends State<CepListViewScreen> {
         );
 
         if (verificationResult != null) {
-          return verificationResult;
+          return Center(
+            child: verificationResult,
+          );
         }
 
         if (!requestsEnabled) {
@@ -87,37 +89,41 @@ class _CepListViewScreenState extends State<CepListViewScreen> {
         }
 
         if (_cepCollection!.results.isEmpty) {
-          return const SizedBox(
-            height: 100.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Não há nenhum CEP.',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+          return const Center(
+            child: SizedBox(
+              height: 100.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Não há nenhum CEP.',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                Text(
-                  'Adicione um!',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                  Text(
+                    'Adicione um!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }
 
-        return CepListViewWidget(
-          cepCollection: _cepCollection!,
-          skip: _skip,
-          limit: _limit,
-          updateSkip: (int value) async {
-            await _updateSkip(value);
-          },
+        return SingleChildScrollView(
+          child: CepListViewWidget(
+            cepCollection: _cepCollection!,
+            skip: _skip,
+            limit: _limit,
+            updateSkip: (int value) async {
+              await _updateSkip(value);
+            },
+          ),
         );
       },
     );

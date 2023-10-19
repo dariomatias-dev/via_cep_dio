@@ -7,10 +7,12 @@ Widget? verificationsHelper(
   bool hasError,
 ) {
   if (connectionState == ConnectionState.waiting) {
-    return const SizedBox(
+    return SizedBox(
       height: 140.0,
       child: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: Colors.yellow.shade600,
+        ),
       ),
     );
   } else if (hasError) {

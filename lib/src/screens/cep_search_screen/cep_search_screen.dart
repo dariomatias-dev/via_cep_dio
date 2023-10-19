@@ -1,5 +1,6 @@
-import 'package:cep_dio/src/screens/cep_search_screen/components/cep_search_screen_searcher_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cep_dio/src/screens/cep_search_screen/components/cep_search_screen_searcher_widget.dart';
 
 import 'package:cep_dio/src/screens/cep_search_screen/components/cep_search_screen_header_widget/cep_search_screen_header_widget.dart';
 
@@ -29,13 +30,17 @@ class _CepSearchScreenState extends State<CepSearchScreen> {
         CepSearchScreenHeaderWidget(
           updateCepToSearch: _updateCepToSearch,
         ),
-        ListenableBuilder(
-          listenable: _cepToSearchValueNotifier,
-          builder: (context, child) {
-            return CepSearchScreenSearcherWidget(
-              cepToSearch: _cepToSearchValueNotifier.value,
-            );
-          },
+        Expanded(
+          child: Center(
+            child: ListenableBuilder(
+              listenable: _cepToSearchValueNotifier,
+              builder: (context, child) {
+                return CepSearchScreenSearcherWidget(
+                  cepToSearch: _cepToSearchValueNotifier.value,
+                );
+              },
+            ),
+          ),
         ),
       ],
     );

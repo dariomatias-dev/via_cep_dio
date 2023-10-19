@@ -53,9 +53,9 @@ class CepService {
     }
   }
 
-  Future<CepModel?> getCep(String cepId) async {
+  Future<CepModel?> getCep(String cep) async {
     try {
-      final String queries = '?where={"objectId": "$cepId"}';
+      final String queries = '?where={"cep": "$cep"}';
       final Response response = await dioBack4app.get(queries);
       final List<dynamic> results = response.data['results'];
 
@@ -129,7 +129,7 @@ class CepService {
     }
   }
 
-  Future<BasicCepModel?> getCepByViaCep(String cep) async {
+  Future<CepModel?> getCepByViaCep(String cep) async {
     try {
       final dioViaCep = dioConfigured(
         apiBaseUrl: BaseUrlsEnum.viaCep,
@@ -138,7 +138,7 @@ class CepService {
       final Response response = await dioViaCep.get('$cep/json/');
       final Map<String, dynamic> data = response.data;
 
-      final BasicCepModel basicCep = BasicCepModel.fromMap(data);
+      final CepModel basicCep = CepModel.fromMap(data);
 
       return basicCep;
     } catch (err, stackTrace) {

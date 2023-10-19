@@ -3,6 +3,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'package:via_cep_dio/src/core/helpers/navigation_fade_transition.dart';
 
+import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
+
 import 'package:via_cep_dio/src/providers/main_screen_inherited_widget.dart';
 
 import 'package:via_cep_dio/src/screens/cep_list_view_screen/cep_list_view_screen.dart';
@@ -12,6 +14,8 @@ import 'package:via_cep_dio/src/screens/main_screen/components/main_screen_body_
 
 import 'package:via_cep_dio/src/screens/via_cep_form_screen/via_cep_form_screen.dart';
 
+import 'package:via_cep_dio/src/services/via_cep_service.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -20,17 +24,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final ViaCepService viaCepService = ViaCepService();
+
   int _currentIndex = 0;
 
+  int _skip = 0;
+  final _limit = 8;
+  ViaCepCardsDataModel? _ceps = ViaCepCardsDataModel.empty();
   String _cepToSearch = '';
-
-  void _updateCepToSearch(String cep) {
-    if (cep != _cepToSearch) {
-      setState(() {
-        _cepToSearch = cep;
-      });
-    }
-  }
 
   final List<Widget> screenContents = [
     const Column(
@@ -42,9 +43,43 @@ class _MainScreenState extends State<MainScreen> {
     const CEPListViewScreen(),
   ];
 
+  void _updateCepToSearch(String cep) {
+    if (cep != _cepToSearch) {
+      setState(() {
+        _cepToSearch = cep;
+      });
+    }
+  }
+
+  Future<ViaCepCardsDataModel?> _fetchCEPs(int skip, int limit) async {
+    final ceps = await viaCepService.getViaCepCardDatas(
+      skip,
+      limit,
+    );
+
+    _ceps = ceps;
+    _skip = skip;
+
+    return ceps;
+  }
+
+  @override
+  void initState() {
+    _fetchCEPs(
+      _skip,
+      _limit,
+    );
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MainScreenInheritedWidget(
+      skip: _skip,
+      limit: _limit,
+      ceps: _ceps,
+      fetchCEPs: _fetchCEPs,
       cepToSearch: _cepToSearch,
       updateCepToSearch: _updateCepToSearch,
       child: Scaffold(

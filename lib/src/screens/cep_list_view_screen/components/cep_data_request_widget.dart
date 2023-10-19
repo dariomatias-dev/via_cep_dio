@@ -4,21 +4,14 @@ import 'package:via_cep_dio/src/core/helpers/verifications_helper.dart';
 
 import 'package:via_cep_dio/src/models/via_cep_cards_data_model.dart';
 
+import 'package:via_cep_dio/src/notifiers/via_cep_service_notifier.dart';
+
 import 'package:via_cep_dio/src/screens/cep_list_view_screen/components/cep_list_view_widget.dart';
 
 import 'package:via_cep_dio/src/services/via_cep_service.dart';
 
 class CEPDataRequestWidget extends StatefulWidget {
-  const CEPDataRequestWidget({
-    super.key,
-    required this.skip,
-    required this.limit,
-    required this.updateSkip,
-  });
-
-  final int skip;
-  final int limit;
-  final void Function(int) updateSkip;
+  const CEPDataRequestWidget({super.key});
 
   @override
   State<CEPDataRequestWidget> createState() => _CEPDataRequestWidgetState();
@@ -26,13 +19,36 @@ class CEPDataRequestWidget extends StatefulWidget {
 
 class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
   final ViaCepService viaCepService = ViaCepService();
+  int _skip = 0;
+  final int _limit = 8;
+
+  void _updateSkip(int value) {
+    setState(() {
+      _skip = value;
+    });
+  }
+
+  @override
+  void initState() {
+    viaCepServiceNotifier.onViaCepServiceCalled.listen((_) {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    viaCepServiceNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: viaCepService.getViaCepCardDatas(
-        widget.skip,
-        widget.limit,
+        _skip,
+        _limit,
       ),
       builder: (context, snapshot) {
         final Widget? verificationResult = verificationsHelper(
@@ -73,9 +89,9 @@ class _CEPDataRequestWidgetState extends State<CEPDataRequestWidget> {
 
         return CEPListViewWidget(
           viaCepCardsData: viaCepCardsData,
-          skip: widget.skip,
-          limit: widget.limit,
-          updateSkip: widget.updateSkip,
+          skip: _skip,
+          limit: _limit,
+          updateSkip: _updateSkip,
         );
       },
     );

@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'package:cep_dio/src/core/helpers/masks_helper.dart';
 
-import 'package:cep_dio/src/providers/main_screen_inherited_widget.dart';
-
 import 'package:cep_dio/src/utils/input_border_style.dart';
 
-class CEPSearchWidget extends StatelessWidget {
-  CEPSearchWidget({super.key});
+class CepSearchScreenFieldWidget extends StatefulWidget {
+  const CepSearchScreenFieldWidget({
+    super.key,
+    required this.updateCepToSearch,
+  });
 
+  final void Function(String) updateCepToSearch;
+
+  @override
+  State<CepSearchScreenFieldWidget> createState() => _CepSearchScreenFieldWidgetState();
+}
+
+class _CepSearchScreenFieldWidgetState extends State<CepSearchScreenFieldWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _cepFieldController = TextEditingController();
@@ -16,10 +24,13 @@ class CEPSearchWidget extends StatelessWidget {
   void _performUpdateCepToSearch(BuildContext context, String cep) {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    final void Function(String) updateCepToSearch =
-        MainScreenInheritedWidget.of(context)!.updateCepToSearch;
+    widget.updateCepToSearch(cep);
+  }
 
-    updateCepToSearch(cep);
+  @override
+  void dispose() {
+    _cepFieldController.dispose();
+    super.dispose();
   }
 
   @override

@@ -7,12 +7,9 @@ import 'package:cep_dio/src/models/cep_collection_model.dart';
 
 import 'package:cep_dio/src/providers/main_screen_inherited_widget.dart';
 
-import 'package:cep_dio/src/screens/cep_list_view_screen/cep_list_view_screen.dart';
-
-import 'package:cep_dio/src/screens/main_screen/components/main_screen_header_widget/main_screen_header_widget.dart';
-import 'package:cep_dio/src/screens/main_screen/components/main_screen_body_content_widget/main_screen_body_content_widget/main_screen_body_content_widget.dart';
-
 import 'package:cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
+import 'package:cep_dio/src/screens/cep_list_view_screen/cep_list_view_screen.dart';
+import 'package:cep_dio/src/screens/cep_search_screen/cep_search_screen.dart';
 
 import 'package:cep_dio/src/services/cep_service.dart';
 
@@ -24,35 +21,21 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final CepService cepService = CepService();
+  final CepService _cepService = CepService();
 
   int _currentIndex = 0;
 
   int _skip = 0;
   final _limit = 8;
   CepCollectionModel? _cepCollection = CepCollectionModel.empty();
-  String _cepToSearch = '';
 
-  final List<Widget> screenContents = [
-    const Column(
-      children: [
-        MainScreenHeaderWidget(),
-        MainScreenBodyContentWidget(),
-      ],
-    ),
-    const CEPListViewScreen(),
+  final List<Widget> _screenContents = [
+    const CepSearchScreen(),
+    const CepListViewScreen(),
   ];
 
-  void _updateCepToSearch(String cep) {
-    if (cep != _cepToSearch) {
-      setState(() {
-        _cepToSearch = cep;
-      });
-    }
-  }
-
   Future<CepCollectionModel?> _fetchCEPs(int skip, int limit) async {
-    final cepCollection = await cepService.getBasicCeps(
+    final cepCollection = await _cepService.getBasicCeps(
       skip,
       limit,
     );
@@ -80,8 +63,6 @@ class _MainScreenState extends State<MainScreen> {
       limit: _limit,
       cepCollection: _cepCollection,
       fetchCEPs: _fetchCEPs,
-      cepToSearch: _cepToSearch,
-      updateCepToSearch: _updateCepToSearch,
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: _currentIndex == 1 ? null : 0,
@@ -102,7 +83,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: screenContents.elementAt(_currentIndex),
+            child: _screenContents.elementAt(_currentIndex),
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(

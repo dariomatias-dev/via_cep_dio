@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:cep_dio/src/screens/main_screen/components/main_screen_header_widget/cep_search_widget.dart';
+import 'package:cep_dio/src/screens/cep_search_screen/components/cep_search_screen_header_widget/cep_search_input_widget.dart';
 
-class MainScreenHeaderWidget extends StatelessWidget {
-  const MainScreenHeaderWidget({super.key});
+class CepSearchScreenHeaderWidget extends StatelessWidget {
+  const CepSearchScreenHeaderWidget({
+    super.key,
+    required this.updateCepToSearch,
+  });
+
+  final void Function(String) updateCepToSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,9 @@ class MainScreenHeaderWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16.0),
-          CEPSearchWidget(),
+          CepSearchScreenFieldWidget(
+            updateCepToSearch: updateCepToSearch,
+          ),
         ],
       ),
     );

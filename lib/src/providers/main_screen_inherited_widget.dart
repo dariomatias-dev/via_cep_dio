@@ -9,8 +9,6 @@ class MainScreenInheritedWidget extends InheritedWidget {
     required this.limit,
     required this.cepCollection,
     required this.fetchCEPs,
-    required this.cepToSearch,
-    required this.updateCepToSearch,
     required final Widget child,
   }) : super(child: child);
 
@@ -18,8 +16,6 @@ class MainScreenInheritedWidget extends InheritedWidget {
   final int limit;
   final CepCollectionModel? cepCollection;
   final Future<CepCollectionModel?> Function(int, int) fetchCEPs;
-  final String cepToSearch;
-  final void Function(String) updateCepToSearch;
 
   static MainScreenInheritedWidget? of(BuildContext context) {
     return context

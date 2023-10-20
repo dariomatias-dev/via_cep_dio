@@ -72,9 +72,8 @@ class CepService {
 
   Future<CepCollectionModel?> getBasicCeps(int skip, int limit) async {
     try {
-      final String queries = 'skip=$skip&limit=$limit&count=1';
-      final Response response =
-          await dioBack4app.get('?$cardFieldKeys&$queries');
+      final String queries = '?$cardFieldKeys&skip=$skip&limit=$limit&count=1';
+      final Response response = await dioBack4app.get(queries);
       final Map<String, dynamic> data = response.data;
       final List<dynamic> results = data['results'];
       final int count = data['count'];

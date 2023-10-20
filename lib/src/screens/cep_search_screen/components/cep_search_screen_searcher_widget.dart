@@ -38,7 +38,7 @@ class _CepSearchScreenSearcherWidgetState
         size: 80.0,
       );
 
-  void _createCepConfirmationDialog() {
+  void _createCepConfirmationAlertDialog() {
     const String title = 'Criar CEP';
     const String content = 'Esse CEP ainda não existe.\nDeseja criá-lo?';
     const String actionTitle1 = 'Não';
@@ -71,7 +71,7 @@ class _CepSearchScreenSearcherWidgetState
     cep ??= await _cepService.getCep(widget.cepToSearch!);
 
     if (cep == null) {
-      _createCepConfirmationDialog();
+      _createCepConfirmationAlertDialog();
       _cep = null;
     } else {
       _cep = cep;

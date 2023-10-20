@@ -1,3 +1,4 @@
+import 'package:cep_dio/src/utils/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cep_dio/src/core/enums/enums.dart';
@@ -59,6 +60,37 @@ class CepFormWidget extends StatelessWidget {
     );
   }
 
+  Future<bool> _existsCep(String cep) async {
+    CepModel? data = await _cepService.getCep(cep);
+    data ??= await _cepService.getCepByViaCep(cep);
+
+    return data != null;
+  }
+
+  void _showDuplicateCEPAlertDialog() {
+    const String title = 'CEP já existe';
+    const String content =
+        'O CEP que inseriu já existe.\nNão é possível cadastrar CEPs existentes.';
+    const String actionTitle1 = 'Sair';
+    const String actionTitle2 = 'OK';
+
+    void action1() => _closeScreen();
+
+    customAlertDialog(
+      screenContext,
+      title,
+      content,
+      actionTitle1,
+      actionTitle2,
+      action1,
+      null,
+    );
+  }
+
+  void _closeScreen() {
+    Navigator.pop(screenContext);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -87,15 +119,14 @@ class CepFormWidget extends StatelessWidget {
               formFieldsProperties: formFieldsProperties,
             ),
             DefaultButtonWidget(
-              text:
-                  formType == FormTypesEnum.creation ? 'ADICIONAR' : 'ATUALIZAR',
-              action: () {
+              text: formType == FormTypesEnum.creation
+                  ? 'ADICIONAR'
+                  : 'ATUALIZAR',
+              action: () async {
                 _formKey.currentState!.validate();
 
                 if (_validateForm()) {
-                  Navigator.pop(screenContext);
-
-                  final CepModel viaCep = CepModel(
+                  final CepModel cep = CepModel(
                     cep: _fieldValue('cep'),
                     logradouro: _fieldValue('logradouro'),
                     complemento: _fieldValue('complemento'),
@@ -111,11 +142,19 @@ class CepFormWidget extends StatelessWidget {
                   );
 
                   if (formType == FormTypesEnum.creation) {
-                    _cepService.createCep(viaCep);
+                    final bool isCepExists = await _existsCep(cep.cep);
+
+                    if (isCepExists) {
+                      _showDuplicateCEPAlertDialog();
+                    } else {
+                      _closeScreen();
+                      _cepService.createCep(cep);
+                    }
                   } else {
+                    _closeScreen();
                     _cepService.updateCep(
                       cepId!,
-                      viaCep,
+                      cep,
                     );
                   }
                 }

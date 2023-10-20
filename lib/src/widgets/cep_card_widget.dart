@@ -38,6 +38,7 @@ class CepCardWidget extends StatelessWidget {
       ),
       subtitle: Text(cep),
       trailing: PopupMenuButton(
+        color: Colors.black,
         onSelected: (action) {
           if (action == 'update') {
             navigationFadeTransition(
@@ -57,10 +58,16 @@ class CepCardWidget extends StatelessWidget {
         itemBuilder: (context) => <PopupMenuEntry>[
           const PopupMenuItem(
             value: 'update',
+            textStyle: TextStyle(
+              color: Colors.white,
+            ),
             child: Text('Atualizar'),
           ),
           const PopupMenuItem(
             value: 'delete',
+            textStyle: TextStyle(
+              color: Colors.white,
+            ),
             child: Text('Excluir'),
           ),
         ],

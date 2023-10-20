@@ -24,7 +24,7 @@ class CepService {
       );
 
       cepServiceNotifier.notify();
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,
@@ -43,7 +43,7 @@ class CepService {
       }
 
       return null;
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,
@@ -60,7 +60,7 @@ class CepService {
       final List<dynamic> results = response.data['results'];
 
       return CepModel.fromMap(results[0]);
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,
@@ -89,7 +89,7 @@ class CepService {
         results: basicCeps,
         count: count,
       );
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,
@@ -107,7 +107,7 @@ class CepService {
       );
 
       cepServiceNotifier.notify();
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,
@@ -120,7 +120,7 @@ class CepService {
       await dioBack4app.delete(cepId);
 
       cepServiceNotifier.notify();
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,
@@ -140,7 +140,7 @@ class CepService {
       final CepModel basicCep = CepModel.fromMap(data);
 
       return basicCep;
-    } catch (err, stackTrace) {
+    } on Exception catch (err, stackTrace) {
       logger.e(
         'Error: $err',
         stackTrace: stackTrace,

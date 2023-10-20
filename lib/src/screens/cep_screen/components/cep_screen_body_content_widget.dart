@@ -66,25 +66,27 @@ class CepScreenBodyContentWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 4.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Logradouro:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+          if (cep.logradouro != null) ...[
+            const SizedBox(height: 4.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Logradouro:',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                cep.logradouro,
-                style: const TextStyle(
-                  fontSize: 18,
+                Text(
+                  cep.logradouro!,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
           if (cep.complemento != null) ...[
             const SizedBox(height: 4.0),
             Row(

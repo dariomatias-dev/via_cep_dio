@@ -15,9 +15,9 @@ class CepModel {
 
   final String? id;
   final String cep;
-  final String logradouro;
+  final String? logradouro;
   final String? complemento;
-  final String bairro;
+  final String? bairro;
   final String localidade;
   final String uf;
   final int ibge;
@@ -26,16 +26,21 @@ class CepModel {
   final int siafi;
 
   factory CepModel.fromMap(Map<String, dynamic> map) {
+    final String logradouroValue = map['logradouro'];
+    final String complementoValue = map['complemento'];
+    final String bairroValue = map['bairro'];
+    final String giaValue = map['gia'];
+
     return CepModel(
       id: map['objectId'],
       cep: map['cep'],
-      logradouro: map['logradouro'],
-      complemento: map['complemento'],
-      bairro: map['bairro'],
+      logradouro: logradouroValue.isNotEmpty ? logradouroValue : null,
+      complemento: complementoValue.isNotEmpty ? complementoValue : null,
+      bairro: bairroValue.isNotEmpty ? bairroValue : null,
       localidade: map['localidade'],
       uf: map['uf'],
       ibge: int.parse(map['ibge']),
-      gia: (map['gia'] as String).isNotEmpty ? int.parse(map['gia']) : null,
+      gia: giaValue.isNotEmpty ? int.parse(giaValue) : null,
       ddd: int.parse(map['ddd']),
       siafi: int.parse(map['siafi']),
     );

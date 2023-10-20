@@ -153,8 +153,8 @@ class _CepFormScreenState extends State<CepFormScreen> {
       ) = cep;
 
       _localidadeFieldController.text = localidade;
-      _logradouroFieldController.text = logradouro;
-      _bairroFieldController.text = bairro;
+      _logradouroFieldController.text = logradouro ?? '';
+      _bairroFieldController.text = bairro ?? '';
       _complementoFieldController.text = complemento ?? '';
       _cepFieldController.text = cep.cep;
       _ufFieldController.text = uf;

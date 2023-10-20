@@ -1,3 +1,4 @@
+import 'package:cep_dio/src/screens/cep_search_screen/components/cep_card_details_widget.dart';
 import 'package:cep_dio/src/utils/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,9 @@ class _CepSearchScreenSearcherWidgetState
               }
 
               return _cep != null
-                  ? Text(_cep?.cep ?? 'Nao foi dessa vez')
+                  ? CepCardDetailsWidget(
+                      cep: _cep!,
+                    )
                   : Container();
             },
           )

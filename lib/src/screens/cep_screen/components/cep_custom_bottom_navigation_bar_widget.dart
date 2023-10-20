@@ -1,3 +1,5 @@
+import 'package:cep_dio/src/core/enums/enums.dart';
+import 'package:cep_dio/src/core/routes/cep_route_names.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cep_dio/src/core/helpers/navigation_fade_transition.dart';
@@ -33,9 +35,10 @@ class CepCustomBottomNavigationBarWidget extends StatelessWidget {
               onPressed: () {
                 navigationFadeTransition(
                   context,
+                  CepRouteNames.cepForm,
                   () {
                     return CepFormScreen(
-                      formType: 'update',
+                      formType: FormTypesEnum.update,
                       cepId: cepId,
                     );
                   },

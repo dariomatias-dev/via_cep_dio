@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:cep_dio/src/core/enums/enums.dart';
 import 'package:cep_dio/src/core/helpers/regex_helper.dart';
 
 import 'package:cep_dio/src/models/form_field_property_model.dart';
@@ -12,9 +13,7 @@ import 'package:cep_dio/src/services/cep_service.dart';
 
 import 'package:cep_dio/src/widgets/default_button_widget.dart';
 
-class 
-CepFormWidget extends StatelessWidget {
-  
+class CepFormWidget extends StatelessWidget {
   CepFormWidget({
     super.key,
     required this.screenContext,
@@ -24,7 +23,7 @@ CepFormWidget extends StatelessWidget {
   });
 
   final BuildContext screenContext;
-  final String formType;
+  final FormTypesEnum formType;
   final String? cepId;
   final List<FormFieldPropertyModel> formFieldsProperties;
 
@@ -88,7 +87,8 @@ CepFormWidget extends StatelessWidget {
               formFieldsProperties: formFieldsProperties,
             ),
             DefaultButtonWidget(
-              text: formType == 'creation' ? 'ADICIONAR' : 'ATUALIZAR',
+              text:
+                  formType == FormTypesEnum.creation ? 'ADICIONAR' : 'ATUALIZAR',
               action: () {
                 _formKey.currentState!.validate();
 
@@ -110,7 +110,7 @@ CepFormWidget extends StatelessWidget {
                     siafi: int.parse(_fieldValue('siafi')),
                   );
 
-                  if (formType == 'creation') {
+                  if (formType == FormTypesEnum.creation) {
                     _cepService.createCep(viaCep);
                   } else {
                     _cepService.updateCep(

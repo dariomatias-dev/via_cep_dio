@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:cep_dio/src/core/enums/enums.dart';
 import 'package:cep_dio/src/core/helpers/number_format_brazil_helper.dart';
 
 import 'package:cep_dio/src/models/cep_model.dart';
@@ -18,7 +19,7 @@ class CepFormScreen extends StatefulWidget {
     this.cepId,
   });
 
-  final String formType;
+  final FormTypesEnum formType;
   final String? cepId;
 
   @override
@@ -189,7 +190,9 @@ class _CepFormScreenState extends State<CepFormScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          widget.formType == 'creation' ? 'Adicionar CEP' : 'Atualizar CEP',
+          widget.formType == FormTypesEnum.creation
+              ? 'Adicionar CEP'
+              : 'Atualizar CEP',
           style: const TextStyle(
             color: Colors.white,
           ),
@@ -205,7 +208,7 @@ class _CepFormScreenState extends State<CepFormScreen> {
         ),
       ),
       body: FutureBuilder(
-        future: widget.formType == 'update' ? _fetchData() : null,
+        future: widget.formType == FormTypesEnum.update ? _fetchData() : null,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

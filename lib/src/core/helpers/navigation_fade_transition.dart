@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:cep_dio/src/core/routes/cep_route_names.dart';
-
 void navigationFadeTransition(
   BuildContext context,
+  String screenName,
   Widget Function() screen,
 ) {
   Navigator.push(
     context,
     PageRouteBuilder(
       settings: RouteSettings(
-        name: CepRouteNames.cep,
+        name: screenName,
       ),
       pageBuilder: (
         context,

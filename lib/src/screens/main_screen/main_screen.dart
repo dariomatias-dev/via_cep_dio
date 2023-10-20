@@ -1,3 +1,5 @@
+import 'package:cep_dio/src/core/enums/enums.dart';
+import 'package:cep_dio/src/core/routes/cep_route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -88,8 +90,9 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () {
             navigationFadeTransition(
               context,
+              CepRouteNames.cepForm,
               () => const CepFormScreen(
-                formType: 'creation',
+                formType: FormTypesEnum.creation,
               ),
             );
           },

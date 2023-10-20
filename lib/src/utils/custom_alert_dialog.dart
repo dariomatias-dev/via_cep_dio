@@ -6,8 +6,8 @@ void customAlertDialog(
   String content,
   String actionTitle1,
   String actionTitle2,
-  void Function() action1,
-  void Function() action2,
+  void Function()? action1,
+  void Function()? action2,
 ) {
   showDialog(
     context: context,
@@ -63,7 +63,7 @@ void customAlertDialog(
                   AlertDialogAction(
                     action: () {
                       Navigator.pop(alertDialogContext);
-                      action1();
+                      if (action1 != null) action1();
                     },
                     title: actionTitle1,
                     color: Colors.blueGrey.shade800.withOpacity(0.6),
@@ -72,7 +72,7 @@ void customAlertDialog(
                   AlertDialogAction(
                     action: () {
                       Navigator.pop(alertDialogContext);
-                      action2();
+                      if (action2 != null) action2();
                     },
                     title: actionTitle2,
                     color: Colors.yellow.shade700,

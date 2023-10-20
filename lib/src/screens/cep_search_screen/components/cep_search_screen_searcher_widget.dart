@@ -1,12 +1,18 @@
-import 'package:cep_dio/src/screens/cep_search_screen/components/cep_card_details_widget.dart';
-import 'package:cep_dio/src/utils/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cep_dio/src/core/enums/enums.dart';
+import 'package:cep_dio/src/core/helpers/navigation_fade_transition.dart';
 import 'package:cep_dio/src/core/helpers/verifications_helper.dart';
+import 'package:cep_dio/src/core/routes/cep_route_names.dart';
 
 import 'package:cep_dio/src/models/cep_model.dart';
 
+import 'package:cep_dio/src/screens/cep_form_screen/cep_form_screen.dart';
+import 'package:cep_dio/src/screens/cep_search_screen/components/cep_card_details_widget.dart';
+
 import 'package:cep_dio/src/services/cep_service.dart';
+
+import 'package:cep_dio/src/utils/custom_alert_dialog.dart';
 
 class CepSearchScreenSearcherWidget extends StatefulWidget {
   const CepSearchScreenSearcherWidget({
@@ -26,13 +32,27 @@ class _CepSearchScreenSearcherWidgetState
   final CepService _cepService = CepService();
   CepModel? _cep;
 
+  Icon get backgroundIcon => Icon(
+        Icons.map,
+        color: Colors.grey.shade200,
+        size: 80.0,
+      );
+
   void _createCEPConfirmationDialog() {
     const String title = 'Criar CEP';
     const String content = 'Esse CEP ainda não existe.\nDeseja criá-lo?';
     const String actionTitle1 = 'Não';
     const String actionTitle2 = 'Sim';
-    void action1() {}
-    void action2() {}
+
+    void action2() {
+      navigationFadeTransition(
+        context,
+        CepRouteNames.cepForm,
+        () => const CepFormScreen(
+          formType: FormTypesEnum.creation,
+        ),
+      );
+    }
 
     customAlertDialog(
       context,
@@ -40,7 +60,7 @@ class _CepSearchScreenSearcherWidgetState
       content,
       actionTitle1,
       actionTitle2,
-      action1,
+      null,
       action2,
     );
   }
@@ -75,9 +95,9 @@ class _CepSearchScreenSearcherWidgetState
                   ? CepCardDetailsWidget(
                       cep: _cep!,
                     )
-                  : Container();
+                  : backgroundIcon;
             },
           )
-        : Container();
+        : backgroundIcon;
   }
 }

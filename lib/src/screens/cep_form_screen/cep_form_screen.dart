@@ -17,10 +17,12 @@ class CepFormScreen extends StatefulWidget {
     super.key,
     required this.formType,
     this.cepId,
+    this.cep,
   });
 
   final FormTypesEnum formType;
   final String? cepId;
+  final String? cep;
 
   @override
   State<CepFormScreen> createState() => _CepFormScreenState();
@@ -164,6 +166,15 @@ class _CepFormScreenState extends State<CepFormScreen> {
       _dddFieldController.text = '+$ddd';
       _siafiFieldController.text = siafi.toString();
     }
+  }
+
+  @override
+  void initState() {
+    if (widget.cep != null) {
+      _cepFieldController.text = widget.cep!;
+    }
+
+    super.initState();
   }
 
   @override

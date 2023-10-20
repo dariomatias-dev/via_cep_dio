@@ -38,7 +38,7 @@ class _CepSearchScreenSearcherWidgetState
         size: 80.0,
       );
 
-  void _createCEPConfirmationDialog() {
+  void _createCepConfirmationDialog() {
     const String title = 'Criar CEP';
     const String content = 'Esse CEP ainda não existe.\nDeseja criá-lo?';
     const String actionTitle1 = 'Não';
@@ -48,8 +48,9 @@ class _CepSearchScreenSearcherWidgetState
       navigationFadeTransition(
         context,
         CepRouteNames.cepForm,
-        () => const CepFormScreen(
+        () => CepFormScreen(
           formType: FormTypesEnum.creation,
+          cep: widget.cepToSearch,
         ),
       );
     }
@@ -70,7 +71,8 @@ class _CepSearchScreenSearcherWidgetState
     cep ??= await _cepService.getCep(widget.cepToSearch!);
 
     if (cep == null) {
-      _createCEPConfirmationDialog();
+      _createCepConfirmationDialog();
+      _cep = null;
     } else {
       _cep = cep;
     }
